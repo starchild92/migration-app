@@ -11,17 +11,13 @@ export class AppComponent {
 	title = 'app';
 
 	openfile(file) {
-		console.log(file)
 		let parser = new xml2js.Parser();
 		let reader = new FileReader()
 		let onload = function (event) {
 
-			console.log(event)
-
 			let text = reader.result
 			parser.parseString(text, function (err, resp) {
 				console.dir(resp)
-				console.log('Done')
 			})
 		}
 		reader.onload = onload
