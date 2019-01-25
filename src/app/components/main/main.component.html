@@ -1,0 +1,14 @@
+<p>El archivo principal del backup <code>moodle_backup.xml</code></p>
+<div class="input-group mb-3">
+	<div class="input-group-prepend">
+		<span class="input-group-text" id="xml-file">Upload</span>
+	</div>
+	<div class="custom-file">
+		<input type="file" accept="text/xml" (change)="openfile($event)" class="custom-file-input"
+		 id="input-xml-file" aria-describedby="xml-file">
+		<label class="custom-file-label" for="input-xml-file">Choose Main Backup File</label>
+	</div>
+</div>
+<code>
+	{{ main | json }}
+</code>
