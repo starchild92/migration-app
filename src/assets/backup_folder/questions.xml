@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<question_categories>
+  <question_category id="658">
+    <name>Prueba de Conocimiento</name>
+    <contextid>54455</contextid>
+    <contextlevel>70</contextlevel>
+    <contextinstanceid>6539</contextinstanceid>
+    <info>Prueba de Conocimiento</info>
+    <infoformat>0</infoformat>
+    <stamp>www.coronaensena.com.co+181108151151+5PFCzK</stamp>
+    <parent>0</parent>
+    <sortorder>999</sortorder>
+    <questions>
+    </questions>
+  </question_category>
+  <question_category id="659">
+    <name>Alerta</name>
+    <contextid>54323</contextid>
+    <contextlevel>50</contextlevel>
+    <contextinstanceid>483</contextinstanceid>
+    <info>Alerta</info>
+    <infoformat>0</infoformat>
+    <stamp>www.coronaensena.com.co+181108151151+HeixAW</stamp>
+    <parent>0</parent>
+    <sortorder>999</sortorder>
+    <questions>
+      <question id="3855">
+        <parent>0</parent>
+        <name>1</name>
+        <questiontext>&lt;p&gt;El lavado de activos tiene trazabilidad circular (regresa a la organización criminal), mientras que el terrorismo tiene trazabilidad lineal (los recursos no regresan a quien los suministró).&lt;/p&gt;
+&lt;p&gt; &lt;/p&gt;</questiontext>
+        <questiontextformat>1</questiontextformat>
+        <generalfeedback></generalfeedback>
+        <generalfeedbackformat>1</generalfeedbackformat>
+        <defaultmark>2.0000000</defaultmark>
+        <penalty>1.0000000</penalty>
+        <qtype>truefalse</qtype>
+        <length>1</length>
+        <stamp>www.coronaensena.com.co+181108151301+oMCmoj</stamp>
+        <version>www.coronaensena.com.co+181108151301+qDVqRN</version>
+        <hidden>0</hidden>
+        <timecreated>1541689981</timecreated>
+        <timemodified>1541689981</timemodified>
+        <createdby>6</createdby>
+        <modifiedby>6</modifiedby>
+        <plugin_qtype_truefalse_question>
+          <answers>
+            <answer id="12476">
+              <answertext>Verdadero</answertext>
+              <answerformat>0</answerformat>
+              <fraction>1.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="12477">
+              <answertext>Falso</answertext>
+              <answerformat>0</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+          </answers>
+          <truefalse id="467">
+            <trueanswer>12476</trueanswer>
+            <falseanswer>12477</falseanswer>
+          </truefalse>
+        </plugin_qtype_truefalse_question>
+        <question_hints>
+        </question_hints>
+        <tags>
+        </tags>
+      </question>
+      <question id="3856">
+        <parent>0</parent>
+        <name>2</name>
+        <questiontext>&lt;p&gt;Una señal de alerta facilita la detección de delitos.&lt;/p&gt;</questiontext>
+        <questiontextformat>1</questiontextformat>
+        <generalfeedback></generalfeedback>
+        <generalfeedbackformat>1</generalfeedbackformat>
+        <defaultmark>1.0000000</defaultmark>
+        <penalty>1.0000000</penalty>
+        <qtype>truefalse</qtype>
+        <length>1</length>
+        <stamp>www.coronaensena.com.co+181108151336+9fyW42</stamp>
+        <version>www.coronaensena.com.co+181108151336+GCcaTk</version>
+        <hidden>0</hidden>
+        <timecreated>1541690016</timecreated>
+        <timemodified>1541690016</timemodified>
+        <createdby>6</createdby>
+        <modifiedby>6</modifiedby>
+        <plugin_qtype_truefalse_question>
+          <answers>
+            <answer id="12478">
+              <answertext>Verdadero</answertext>
+              <answerformat>0</answerformat>
+              <fraction>1.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="12479">
+              <answertext>Falso</answertext>
+              <answerformat>0</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+          </answers>
+          <truefalse id="468">
+            <trueanswer>12478</trueanswer>
+            <falseanswer>12479</falseanswer>
+          </truefalse>
+        </plugin_qtype_truefalse_question>
+        <question_hints>
+        </question_hints>
+        <tags>
+        </tags>
+      </question>
+      <question id="3857">
+        <parent>0</parent>
+        <name>3</name>
+        <questiontext>&lt;p&gt;Dentro de los impactos que pueden llegar a generar los delitos de LA/FT, el soborno y la corrupción se encuentra la disminución del ingreso y del empleo, la competencia desleal, el costo de los servicios financieros, y la disminución de posibilidades de crecimiento para el país.&lt;/p&gt;</questiontext>
+        <questiontextformat>1</questiontextformat>
+        <generalfeedback></generalfeedback>
+        <generalfeedbackformat>1</generalfeedbackformat>
+        <defaultmark>1.0000000</defaultmark>
+        <penalty>1.0000000</penalty>
+        <qtype>truefalse</qtype>
+        <length>1</length>
+        <stamp>www.coronaensena.com.co+181108151420+ehWtA0</stamp>
+        <version>www.coronaensena.com.co+181108151420+ehnDMk</version>
+        <hidden>0</hidden>
+        <timecreated>1541690060</timecreated>
+        <timemodified>1541690060</timemodified>
+        <createdby>6</createdby>
+        <modifiedby>6</modifiedby>
+        <plugin_qtype_truefalse_question>
+          <answers>
+            <answer id="12480">
+              <answertext>Verdadero</answertext>
+              <answerformat>0</answerformat>
+              <fraction>1.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="12481">
+              <answertext>Falso</answertext>
+              <answerformat>0</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+          </answers>
+          <truefalse id="469">
+            <trueanswer>12480</trueanswer>
+            <falseanswer>12481</falseanswer>
+          </truefalse>
+        </plugin_qtype_truefalse_question>
+        <question_hints>
+        </question_hints>
+        <tags>
+        </tags>
+      </question>
+      <question id="3858">
+        <parent>0</parent>
+        <name>4</name>
+        <questiontext>&lt;p&gt;El soborno y la corrupción solo se presentan en el sector público.&lt;/p&gt;</questiontext>
+        <questiontextformat>1</questiontextformat>
+        <generalfeedback></generalfeedback>
+        <generalfeedbackformat>1</generalfeedbackformat>
+        <defaultmark>1.0000000</defaultmark>
+        <penalty>1.0000000</penalty>
+        <qtype>truefalse</qtype>
+        <length>1</length>
+        <stamp>www.coronaensena.com.co+181108151455+cl1GAM</stamp>
+        <version>www.coronaensena.com.co+181108151748+bJosEH</version>
+        <hidden>0</hidden>
+        <timecreated>1541690095</timecreated>
+        <timemodified>1541690268</timemodified>
+        <createdby>6</createdby>
+        <modifiedby>6</modifiedby>
+        <plugin_qtype_truefalse_question>
+          <answers>
+            <answer id="12482">
+              <answertext>Verdadero</answertext>
+              <answerformat>0</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="12483">
+              <answertext>Falso</answertext>
+              <answerformat>0</answerformat>
+              <fraction>1.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+          </answers>
+          <truefalse id="470">
+            <trueanswer>12482</trueanswer>
+            <falseanswer>12483</falseanswer>
+          </truefalse>
+        </plugin_qtype_truefalse_question>
+        <question_hints>
+        </question_hints>
+        <tags>
+        </tags>
+      </question>
+      <question id="3859">
+        <parent>0</parent>
+        <name>5</name>
+        <questiontext>&lt;p&gt;Si integro con mis funciones el conocimiento que me es transmitido a través de las diferentes capacitaciones en estos temas tendré mejor criterio y herramientas para prevenir delitos como el LA/FT, el soborno y la corrupción.&lt;/p&gt;</questiontext>
+        <questiontextformat>1</questiontextformat>
+        <generalfeedback></generalfeedback>
+        <generalfeedbackformat>1</generalfeedbackformat>
+        <defaultmark>1.0000000</defaultmark>
+        <penalty>1.0000000</penalty>
+        <qtype>truefalse</qtype>
+        <length>1</length>
+        <stamp>www.coronaensena.com.co+181108151740+sWAZEU</stamp>
+        <version>www.coronaensena.com.co+181108151740+Jw6Bdi</version>
+        <hidden>0</hidden>
+        <timecreated>1541690260</timecreated>
+        <timemodified>1541690260</timemodified>
+        <createdby>6</createdby>
+        <modifiedby>6</modifiedby>
+        <plugin_qtype_truefalse_question>
+          <answers>
+            <answer id="12484">
+              <answertext>Verdadero</answertext>
+              <answerformat>0</answerformat>
+              <fraction>1.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+            <answer id="12485">
+              <answertext>Falso</answertext>
+              <answerformat>0</answerformat>
+              <fraction>0.0000000</fraction>
+              <feedback></feedback>
+              <feedbackformat>1</feedbackformat>
+            </answer>
+          </answers>
+          <truefalse id="471">
+            <trueanswer>12484</trueanswer>
+            <falseanswer>12485</falseanswer>
+          </truefalse>
+        </plugin_qtype_truefalse_question>
+        <question_hints>
+        </question_hints>
+        <tags>
+        </tags>
+      </question>
+    </questions>
+  </question_category>
+</question_categories>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<course id="483" contextid="54323">
+  <shortname>Alerta</shortname>
+  <fullname>Curso PLAFT – Prevención del Soborno y la Corrupción  (Señales de alerta, casos e impacto)</fullname>
+  <idnumber></idnumber>
+  <summary></summary>
+  <summaryformat>1</summaryformat>
+  <format>topics</format>
+  <showgrades>1</showgrades>
+  <newsitems>5</newsitems>
+  <startdate>1541566800</startdate>
+  <marker>0</marker>
+  <maxbytes>0</maxbytes>
+  <legacyfiles>0</legacyfiles>
+  <showreports>0</showreports>
+  <visible>1</visible>
+  <groupmode>0</groupmode>
+  <groupmodeforce>0</groupmodeforce>
+  <defaultgroupingid>0</defaultgroupingid>
+  <lang></lang>
+  <theme></theme>
+  <timecreated>1541540417</timecreated>
+  <timemodified>1546519531</timemodified>
+  <requested>0</requested>
+  <enablecompletion>1</enablecompletion>
+  <completionstartonenrol>1</completionstartonenrol>
+  <completionprogressonview>0</completionprogressonview>
+  <completionnotify>0</completionnotify>
+  <audiencevisible>2</audiencevisible>
+  <icon>communication-theory-and-concepts</icon>
+  <coursetype>0</coursetype>
+  <numsections>6</numsections>
+  <hiddensections>0</hiddensections>
+  <coursedisplay>0</coursedisplay>
+  <category id="66">
+    <name>Programas Transversales</name>
+    <description></description>
+  </category>
+  <tags>
+  </tags>
+  <visibleaudiences>
+  </visibleaudiences>
+  <custom_fields>
+  </custom_fields>
+</course>

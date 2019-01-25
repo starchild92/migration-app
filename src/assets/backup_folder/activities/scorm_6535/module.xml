@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module id="6535" version="2015051103.01">
+  <modulename>scorm</modulename>
+  <sectionid>3461</sectionid>
+  <sectionnumber>7</sectionnumber>
+  <idnumber></idnumber>
+  <added>1541607546</added>
+  <score>0</score>
+  <indent>0</indent>
+  <visible>1</visible>
+  <visibleold>1</visibleold>
+  <groupmode>0</groupmode>
+  <groupingid>0</groupingid>
+  <completion>2</completion>
+  <completiongradeitemnumber>$@NULL@$</completiongradeitemnumber>
+  <completionview>1</completionview>
+  <completionexpected>0</completionexpected>
+  <availability>$@NULL@$</availability>
+  <showdescription>0</showdescription>
+</module>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<activity id="1619" moduleid="6538" modulename="label" contextid="54454">
+  <label id="1619">
+    <name>Etiqueta</name>
+    <intro>&lt;p&gt;&lt;a href="$@QUIZVIEWBYID*6539@$"&gt;&lt;img src="@@PLUGINFILE@@/prueba%20de%20Conocimiento.png" width="700" height="175" class="img-responsive" /&gt;&lt;/a&gt;&lt;/p&gt;</intro>
+    <introformat>1</introformat>
+    <timemodified>1545419422</timemodified>
+  </label>
+</activity>

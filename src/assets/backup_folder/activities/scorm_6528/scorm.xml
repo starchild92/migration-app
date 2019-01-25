@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<activity id="229" moduleid="6528" modulename="scorm" contextid="54350">
+  <scorm id="229">
+    <name>Otras señales de alerta</name>
+    <scormtype>local</scormtype>
+    <reference>Módulo 2 - C - Señales de alerta - FINAL.zip</reference>
+    <intro>&lt;p&gt;&lt;img src="@@PLUGINFILE@@/cabezotemod2.png" width="1283" height="408" class="img-responsive" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="$@PAGEVIEWBYID*6530@$"&gt;&lt;img src="@@PLUGINFILE@@/anterior.png" width="100" height="66" class="img-responsive" /&gt;&lt;/a&gt;&lt;a href="$@SCORMVIEWBYID*6555@$"&gt;&lt;img src="@@PLUGINFILE@@/siguiente.png" width="100" height="70" class="img-responsive" /&gt;&lt;/a&gt;&lt;/p&gt;</intro>
+    <introformat>1</introformat>
+    <version>SCORM_1.2</version>
+    <maxgrade>100</maxgrade>
+    <grademethod>1</grademethod>
+    <whatgrade>0</whatgrade>
+    <maxattempt>0</maxattempt>
+    <forcecompleted>0</forcecompleted>
+    <forcenewattempt>0</forcenewattempt>
+    <lastattemptlock>0</lastattemptlock>
+    <masteryoverride>1</masteryoverride>
+    <displayattemptstatus>1</displayattemptstatus>
+    <displaycoursestructure>0</displaycoursestructure>
+    <updatefreq>0</updatefreq>
+    <sha1hash>feb2cd0054f6b926c66bee2b4292d5054fdc4281</sha1hash>
+    <md5hash></md5hash>
+    <revision>2</revision>
+    <launch>560</launch>
+    <skipview>0</skipview>
+    <hidebrowse>0</hidebrowse>
+    <hidetoc>0</hidetoc>
+    <nav>1</nav>
+    <navpositionleft>-100</navpositionleft>
+    <navpositiontop>-100</navpositiontop>
+    <auto>0</auto>
+    <popup>1</popup>
+    <options>scrollbars=0,directories=0,location=0,menubar=0,toolbar=0,status=0</options>
+    <width>100</width>
+    <height>500</height>
+    <timeopen>0</timeopen>
+    <timeclose>0</timeclose>
+    <timemodified>1542406970</timemodified>
+    <completionstatusrequired>$@NULL@$</completionstatusrequired>
+    <completionscorerequired>$@NULL@$</completionscorerequired>
+    <displayactivityname>1</displayactivityname>
+    <scoes>
+      <sco id="567">
+        <manifest>_6ZYBisyGXjP_course_id</manifest>
+        <organization></organization>
+        <parent>/</parent>
+        <identifier>M?dulo_2_-_C_-_Se?ales_de_alerta_-_FINAL_ORG</identifier>
+        <launch></launch>
+        <scormtype></scormtype>
+        <title>M?dulo 2 - C - Se?ales de alerta - FINAL</title>
+        <sortorder>1</sortorder>
+        <sco_datas>
+        </sco_datas>
+        <seq_ruleconds>
+        </seq_ruleconds>
+        <seq_rolluprules>
+        </seq_rolluprules>
+        <seq_objectives>
+        </seq_objectives>
+        <sco_tracks>
+        </sco_tracks>
+      </sco>
+      <sco id="560">
+        <manifest>_6ZYBisyGXjP_course_id</manifest>
+        <organization>M?dulo_2_-_C_-_Se?ales_de_alerta_-_FINAL_ORG</organization>
+        <parent>M?dulo_2_-_C_-_Se?ales_de_alerta_-_FINAL_ORG</parent>
+        <identifier>Otros_casos_SCO</identifier>
+        <launch>index_lms.html</launch>
+        <scormtype>sco</scormtype>
+        <title>M?dulo 2 - C - Se?ales de alerta - FINAL</title>
+        <sortorder>2</sortorder>
+        <sco_datas>
+          <sco_data id="975">
+            <name>isvisible</name>
+            <value>true</value>
+          </sco_data>
+          <sco_data id="976">
+            <name>parameters</name>
+            <value></value>
+          </sco_data>
+          <sco_data id="977">
+            <name>masteryscore</name>
+            <value>100</value>
+          </sco_data>
+        </sco_datas>
+        <seq_ruleconds>
+        </seq_ruleconds>
+        <seq_rolluprules>
+        </seq_rolluprules>
+        <seq_objectives>
+        </seq_objectives>
+        <sco_tracks>
+        </sco_tracks>
+      </sco>
+    </scoes>
+  </scorm>
+</activity>
