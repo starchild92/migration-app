@@ -9,16 +9,20 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFirestoreModule } from "angularfire2/firestore";
 import { AngularFireStorageModule } from "angularfire2/storage";
 
+import { MainService } from '@services/main.service';
+
 import { AppComponent } from './app.component';
-import { firebase } from '../environments/environment';
-import { UnitsComponent } from './components/units/units.component';
-import { CommunityComponent } from './components/community/community.component';
+import { UnitsComponent } from '@components/units/units.component';
+import { CommunityComponent } from '@components/community/community.component';
+import { MainComponent } from '@components/main/main.component';
+import { firebase } from '@env/environment';
 
 @NgModule({
 	declarations: [
 		AppComponent,
 		UnitsComponent,
-		CommunityComponent
+		CommunityComponent,
+		MainComponent
 	],
 	imports: [
 		BrowserModule,
@@ -29,7 +33,9 @@ import { CommunityComponent } from './components/community/community.component';
 		AngularFireStorageModule,
 		appRouting
 	],
-	providers: [],
+	providers: [
+		MainService
+	],
 	bootstrap: [AppComponent]
 })
 export class AppModule { }
