@@ -11,6 +11,10 @@ export class Community {
 	private type: number;
 	private uid: string;
 
+	/* Additional obtain from xml files */
+	public shortname: string;
+	/**********/
+
 	public set $area(v: string) { this.area = v; }
 	public set $carrera(v: string) { this.carrera = v; }
 	public set $created(v: string) { this.created = v; }
@@ -20,6 +24,9 @@ export class Community {
 	public set $resume(v: string) { this.resume = v; }
 	public set $type(v: number) { this.type = v; }
 	public set $uid(v: string) { this.uid = v; }
+
+	// additional
+	public set $shortname(v: string) { this.shortname = v; }
 
 	public get _area(): string { return this.area; }
 	public get _carrera(): string { return this.carrera; }
@@ -31,16 +38,19 @@ export class Community {
 	public get _type(): number { return this.type; }
 	public get _uid(): string { return this.uid; }
 
+	// additional
+	public get _shortname(): string { return this.shortname; }
+
 	constructor(object?: CommunityInterface) {
 		this.created = moment().format();
 		this.publicado = false;
 
-		if(object) {
-            this.createWithInfo(object);
+		if (object) {
+			this.createWithInfo(object);
 		}
 	}
 
-    createWithInfo(info: CommunityInterface) {
+	createWithInfo(info: CommunityInterface) {
 		this.area = this.loadData(info.area);
 		this.carrera = this.loadData(info.carrera);
 		this.created = this.loadData(info.created);
@@ -50,14 +60,36 @@ export class Community {
 		this.resume = this.loadData(info.resume);
 		this.type = this.loadData(info.type);
 		this.uid = this.loadData(info.uid);
+
+		// additional
+		this.shortname = this.loadData(info.shortname);
 	}
 
 	private loadData<T>(data: T, defaul?: T) {
-        return data === undefined ?
-            defaul !== undefined ? defaul : null
-            : data;
-    }
-}
+		return data === undefined ?
+			defaul !== undefined ? defaul : null
+			: data;
+	}
+
+	public serialize(): any {
+		let obj = {
+			area: this.area,
+			carrera: this.carrera,
+			created: this.created,
+			key: this.key,
+			name: this.name,
+			publicado: this.publicado,
+			resume: this.resume,
+			type: this.type,
+			uid: this.uid,
+
+			// additional
+			shortname: this.shortname
+		}
+		Object.keys(obj).forEach(key => obj[key] === undefined ? delete obj[key] : '');
+		return obj;
+	}
+ }
 
 export interface CommunityInterface {
 	area: string,
@@ -68,5 +100,8 @@ export interface CommunityInterface {
 	publicado: boolean,
 	resume: string,
 	type: number,
-	uid: string
+	uid: string,
+
+	// additional
+	shortname: string
 }

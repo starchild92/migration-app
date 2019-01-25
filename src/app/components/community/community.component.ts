@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Community } from '../../classes/community';
-import { FILES_SEQUENCE, AREAS_CONOCIMIENTO, CARRERAS } from '../../../environments/environment';
+import * as moment from 'moment';
+import { FILES_SEQUENCE, AREAS_CONOCIMIENTO, CARRERAS, PATHS, GRIKY_UID } from '@env/environment';
+import { Community } from '@classes/community';
+import { AngularFirestore } from 'angularfire2/firestore';
+import { AngularFireDatabase } from 'angularfire2/database';
 
 var xml2js = require('xml2js');
 var course_xml: any;
@@ -18,7 +21,10 @@ export class CommunityComponent implements OnInit {
 	Areas = AREAS_CONOCIMIENTO;
 	Carreras = CARRERAS;
 
-	constructor() {
+	constructor(
+		private _afs: AngularFirestore,
+		private _db: AngularFireDatabase
+	) {
 		this.course.$area = 'Area';
 		this.course.$carrera = 'Carrera'
 	}
@@ -48,18 +54,36 @@ export class CommunityComponent implements OnInit {
 		}
 	}
 
-	getCourseFromXML(xmlObj: any): Community {
+	getCourseFromXML(xmlObj: any): Promise<boolean> {
+		return new Promise((resolve, reject) => {
+			xmlObj = xmlObj['course'];
+			console.log(xmlObj);
 
-		xmlObj = xmlObj['course'];
-		this.course.$name = xmlObj['fullname'][0];
+			this.course.$name = xmlObj['fullname'][0];
+			this.course.$shortname = xmlObj['shortname'][0];
 
-		console.log(this.course)
-
-		return this.course;
+			resolve(true)
+		});
 	}
 
 	runScript() {
-		this.getCourseFromXML(course_xml);
+		this.getCourseFromXML(course_xml).then(execute => {
+			if (execute) {
+				var newRef = this._db.database.app.database().ref().push();
+				this.course.$key = newRef.key;
+				this.course.$uid = GRIKY_UID;
+
+				console.log(this.course)
+
+				this._afs.collection(PATHS.Community).doc(this.course._key).set(this.course.serialize()).then(
+					resp => {
+						console.log('la comunidad fue insertada correctamente');
+					},
+					error => {
+						console.log('algo malo paso insertando la comunidad', error);
+					})
+			}
+		})
 	}
 
 }
