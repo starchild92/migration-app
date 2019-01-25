@@ -1,21 +1,23 @@
 <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center w-50">
-	<h1 class="display-4">SQL to NO-SQL</h1>
-	<p class="lead">Making a tool to export JSON file from a SQL Database into Firebase Project</p>
+	<h1 class="display-4">XML Reader</h1>
+	<p class="lead">Making a tool to export a Moodle Backup File to Firebase Project, using Firestore, Relatime Database &
+		Firestorage</p>
 </div>
 
 <div class="container">
+	<div class="nav-scroller py-1 mb-2">
+		<nav class="nav d-flex justify-content-between">
+			<a class="p-2 text-muted" [routerLink]="[ '/' ]">Course</a>
+			<a class="p-2 text-muted" [routerLink]="[ '/units' ]">Unit</a>
+			<a class="p-2 text-muted" [routerLink]="[ '/units' ]">Theme</a>
+			<a class="p-2 text-muted" [routerLink]="[ '/units' ]">Resources</a>
+		</nav>
+	</div>
+
 	<div class="row">
 		<div class="col-12">
 
-			<div class="input-group mb-3">
-				<div class="input-group-prepend">
-					<span class="input-group-text" id="json-file">Upload</span>
-				</div>
-				<div class="custom-file">
-					<input type="file" accept="text/xml" (change)="openfile($event)" class="custom-file-input" id="input-json-file" aria-describedby="json-file">
-					<label class="custom-file-label" for="input-json-file">Choose file</label>
-				</div>
-			</div>
+			<router-outlet></router-outlet>
 
 		</div>
 	</div>
