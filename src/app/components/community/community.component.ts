@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import * as moment from 'moment';
 import { FILES_SEQUENCE, AREAS_CONOCIMIENTO, CARRERAS, PATHS, GRIKY_UID } from '@env/environment';
 import { Community } from '@classes/community';
 import { AngularFirestore } from 'angularfire2/firestore';
