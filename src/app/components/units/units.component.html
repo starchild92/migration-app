@@ -1,3 +1,14 @@
-<p>
-  units works!
-</p>
+<ng-container *ngIf="continue; else elseTemplate">
+	<div class="alert alert-primary">
+		Hemos procesado las referencia... puedes <a class="alert-link" [routerLink]="[ '/topics' ]">Continuar</a>
+	</div>
+	<div *ngFor="let unit of sections">
+		<app-unit-display [unit]="unit"></app-unit-display>
+	</div>
+</ng-container>
+<ng-template #elseTemplate>
+	<div class="alert alert-info">
+		Estamos leyendo los archivos de las secciones de este curso <code>section.xml</code> y procesando cada referencia de
+		archivo asiacada... espera!
+	</div>
+</ng-template>

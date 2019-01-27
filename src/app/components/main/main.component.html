@@ -1,14 +1,38 @@
-<p>El archivo principal del backup <code>moodle_backup.xml</code></p>
-<div class="input-group mb-3">
-	<div class="input-group-prepend">
-		<span class="input-group-text" id="xml-file">Upload</span>
+<ng-container *ngIf="canGo; else elseTemplate">
+	<div class="alert alert-primary">
+		El documento XML fue leido correctamente, puede <a class="alert-link" [routerLink]="[ '/community' ]">Continuar</a>
 	</div>
-	<div class="custom-file">
-		<input type="file" accept="text/xml" (change)="openfile($event)" class="custom-file-input"
-		 id="input-xml-file" aria-describedby="xml-file">
-		<label class="custom-file-label" for="input-xml-file">Choose Main Backup File</label>
+	<hr>
+	<p>El archivo principal del backup <code>moodle_backup.xml</code></p>
+	<ngx-json-viewer [json]="main" [expanded]="false"></ngx-json-viewer>
+	<hr>
+	<!-- <p>Selecciona el archivo <code>files.xml</code>, que contiene las especificaciones de los recursos de este curso</p> -->
+</ng-container>
+
+<ng-template #elseTemplate>
+	<div class="alert alert-info">
+		No se puedieron leer los archivos
 	</div>
-</div>
-<code>
-	{{ main | json }}
-</code>
+	<div class="input-group mb-3">
+		<div class="input-group-prepend">
+			<span class="input-group-text" id="xml-file">MAIN</span>
+		</div>
+		<div class="custom-file">
+			<input type="file" accept="text/xml" (change)="openfile($event, 'main')" class="custom-file-input" id="input-xml-file"
+			 aria-describedby="xml-file">
+			<label class="custom-file-label" for="input-xml-file">Choose Main Backup File</label>
+		</div>
+	</div>
+
+	<p>Selecciona el archivo <code>files.xml</code>, que contiene las especificaciones de los recursos de este curso</p>
+	<div class="input-group mb-3">
+		<div class="input-group-prepend">
+			<span class="input-group-text" id="xml-file">FILE</span>
+		</div>
+		<div class="custom-file">
+			<input type="file" accept="text/xml" (change)="openfile($event, 'file')" class="custom-file-input" id="input-xml-file"
+			 aria-describedby="xml-file">
+			<label class="custom-file-label" for="input-xml-file">Choose File Scheme XML</label>
+		</div>
+	</div>
+</ng-template>

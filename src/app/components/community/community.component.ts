@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FILES_SEQUENCE, AREAS_CONOCIMIENTO, CARRERAS, PATHS, GRIKY_UID } from '@env/environment';
+import { FILES_SEQUENCE, AREAS_CONOCIMIENTO, CARRERAS, PATHS } from '@env/environment';
 import { Community } from '@classes/community';
 import { AngularFirestore } from 'angularfire2/firestore';
-import { AngularFireDatabase } from 'angularfire2/database';
+import { MainService } from '@services/main.service';
+import { Section } from '@classes/section';
 
-var xml2js = require('xml2js');
-var course_xml: any;
+import { find } from 'lodash';
+import { Activity } from '@classes/activity';
 
 @Component({
 	selector: 'app-community',
@@ -14,75 +15,103 @@ var course_xml: any;
 })
 export class CommunityComponent implements OnInit {
 
+	main: any = {};
 	course = new Community();
+	finalArraySections: Array<Section> = [];
 
 	FILES_SEQUENCE = FILES_SEQUENCE;
 	Areas = AREAS_CONOCIMIENTO;
 	Carreras = CARRERAS;
 
+	areaS: boolean = false
+	carreraS: boolean = false
+
 	constructor(
 		private _afs: AngularFirestore,
-		private _db: AngularFireDatabase
+		private _mainService: MainService
 	) {
-		this.course.$area = 'Area';
-		this.course.$carrera = 'Carrera'
 	}
 
 	ngOnInit() {
-	}
-
-	openfile(file: any) {
-		let parser = new xml2js.Parser();
-		let reader = new FileReader();
-		let onload = function (event) {
-			let text = reader.result
-			parser.parseString(text, function (err, resp) {
-				course_xml = resp;
-			})
-		}
-		reader.onload = onload
-		reader.readAsText(file.target.files[0])
+		this._mainService.currentFile.subscribe(val => {
+			this.main = val;
+			if(val['name']) { this.extractingSections() }
+		});
+		this._mainService.currentCommunity.subscribe(val => {
+			this.course = val;
+			this.course.$carrera = 'Elegir Carrera';
+			this.course.$area = 'Elegir Area';
+		});
 	}
 
 	chooseValue(value, choice) {
 		switch (choice) {
-			case 'area': this.course.$area = value; break;
-			case 'carrera': this.course.$carrera = value; break;
-
+			case 'area': this.course.$area = value; this.areaS = true; break;
+			case 'carrera': this.course.$carrera = value; this.carreraS = true; break;
 			default: break;
 		}
 	}
 
-	getCourseFromXML(xmlObj: any): Promise<boolean> {
-		return new Promise((resolve, reject) => {
-			xmlObj = xmlObj['course'];
-			console.log(xmlObj);
+	extractingSections() {
+		// path: contents / sections / [0] / section
+		if(this.main['contents']['sections'][0]['section']) {
+			console.log('El path de sections existe')
 
-			this.course.$name = xmlObj['fullname'][0];
-			this.course.$shortname = xmlObj['shortname'][0];
+			let arrSections = this.main['contents']['sections'][0]['section'];
 
-			resolve(true)
-		});
+			arrSections.forEach(element => {
+				flatThat(element)
+				let section = new Section();
+				section.$id = element['sectionid'];
+				section.$path = element['directory'];
+				section.$title = element['title'];
+				this.finalArraySections.push(section);
+			});
+
+			this._mainService.updateSections(this.finalArraySections);
+			this.extractingActivities();
+		}
+	}
+
+	extractingActivities() {
+		// path: contents / activities / [0] / activity
+		if(this.main['contents']['activities'][0]['activity']) {
+
+			let arrActivities = this.main['contents']['activities'][0]['activity'];
+			let finalArrayActivities: Array<Activity> = [];
+
+			arrActivities.forEach(element => {
+				flatThat(element)
+
+				let activity = new Activity();
+				activity.$path = element['directory'];
+				activity.$id = element['moduleid'];
+				activity.$type = element['modulename'];
+				activity.$sectionid = element['sectionid'];
+				activity.$title = element['title'];
+				finalArrayActivities.push(activity);
+			});
+
+			finalArrayActivities.forEach(activity => {
+				let section = <Section>find(this.finalArraySections, function(s: Section){ return s._id === activity._sectionid })
+				if(section) {
+					section.$activities = activity
+				}
+			});
+
+			this._mainService.updateActivities(finalArrayActivities);
+			this._mainService.updateSections(this.finalArraySections);
+
+		}
 	}
 
 	runScript() {
-		this.getCourseFromXML(course_xml).then(execute => {
-			if (execute) {
-				var newRef = this._db.database.app.database().ref().push();
-				this.course.$key = newRef.key;
-				this.course.$uid = GRIKY_UID;
-
-				console.log(this.course)
-
-				this._afs.collection(PATHS.Community).doc(this.course._key).set(this.course.serialize()).then(
-					resp => {
-						console.log('la comunidad fue insertada correctamente');
-					},
-					error => {
-						console.log('algo malo paso insertando la comunidad', error);
-					})
-			}
+		this._afs.collection(PATHS.Community).doc(this.course._key).set(this.course.serialize()).then(() => {
+			console.log('la comunidad fue insertada correctamente');
+		}, error => {
+			console.log('algo malo paso insertando la comunidad', error);
 		})
 	}
 
 }
+export function flatThat(main) { Object.keys(main).forEach(key => { if(main[key].length == 1) { main[key] = main[key][0]; } }); }

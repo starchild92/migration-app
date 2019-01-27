@@ -29,6 +29,7 @@
     "jquery": "^3.3.1",
     "lodash": "^4.17.11",
     "moment": "^2.24.0",
+    "ngx-json-viewer": "^2.4.0",
     "popper.js": "^1.14.6",
     "rxjs": "^6.3.3",
     "stream": "0.0.2",

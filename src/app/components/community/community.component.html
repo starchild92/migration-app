@@ -1,6 +1,4 @@
-<h2>Crear curso desde archivo</h2>
-
-<h5 class="text-info">Selecciona Area y Carrera</h5>
+<h5 class="text-info">Selecciona Area y Carrera para la comunidad que está cargando</h5>
 <div class="row">
 	<div class="col">
 		<!-- Example split danger button -->
@@ -11,11 +9,12 @@
 				<span class="sr-only">Toggle Dropdown</span>
 			</button>
 			<div class="dropdown-menu">
-				<a class="dropdown-item" *ngFor="let area of Areas" (click)="chooseValue(area.value, 'area')" href="#">{{
+				<a class="dropdown-item" *ngFor="let area of Areas" (click)="chooseValue(area.value, 'area')">{{
 					area.name }}</a>
 			</div>
 		</div>
-
+	</div>
+	<div class="col">
 		<!-- Example split primbtn-primary button -->
 		<div class="btn-group w-100">
 			<button type="button" class="btn btn-primary">{{ course._carrera }}</button>
@@ -24,32 +23,21 @@
 				<span class="sr-only">Toggle Dropdown</span>
 			</button>
 			<div class="dropdown-menu">
-				<a class="dropdown-item" *ngFor="let carrera of Carreras" (click)="chooseValue(carrera.value, 'carrera')" href="#">{{
+				<a class="dropdown-item" *ngFor="let carrera of Carreras" (click)="chooseValue(carrera.value, 'carrera')">{{
 					carrera.name }}</a>
-			</div>
-		</div>
-	</div>
-	<div class="col">
-		<h5 class="text-info">Elige el XML del backup de moodle <code>course.xml</code> con los datos del curso</h5>
-		<div class="input-group mb-3">
-			<div class="input-group-prepend">
-				<span class="input-group-text" id="xml-file">Upload</span>
-			</div>
-			<div class="custom-file">
-				<input type="file" accept="text/xml" (change)="openfile($event)" class="custom-file-input"
-				 id="input-xml-file" aria-describedby="xml-file">
-				<label class="custom-file-label" for="input-xml-file">Choose Course File</label>
 			</div>
 		</div>
 	</div>
 </div>
 
-<hr>
-
-<code>
-	{{ course | json }}
-</code>
-
-<hr>
-
-<button class="btn btn-primary" (click)="runScript()">Read XML Files</button>
+<ng-container *ngIf="areaS && carreraS; else elseTemplate">
+	<div class="alert alert-primary">
+		Se cargaron correctamente las secciones, puede <a class="alert-link" [routerLink]="[ '/units' ]">Continuar</a>
+	</div>
+	<hr>
+	<ngx-json-viewer [json]="course" [expanded]="false"></ngx-json-viewer>
+	<hr>
+</ng-container>
+<ng-template #elseTemplate>
+	<div class="alert alert-danger">No has seleccionado el area y la carrera</div>
+</ng-template>

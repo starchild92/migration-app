@@ -11,6 +11,10 @@ export class Community {
 	private type: number;
 	private uid: string;
 
+	private positionCommunity: boolean;
+	private urlPhoto: string;
+	private urlVideo: string;
+
 	/* Additional obtain from xml files */
 	public shortname: string;
 	/**********/
@@ -25,6 +29,10 @@ export class Community {
 	public set $type(v: number) { this.type = v; }
 	public set $uid(v: string) { this.uid = v; }
 
+	public set $positionCommunity(v: boolean) { this.positionCommunity = v; }
+	public set $urlPhoto(v: string) { this.urlPhoto = v; }
+	public set $urlVideo(v: string) { this.urlVideo = v; }
+
 	// additional
 	public set $shortname(v: string) { this.shortname = v; }
 
@@ -38,12 +46,17 @@ export class Community {
 	public get _type(): number { return this.type; }
 	public get _uid(): string { return this.uid; }
 
+	public get _positionCommunity(): boolean { return  this.positionCommunity; }
+	public get _urlPhoto(): string { return  this.urlPhoto; }
+	public get _urlVideo(): string { return  this.urlVideo; }
+
 	// additional
 	public get _shortname(): string { return this.shortname; }
 
 	constructor(object?: CommunityInterface) {
 		this.created = moment().format();
 		this.publicado = false;
+		this.positionCommunity = false;
 
 		if (object) {
 			this.createWithInfo(object);
@@ -61,6 +74,10 @@ export class Community {
 		this.type = this.loadData(info.type);
 		this.uid = this.loadData(info.uid);
 
+		this.positionCommunity = this.loadData(info.positionCommunity);
+		this.urlPhoto = this.loadData(info.urlPhoto);
+		this.urlVideo = this.loadData(info.urlVideo);
+
 		// additional
 		this.shortname = this.loadData(info.shortname);
 	}
@@ -71,6 +88,9 @@ export class Community {
 			: data;
 	}
 
+	/**
+	 * Tiene los datos que se necesita en la estructura de Griky
+	 */
 	public serialize(): any {
 		let obj = {
 			area: this.area,
@@ -83,13 +103,17 @@ export class Community {
 			type: this.type,
 			uid: this.uid,
 
+			positionCommunity: this.positionCommunity,
+			urlPhoto: this.urlPhoto,
+			urlVideo: this.urlVideo,
+
 			// additional
 			shortname: this.shortname
 		}
 		Object.keys(obj).forEach(key => obj[key] === undefined ? delete obj[key] : '');
 		return obj;
 	}
- }
+}
 
 export interface CommunityInterface {
 	area: string,
@@ -101,6 +125,10 @@ export interface CommunityInterface {
 	resume: string,
 	type: number,
 	uid: string,
+
+	positionCommunity: boolean,
+	urlPhoto: string,
+	urlVideo: string,
 
 	// additional
 	shortname: string

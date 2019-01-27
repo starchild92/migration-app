@@ -17,6 +17,7 @@ export const firebase = {
 };
 
 export const GRIKY_UID = 'l21t7GsTADQQhIcPZy0UVap5suq1';
+export const BACKUP_SOURCE = 'assets/backup_folder';
 
 export enum PATHS {
 	Community = '/comunidades'

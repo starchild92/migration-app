@@ -4,23 +4,28 @@ import { Routes, RouterModule } from '@angular/router';
 import { UnitsComponent } from './components/units/units.component';
 import { CommunityComponent } from './components/community/community.component';
 import { MainComponent } from '@components/main/main.component';
+import { TopicsComponent } from '@components/topics/topics.component';
 
 const routes: Routes = [
     {
-        path: '',
-        component: CommunityComponent
-	},
-	{
         path: 'main',
         component: MainComponent
+	},
+	{
+        path: 'community',
+        component: CommunityComponent
     },
 	{
         path: 'units',
         component: UnitsComponent
+	},
+	{
+        path: 'topics',
+        component: TopicsComponent
     },
     {
         path: '**',
-        redirectTo: '/'
+        redirectTo: '/main'
     }
 ];
 

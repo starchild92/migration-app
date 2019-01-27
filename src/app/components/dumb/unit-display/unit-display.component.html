@@ -1,0 +1,27 @@
+<div class="row">
+	<div class="col">
+		<div class="card border-dark mb-3">
+			<div class="card-header">{{ unit.title }}</div>
+			<div class="card-body text-dark">
+				<p class="card-text">{{ unit.summary }}</p>
+				<ul class="list-unstyled">
+					<li *ngFor="let activity of unit.activities" class="media">
+						<img src="assets/{{ activity.type }}.svg" class="mr-3" alt="...">
+						<div class="media-body">
+							<h5 class="mt-0 mb-1">{{ activity.title }}</h5>
+							{{ activity.path }}
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="col">
+		<div class="card border-dark mb-3">
+			<div class="card-header">Datos para el Objeto <code>UNIT</code></div>
+			<div class="card-body text-dark">
+				<ngx-json-viewer [json]="unit.toFirebaseObject()"></ngx-json-viewer>
+			</div>
+		</div>
+	</div>
+</div>
