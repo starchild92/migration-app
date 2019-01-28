@@ -1,3 +1,11 @@
-<p>
-  topic-display works!
-</p>
+<div *ngFor="let topic of section.topics">
+	<ul class="list-unstyled">
+		<li class="media">
+			<img src="assets/{{ topic.type }}.svg" class="mr-3" alt="...">
+			<div class="media-body">
+				<h5 class="mt-0 mb-1"><small>{{ topic.index }}</small> {{ topic.name }} </h5>
+				{{ topic.objective }}
+			</div>
+		</li>
+	</ul>
+</div>

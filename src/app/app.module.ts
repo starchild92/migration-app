@@ -21,6 +21,7 @@ import { firebase } from '@env/environment';
 import { UnitDisplayComponent } from './components/dumb/unit-display/unit-display.component';
 import { TopicsComponent } from './components/topics/topics.component';
 import { TopicDisplayComponent } from './components/dumb/topic-display/topic-display.component';
+import { ResourcesComponent } from './components/resources/resources.component';
 
 @NgModule({
 	declarations: [
@@ -30,7 +31,8 @@ import { TopicDisplayComponent } from './components/dumb/topic-display/topic-dis
 		MainComponent,
 		UnitDisplayComponent,
 		TopicsComponent,
-		TopicDisplayComponent
+		TopicDisplayComponent,
+		ResourcesComponent
 	],
 	imports: [
 		BrowserModule,

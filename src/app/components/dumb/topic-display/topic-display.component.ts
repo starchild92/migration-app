@@ -1,15 +1,28 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges, SimpleChange } from '@angular/core';
+import { Topic } from '@classes/topic';
+import { orderBy } from 'lodash';
 
 @Component({
-  selector: 'app-topic-display',
-  templateUrl: './topic-display.component.html',
-  styleUrls: ['./topic-display.component.scss']
+	selector: 'app-topic-display',
+	templateUrl: './topic-display.component.html',
+	styleUrls: ['./topic-display.component.scss']
 })
-export class TopicDisplayComponent implements OnInit {
+export class TopicDisplayComponent implements OnChanges, OnInit {
 
-  constructor() { }
+	@Input() section: any
+	topics: Array<Topic>
 
-  ngOnInit() {
-  }
+	constructor() {
+		this.topics = []
+	}
+
+	ngOnChanges(changes: SimpleChanges) {
+		const section: SimpleChange = changes.section;
+		this.topics = section.currentValue.topics
+	}
+
+	ngOnInit() {
+		this.topics = orderBy(this.topics, ['index'], ['asc'])
+	}
 
 }

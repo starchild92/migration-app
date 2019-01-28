@@ -16,7 +16,6 @@ var xml2js = require('xml2js');
 export class UnitsComponent implements OnInit {
 
 	filesXML: any;
-	questionsXML: any;
 
 	community: Community
 	sections: Array<Section> = []
@@ -32,17 +31,13 @@ export class UnitsComponent implements OnInit {
 		this._mainService.currentFileSchema.subscribe(files => {
 			this.filesXML = files;
 			console.log('Archivos Cargados');
-			this._mainService.currentQuestions.subscribe(questions => {
-				this.questionsXML = questions;
-				console.log('Preguntas Cargadas');
-				this._mainService.currentCommunity.subscribe(comm => {
-					this.community = comm;
-					console.log('Cominidad Cargada');
-					this._mainService.getSections().then(sections => {
-						this.sections = sections
-						this.processSections()
-					})
-				});
+			this._mainService.currentCommunity.subscribe(comm => {
+				this.community = comm;
+				console.log('Cominidad Cargada');
+				this._mainService.getSections().then(sections => {
+					this.sections = sections
+					this.processSections()
+				})
 			});
 		});
 	}
@@ -56,7 +51,7 @@ export class UnitsComponent implements OnInit {
 		this.sections.forEach(section => {
 			const newRef = this._db.database.app.database().ref().push();
 
-			this.http.get(`${BACKUP_SOURCE}/${section._path}/section.xml`, { responseType: 'text' }).subscribe(data => {
+			http.get(`${BACKUP_SOURCE}/${section._path}/section.xml`, { responseType: 'text' }).subscribe(data => {
 				parser.parseString(data, function (err, resp) {
 					let sec = resp['section'];
 					flatThat(sec)

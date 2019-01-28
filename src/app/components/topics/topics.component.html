@@ -1,3 +1,14 @@
-<p>
-  topics works!
-</p>
+<ng-container *ngIf="continue; else elseTemplate">
+	<div class="alert alert-primary">
+		Puedes <a class="alert-link" [routerLink]="[ '/resources' ]">Continuar</a>. A continuación asociaremos los topicos con los archivos involucrados mediante el <code>context id</code>
+	</div>
+	<span *ngFor="let section of sections">
+		<app-topic-display [section]="section"></app-topic-display>
+		<hr>
+	</span>
+</ng-container>
+<ng-template #elseTemplate>
+	<div class="alert alert-dark">
+		Estamos procesando las secciones para extaer la unidades y vincular con el resto de la comunidad ... Espera!
+	</div>
+</ng-template>
