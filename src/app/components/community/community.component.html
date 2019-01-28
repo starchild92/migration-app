@@ -1,0 +1,43 @@
+<h5 class="text-info">Selecciona Area y Carrera para la comunidad que está cargando</h5>
+<div class="row">
+	<div class="col">
+		<!-- Example split danger button -->
+		<div class="btn-group w-100 mb-2">
+			<button type="button" class="btn btn-primary">{{ course._area }}</button>
+			<button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"
+			 aria-haspopup="true" aria-expanded="false">
+				<span class="sr-only">Toggle Dropdown</span>
+			</button>
+			<div class="dropdown-menu">
+				<a class="dropdown-item" *ngFor="let area of Areas" (click)="chooseValue(area.value, 'area')">{{
+					area.name }}</a>
+			</div>
+		</div>
+	</div>
+	<div class="col">
+		<!-- Example split primbtn-primary button -->
+		<div class="btn-group w-100">
+			<button type="button" class="btn btn-primary">{{ course._carrera }}</button>
+			<button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"
+			 aria-haspopup="true" aria-expanded="false">
+				<span class="sr-only">Toggle Dropdown</span>
+			</button>
+			<div class="dropdown-menu">
+				<a class="dropdown-item" *ngFor="let carrera of Carreras" (click)="chooseValue(carrera.value, 'carrera')">{{
+					carrera.name }}</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+<ng-container *ngIf="areaS && carreraS; else elseTemplate">
+	<div class="alert alert-primary">
+		Se cargaron correctamente las secciones de moodle para procesarse como <code>Unidades</code>, puede <a class="alert-link" [routerLink]="[ '/units' ]">Continuar</a>
+	</div>
+	<hr>
+	<p>Datos para almacenar de la Comunidad</p>
+	<ngx-json-viewer [json]="course" [expanded]="false"></ngx-json-viewer>
+</ng-container>
+<ng-template #elseTemplate>
+	<div class="alert alert-danger">No has seleccionado el area y la carrera</div>
+</ng-template>

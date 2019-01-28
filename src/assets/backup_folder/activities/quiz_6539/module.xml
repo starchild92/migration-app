@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module id="6539" version="2015051102">
+  <modulename>quiz</modulename>
+  <sectionid>3461</sectionid>
+  <sectionnumber>7</sectionnumber>
+  <idnumber></idnumber>
+  <added>1541689906</added>
+  <score>0</score>
+  <indent>0</indent>
+  <visible>1</visible>
+  <visibleold>1</visibleold>
+  <groupmode>0</groupmode>
+  <groupingid>0</groupingid>
+  <completion>2</completion>
+  <completiongradeitemnumber>0</completiongradeitemnumber>
+  <completionview>1</completionview>
+  <completionexpected>0</completionexpected>
+  <availability>{"op":"&amp;","c":[{"type":"completion","cm":6518,"e":1},{"type":"completion","cm":6519,"e":1},{"type":"completion","cm":6520,"e":1},{"type":"completion","cm":6522,"e":1},{"type":"completion","cm":6521,"e":1},{"type":"completion","cm":6524,"e":1},{"type":"completion","cm":6523,"e":1},{"type":"completion","cm":6525,"e":1},{"type":"completion","cm":6526,"e":1},{"type":"completion","cm":6529,"e":1},{"type":"completion","cm":6530,"e":1},{"type":"completion","cm":6528,"e":1},{"type":"completion","cm":6555,"e":1},{"type":"completion","cm":6531,"e":1},{"type":"completion","cm":6533,"e":1},{"type":"completion","cm":6532,"e":1},{"type":"completion","cm":6556,"e":1}],"showc":[true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true]}</availability>
+  <showdescription>0</showdescription>
+</module>

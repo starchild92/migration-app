@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section id="3456">
+  <number>2</number>
+  <name> </name>
+  <summary>&lt;p&gt;&lt;img src="@@PLUGINFILE@@/mod11.png" width="1283" height="394" class="img-responsive" /&gt;&lt;/p&gt;</summary>
+  <summaryformat>1</summaryformat>
+  <sequence>6522,6521,6524,6523,6525,6526</sequence>
+  <visible>1</visible>
+  <availabilityjson>{"op":"&amp;","c":[],"showc":[]}</availabilityjson>
+</section>

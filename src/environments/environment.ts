@@ -15,3 +15,36 @@ export const firebase = {
   storageBucket: "eleven-1-1.appspot.com",
   messagingSenderId: "589431464804"
 };
+
+export const GRIKY_UID = 'l21t7GsTADQQhIcPZy0UVap5suq1';
+export const BACKUP_SOURCE = 'assets/backup_folder';
+
+export enum PATHS {
+	Community = '/comunidades',
+	Units = '/unit',
+	Topics = '/topic'
+}
+
+export enum FILES_SEQUENCE {
+	Files = 'Files',
+	Courses = 'Courses', //Comunidades
+	Units = 'Units', // Unidades,
+	Themes = 'Themes', //Temas
+	Resources = 'Resources' // Recursos
+}
+
+export const AREAS_CONOCIMIENTO = [
+	{ name: 'Negocios', value: 'a0' },
+	{ name: 'Humanidades', value: 'a1' },
+	{ name: 'Ingeniería', value: 'a2' },
+	{ name: 'Arquitectura y Diseño', value: 'a3' }
+];
+
+export const CARRERAS = [
+	{ name: 'Administración de Empresas Turística', value: 'cr0' },
+	{ name: 'Administración Gastronómica', value: 'cr1' },
+	{ name: 'Contador Público Estrategico', value: 'cr2' },
+	{ name: 'Economía', value: 'cr3' },
+	{ name: 'Finanzas', value: 'cr4' },
+	{ name: 'Mercadotecnia', value: 'cr5' }
+]

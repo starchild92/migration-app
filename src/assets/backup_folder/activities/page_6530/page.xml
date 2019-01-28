@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<activity id="536" moduleid="6530" modulename="page" contextid="54352">
+  <page id="536">
+    <name>Señales de Alerta de LA/FT y de Soborno y Corrupción</name>
+    <intro></intro>
+    <introformat>1</introformat>
+    <content>&lt;p&gt;&lt;a href="@@PLUGINFILE@@/M%C3%B3dulo%20-%202%20-%20B%20-%20Video%20Se%C3%B1ales.mp4"&gt;M%C3%B3dulo%20-%202%20-%20B%20-%20Video%20Se%C3%B1ales.mp4&lt;/a&gt;&lt;a href="https://www.coronaensena.com.co/brokenfile.php#/82/user/draft/652973537/M%C3%B3dulo%20-%202%20-%20B%20-%20Video%20Se%C3%B1ales.mp4"&gt;&lt;br /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="$@PAGEVIEWBYID*6529@$"&gt;&lt;img src="@@PLUGINFILE@@/anterior.png" width="100" height="66" class="img-responsive" /&gt;&lt;/a&gt;&lt;a href="$@SCORMVIEWBYID*6528@$"&gt;&lt;img src="@@PLUGINFILE@@/siguiente.png" width="100" height="70" class="img-responsive" /&gt;&lt;/a&gt;&lt;/p&gt;</content>
+    <contentformat>1</contentformat>
+    <legacyfiles>0</legacyfiles>
+    <legacyfileslast>$@NULL@$</legacyfileslast>
+    <display>5</display>
+    <displayoptions>a:2:{s:12:"printheading";s:1:"1";s:10:"printintro";s:1:"0";}</displayoptions>
+    <revision>5</revision>
+    <timemodified>1541713821</timemodified>
+  </page>
+</activity>
