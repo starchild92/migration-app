@@ -1,0 +1,42 @@
+<ng-container *ngIf="continue; else elseTemplate">
+	<div *ngFor="let section of sections">
+		<div class="card border-dark mb-3">
+			<div class="card-header">{{ section.name }}</div>
+			<div class="card-body text-dark">
+				<p class="card-text">
+					{{ section.index }} <br>
+					{{ section.key }} <br>
+					{{ section.keyCommunity }} <br>
+					{{ section.name }} <br>
+				</p>
+				<hr>
+				<div *ngFor="let topic of section.topics">
+					<ul class="list-unstyled">
+						<li class="media">
+							<img src="assets/{{ topic.type }}.svg" class="mr-3" alt="...">
+							<div class="media-body">
+								<h5 class="mt-0 mb-1"><small>{{ topic.index }}</small> {{ topic.name }} </h5>
+								<div *ngFor="let resource of topic.resources">
+									<ul class="list-unstyled">
+										<li>
+											<small>{{ resource.index }} - {{ resource.name }}</small>
+											<ng-container *ngIf="resource.typeFile == 'video/mp4'; else elseTemplate">
+												<video src="{{ resource.localPath }}" class="mr-3 img-fluid"></video>
+											</ng-container>
+											<ng-template #elseTemplate>
+												<img src="{{ resource.localPath }}" class="mr-3 img-fluid">
+											</ng-template>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</ng-container>
+<ng-template #elseTemplate>
+	Espere mientras mostramos todo
+</ng-template>

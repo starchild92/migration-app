@@ -1,0 +1,109 @@
+import { Resource } from './resource';
+
+export class Topic {
+	private type: string;
+
+	private index: number;
+	private key: string;
+	private keyCommunity: string;
+	private keyUnit: string;
+	private name: string;
+	private nameImage: string;
+	private objective: string;
+	private totalDocuments: number;
+	private urlImage: string;
+
+	private resources: Array<Resource>;
+
+	public contextid: string;
+	public moduleid: string;
+	public modulename: string;
+
+	public set $type(v: string) { this.type = v; }
+	public set $moduleid(v: string) { this.moduleid = v; }
+	public set $contextid(v: string) { this.contextid = v; }
+	public set $modulename(v: string) { this.modulename = v; }
+
+
+	public set $index(v: number) { this.index = v; }
+	public set $key(v: string) { this.key = v; }
+	public set $keyCommunity(v: string) { this.keyCommunity = v; }
+	public set $keyUnit(v: string) { this.keyUnit = v; }
+	public set $name(v: string) { this.name = v; }
+	public set $nameImage(v: string) { this.nameImage = v; }
+	public set $objective(v: string) { this.objective = v; }
+	public set $totalDocuments(v: number) { this.totalDocuments = v; }
+	public set $urlImage(v: string) { this.urlImage = v; }
+
+	public set $resource(v: Resource) {
+		if (this.resources) {
+			this.resources.push(v)
+		} else {
+			this.resources = <Array<Resource>>[];
+			this.resources.push(v);
+		}
+	}
+
+	public get _type(): string { return this.type; }
+	public get _moduleid(): string { return this.moduleid; }
+	public get _contextid(): string { return this.contextid; }
+	public get _modulename(): string { return this.modulename; }
+
+	public get _index(): number { return this.index; }
+	public get _key(): string { return this.key; }
+	public get _keyCommunity(): string { return this.keyCommunity; }
+	public get _keyUnit(): string { return this.keyUnit; }
+	public get _name(): string { return this.name; }
+	public get _nameImage(): string { return this.nameImage; }
+	public get _objective(): string { return this.objective; }
+	public get _totalDocuments(): number {
+		if(this.resources) {
+			return this.resources.length
+		} else {
+			return 0
+		}
+	 }
+	public get _urlImage(): string { return this.urlImage; }
+	public get _resources(): Array<Resource> { return this.resources; }
+
+	constructor(object?: TopicInterface) {
+		if (object) {
+			this.createWithInfo(object)
+		}
+	}
+
+	private loadData<T>(data: T, defaul?: T) {
+		return data === undefined ? defaul !== undefined ? defaul : null : data;
+	}
+
+	createWithInfo(info: TopicInterface) {
+		this.type = this.loadData(info.type);
+
+		this.index = this.loadData(info.index);
+		this.key = this.loadData(info.key);
+		this.keyCommunity = this.loadData(info.keyCommunity);
+		this.keyUnit = this.loadData(info.keyUnit);
+		this.name = this.loadData(info.name);
+		this.nameImage = this.loadData(info.nameImage);
+		this.objective = this.loadData(info.objective);
+		this.totalDocuments = this.loadData(info.totalDocuments);
+		this.urlImage = this.loadData(info.urlImage);
+	}
+}
+
+export class TopicInterface {
+	type: string;
+	contextid: string;
+	moduleid: string;
+	modulename: string;
+
+	index: number;
+	key: string;
+	keyCommunity: string;
+	keyUnit: string;
+	name: string;
+	nameImage: string;
+	objective: string;
+	totalDocuments: number;
+	urlImage: string;
+}
