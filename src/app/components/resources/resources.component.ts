@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MainService } from '@services/main.service';
 import { Section } from '@classes/section';
-import { orderBy, filter } from 'lodash';
+import { orderBy, filter, find, remove } from 'lodash';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Resource } from '@classes/resource';
 import { GRIKY_UID, BACKUP_SOURCE } from '@env/environment';
@@ -53,7 +53,7 @@ export class ResourcesComponent implements OnInit {
 		this.sections.forEach(element => {
 			let topics = element._topics
 			topics.forEach(topic => {
-				let files = filter(this.files, function(f) { return f['contextid'] === topic._contextid })
+				let files = filter(this.files, function (f) { return f['contextid'] === topic._contextid })
 				let ind: number = 0
 				files.forEach(file => {
 					const newRef = this._db.database.app.database().ref().push();
@@ -78,4 +78,27 @@ export class ResourcesComponent implements OnInit {
 		});
 	}
 
+	addAsTopicImage(r: Resource) {
+
+	}
+
+	deleteFromResources(r: Resource) {
+		let section = find(this.sections, function (s) { return s._key == r._keyUnit });
+		if (section) {
+			let topic = find(section._topics, function (t) { return t._key == r._keyTopic });
+			if (topic) {
+				remove(topic._resources, function (e) { return r._key == e._key })
+				updateIndexes(topic._resources)
+			}
+		}
+	}
+
+}
+
+export function updateIndexes(arr: Array<any>) {
+	let ind: number = 0
+	arr.forEach(e => {
+		e.$index = ind
+		ind = ind + 1;
+	});
 }

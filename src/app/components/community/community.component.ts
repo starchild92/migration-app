@@ -55,10 +55,7 @@ export class CommunityComponent implements OnInit {
 	extractingSections() {
 		// path: contents / sections / [0] / section
 		if(this.main['contents']['sections'][0]['section']) {
-			console.log('El path de sections existe')
-
 			let arrSections = this.main['contents']['sections'][0]['section'];
-
 			arrSections.forEach(element => {
 				flatThat(element)
 				let section = new Section();
@@ -67,7 +64,6 @@ export class CommunityComponent implements OnInit {
 				section.$title = element['title'];
 				this.finalArraySections.push(section);
 			});
-
 			this._mainService.updateSections(this.finalArraySections);
 			this.extractingActivities();
 		}
@@ -101,7 +97,6 @@ export class CommunityComponent implements OnInit {
 
 			this._mainService.updateActivities(finalArrayActivities);
 			this._mainService.updateSections(this.finalArraySections);
-
 		}
 	}
 

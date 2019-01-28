@@ -71,22 +71,27 @@ export class TopicsComponent implements OnInit {
 
 				ind = ind + 1;
 
-				this.http.get(`${BACKUP_SOURCE}/${activity._path}/${activity._type}.xml`, { responseType: 'text' }).subscribe(data => {
-					parser.parseString(data, function (err, resp) {
-						let act = resp['activity']
-						flatThat(act, activity._type)
+				/** Para no procesar los paquetes SCORM */
+				if(activity._type !== 'scorm') {
+					this.http.get(`${BACKUP_SOURCE}/${activity._path}/${activity._type}.xml`, { responseType: 'text' }).subscribe(data => {
+						parser.parseString(data, function (err, resp) {
+							let act = resp['activity']
+							flatThat(act, activity._type)
 
-						if (act[activity._type]['content']) { topic.$objective = act[activity._type]['content']; } else {
-							if (act[activity._type]['intro']) { topic.$objective = act[activity._type]['intro']; }
-						}
+							if (act[activity._type]['content']) { topic.$objective = act[activity._type]['content']; } else {
+								if (act[activity._type]['intro']) { topic.$objective = act[activity._type]['intro']; }
+							}
 
-						topic.$contextid = act['contextid']
-						topic.$moduleid = act['moduleid']
-						topic.$modulename = act['modulename']
+							topic.$contextid = act['contextid']
+							topic.$moduleid = act['moduleid']
+							topic.$modulename = act['modulename']
 
-						section.$topics = topic
+							section.$topics = topic
+						});
 					});
-				});
+				}
+
+
 			});
 		});
 

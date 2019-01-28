@@ -1,33 +1,35 @@
+<p>Elimina los archivos que no deseas subir...</p>
 <ng-container *ngIf="continue; else elseTemplate">
 	<div *ngFor="let section of sections">
 		<div class="card border-dark mb-3">
-			<div class="card-header">{{ section.name }}</div>
+			<div class="card-header"><small>name:</small> "{{ section.title }}" <small>index: </small>{{ section.index }} <button class="btn-sm float-right btn btn-danger">Eliminar Sección Completa</button> </div>
 			<div class="card-body text-dark">
-				<p class="card-text">
-					{{ section.index }} <br>
-					{{ section.key }} <br>
-					{{ section.keyCommunity }} <br>
-					{{ section.name }} <br>
-				</p>
-				<hr>
+				<h4>Contiene la siguientes unidades</h4>
 				<div *ngFor="let topic of section.topics">
 					<ul class="list-unstyled">
 						<li class="media">
 							<img src="assets/{{ topic.type }}.svg" class="mr-3" alt="...">
 							<div class="media-body">
-								<h5 class="mt-0 mb-1"><small>{{ topic.index }}</small> {{ topic.name }} </h5>
+								<h5 class="mt-0 mb-1"><small>[{{ topic.index }}]</small> {{ topic.name }}, <small class="text-warning">sus recursos</small> </h5>
 								<div *ngFor="let resource of topic.resources">
 									<ul class="list-unstyled">
 										<li>
 											<small>{{ resource.index }} - {{ resource.name }}</small>
-											<ng-container *ngIf="resource.typeFile == 'video/mp4'; else elseTemplate">
-												<video src="{{ resource.localPath }}" class="mr-3 img-fluid"></video>
-											</ng-container>
-											<ng-template #elseTemplate>
-												<img src="{{ resource.localPath }}" class="mr-3 img-fluid">
-											</ng-template>
+											<div class="block">
+												<ng-container *ngIf="resource.typeFile == 'video/mp4'; else elseTemplate">
+													<video src="{{ resource.localPath }}" class="mr-3 img-fluid w-25 border border-dark rounded"></video>
+												</ng-container>
+												<ng-template #elseTemplate>
+													<img src="{{ resource.localPath }}" class="mr-3 img-fluid w-50">
+												</ng-template>
+											</div>
+											<div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+												<button type="button" (click)="addAsTopicImage(resource)" class="btn btn-warning">Hacer Imagen de Topic</button>
+												<button type="button" (click)="deleteFromResources(resource)" class="btn btn-danger">Eliminar</button>
+											</div>
 										</li>
 									</ul>
+									<hr>
 								</div>
 							</div>
 						</li>

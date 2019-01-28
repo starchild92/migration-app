@@ -1,9 +1,10 @@
+<p>Los archivos del backup deben estar ubicados en <code>src/assets/backup_folder</code>, dentro de este directorio se deben encontrar los archivos <code>files.xml, moodle_backup.xml</code> entre otros y algunas carpetas como <code>files, sections, course, activities</code></p>
 <ng-container *ngIf="canGo; else elseTemplate">
 	<div class="alert alert-primary">
 		El documento XML fue leido correctamente, puede <a class="alert-link" [routerLink]="[ '/community' ]">Continuar</a>
 	</div>
 	<hr>
-	<p>El archivo principal del backup <code>moodle_backup.xml</code></p>
+	<p>Contenido del archivo principal del backup <code>moodle_backup.xml</code></p>
 	<ngx-json-viewer [json]="main" [expanded]="false"></ngx-json-viewer>
 	<hr>
 	<!-- <p>Selecciona el archivo <code>files.xml</code>, que contiene las especificaciones de los recursos de este curso</p> -->

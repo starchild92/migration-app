@@ -32,11 +32,11 @@
 
 <ng-container *ngIf="areaS && carreraS; else elseTemplate">
 	<div class="alert alert-primary">
-		Se cargaron correctamente las secciones, puede <a class="alert-link" [routerLink]="[ '/units' ]">Continuar</a>
+		Se cargaron correctamente las secciones de moodle para procesarse como <code>Unidades</code>, puede <a class="alert-link" [routerLink]="[ '/units' ]">Continuar</a>
 	</div>
 	<hr>
+	<p>Datos para almacenar de la Comunidad</p>
 	<ngx-json-viewer [json]="course" [expanded]="false"></ngx-json-viewer>
-	<hr>
 </ng-container>
 <ng-template #elseTemplate>
 	<div class="alert alert-danger">No has seleccionado el area y la carrera</div>
