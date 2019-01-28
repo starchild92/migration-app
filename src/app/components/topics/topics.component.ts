@@ -36,17 +36,14 @@ export class TopicsComponent implements OnInit {
 	ngOnInit() {
 		this._mainService.currentFileSchema.subscribe(files => {
 			this.filesXML = files;
-			console.log('Archivos Cargados');
 			this._mainService.currentQuestions.subscribe(questions => {
 				this.questionsXML = questions;
-				console.log('Preguntas Cargadas');
 				this._mainService.currentCommunity.subscribe(comm => {
 					this.community = comm;
-					console.log('Cominidad Cargada');
 					this._mainService.getSections().then(sections => {
 						this.sections = sections
 						this.processTopics()
-					})
+					});
 				});
 			});
 		});

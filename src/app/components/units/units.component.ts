@@ -32,14 +32,12 @@ export class UnitsComponent implements OnInit {
 	ngOnInit() {
 		this._mainService.currentFileSchema.subscribe(files => {
 			this.filesXML = files;
-			console.log('Archivos Cargados', this.filesXML);
 			this._mainService.currentCommunity.subscribe(comm => {
 				this.community = comm;
-				console.log('Cominidad Cargada');
 				this._mainService.getSections().then(sections => {
 					this.sections = sections
 					this.processSections()
-				})
+				});
 			});
 		});
 	}
@@ -85,8 +83,6 @@ export class UnitsComponent implements OnInit {
 										let ind: number = 0
 										files.forEach(file => {
 
-											console.log(files)
-
 											// const newRef = this._db.database.app.database().ref().push();
 											let resource = new Resource()
 
@@ -115,7 +111,6 @@ export class UnitsComponent implements OnInit {
 				});
 			});
 		});
-		console.log(this.sections)
 		this._mainService.updateSections(this.sections)
 		this.continue = true
 	}

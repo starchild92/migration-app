@@ -99,14 +99,5 @@ export class CommunityComponent implements OnInit {
 			this._mainService.updateSections(this.finalArraySections);
 		}
 	}
-
-	runScript() {
-		this._afs.collection(PATHS.Community).doc(this.course._key).set(this.course.serialize()).then(() => {
-			console.log('la comunidad fue insertada correctamente');
-		}, error => {
-			console.log('algo malo paso insertando la comunidad', error);
-		})
-	}
-
 }
 export function flatThat(main) { Object.keys(main).forEach(key => { if(main[key].length == 1) { main[key] = main[key][0]; } }); }

@@ -6,6 +6,7 @@ import { CommunityComponent } from './components/community/community.component';
 import { MainComponent } from '@components/main/main.component';
 import { TopicsComponent } from '@components/topics/topics.component';
 import { ResourcesComponent } from '@components/resources/resources.component';
+import { EndComponent } from '@components/end/end.component';
 
 const routes: Routes = [
     {
@@ -27,6 +28,10 @@ const routes: Routes = [
 	{
         path: 'resources',
         component: ResourcesComponent
+	},
+	{
+        path: 'end',
+        component: EndComponent
     },
     {
         path: '**',

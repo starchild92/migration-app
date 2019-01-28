@@ -22,6 +22,7 @@ import { UnitDisplayComponent } from './components/dumb/unit-display/unit-displa
 import { TopicsComponent } from './components/topics/topics.component';
 import { TopicDisplayComponent } from './components/dumb/topic-display/topic-display.component';
 import { ResourcesComponent } from './components/resources/resources.component';
+import { EndComponent } from './components/end/end.component';
 
 @NgModule({
 	declarations: [
@@ -32,7 +33,8 @@ import { ResourcesComponent } from './components/resources/resources.component';
 		UnitDisplayComponent,
 		TopicsComponent,
 		TopicDisplayComponent,
-		ResourcesComponent
+		ResourcesComponent,
+		EndComponent
 	],
 	imports: [
 		BrowserModule,

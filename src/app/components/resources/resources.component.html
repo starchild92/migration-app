@@ -1,4 +1,6 @@
-<p>Elimina los archivos que no deseas subir...</p>
+<div class="alert alert-warning">
+	Elimina los archivos que no deseas subir... baja, revisa y continua para subir todo!!!
+</div>
 <ng-container *ngIf="continue; else elseTemplate">
 	<div *ngFor="let section of sections">
 		<div class="card border-dark mb-3">
@@ -12,7 +14,8 @@
 						<li class="media">
 							<img src="assets/{{ topic.type }}.svg" class="mr-3" alt="...">
 							<div class="media-body">
-								<h5 class="mt-0 mb-1"><small>[{{ topic.index }}]</small> {{ topic.name }}, <small class="text-warning">sus recursos</small> </h5>
+								<h5 class="mt-0 mb-1"><small>[{{ topic.index }}]</small> {{ topic.name }}, <small class="text-warning">sus
+										recursos</small> </h5>
 								<div *ngFor="let resource of topic.resources">
 									<ul class="list-unstyled">
 										<li>
@@ -40,6 +43,8 @@
 			</div>
 		</div>
 	</div>
+
+	<button class="btn btn-lg btn-primary btn-block mb-4" [routerLink]="[ '/end' ]">¡¡¡Subir todo!!!</button>
 </ng-container>
 <ng-template #elseTemplate>
 	Espere mientras mostramos todo

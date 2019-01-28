@@ -57,12 +57,12 @@ export class Topic {
 	public get _nameImage(): string { return this.nameImage; }
 	public get _objective(): string { return this.objective; }
 	public get _totalDocuments(): number {
-		if(this.resources) {
+		if (this.resources) {
 			return this.resources.length
 		} else {
 			return 0
 		}
-	 }
+	}
 	public get _urlImage(): string { return this.urlImage; }
 	public get _resources(): Array<Resource> { return this.resources; }
 
@@ -88,6 +88,20 @@ export class Topic {
 		this.objective = this.loadData(info.objective);
 		this.totalDocuments = this.loadData(info.totalDocuments);
 		this.urlImage = this.loadData(info.urlImage);
+	}
+
+	toFirestoreObject(): any {
+		return {
+			index: this._index,
+			key: this._key,
+			keyCommunity: this._keyCommunity,
+			keyUnit: this._keyUnit,
+			name: this._name,
+			nameImage: this._nameImage,
+			objective: this._objective,
+			totalDocuments: this._totalDocuments,
+			urlImage: this._urlImage
+		}
 	}
 }
 
