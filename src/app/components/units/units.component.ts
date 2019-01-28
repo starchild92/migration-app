@@ -7,6 +7,8 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { Community } from '@classes/community';
 
 var xml2js = require('xml2js');
+import { filter, remove } from 'lodash';
+import { Resource } from '@classes/resource';
 
 @Component({
 	selector: 'app-units',
@@ -30,7 +32,7 @@ export class UnitsComponent implements OnInit {
 	ngOnInit() {
 		this._mainService.currentFileSchema.subscribe(files => {
 			this.filesXML = files;
-			console.log('Archivos Cargados');
+			console.log('Archivos Cargados', this.filesXML);
 			this._mainService.currentCommunity.subscribe(comm => {
 				this.community = comm;
 				console.log('Cominidad Cargada');
@@ -46,6 +48,7 @@ export class UnitsComponent implements OnInit {
 		let parser = new xml2js.Parser();
 		const http = this.http;
 		const comm = this.community;
+		const filesXML = this.filesXML;
 
 		// Procesando cada sección para obtener su informacion
 		this.sections.forEach(section => {
@@ -75,6 +78,34 @@ export class UnitsComponent implements OnInit {
 									flatThat(references)
 									references.forEach(rf => {
 										section.$fileReferences = rf['id'][0]
+
+										// Loading files
+										let files = remove(filesXML, function (f) { return f['id'] === rf['id'][0] });
+
+										let ind: number = 0
+										files.forEach(file => {
+
+											console.log(files)
+
+											// const newRef = this._db.database.app.database().ref().push();
+											let resource = new Resource()
+
+											resource.$index = ind
+											// resource.$key = newRef.key
+											// resource.$keyCommunity = element._keyCommunity
+											// resource.$keyUnit = element._key
+											// resource.$keyTopic = topic._key
+											// resource.$keyUser = GRIKY_UID
+											resource.$name = file['filename']
+											resource.$typeFile = file['mimetype']
+
+											resource.$localPath = `${BACKUP_SOURCE}/files/all_files/${file['contenthash']}`;
+
+											ind = ind + 1
+
+											section.$files = resource;
+										});
+
 									});
 								}
 							}

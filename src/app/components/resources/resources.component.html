@@ -2,7 +2,9 @@
 <ng-container *ngIf="continue; else elseTemplate">
 	<div *ngFor="let section of sections">
 		<div class="card border-dark mb-3">
-			<div class="card-header"><small>name:</small> "{{ section.title }}" <small>index: </small>{{ section.index }} <button class="btn-sm float-right btn btn-danger">Eliminar Sección Completa</button> </div>
+			<div class="card-header"><small>name:</small> "{{ section.title }}" <small>index: </small>{{ section.index }}
+				<!-- <button class="btn-sm float-right btn btn-danger">Eliminar Sección Completa</button> -->
+			</div>
 			<div class="card-body text-dark">
 				<h4>Contiene la siguientes unidades</h4>
 				<div *ngFor="let topic of section.topics">
@@ -24,7 +26,7 @@
 												</ng-template>
 											</div>
 											<div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-												<button type="button" (click)="addAsTopicImage(resource)" class="btn btn-warning">Hacer Imagen de Topic</button>
+												<!-- <button type="button" (click)="addAsTopicImage(resource)" class="btn btn-warning">Hacer Imagen de Topic</button> -->
 												<button type="button" (click)="deleteFromResources(resource)" class="btn btn-danger">Eliminar</button>
 											</div>
 										</li>

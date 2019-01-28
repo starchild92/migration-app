@@ -1,5 +1,6 @@
 import { Activity } from './activity';
 import { Topic } from './topic';
+import { Resource } from './resource';
 
 /**
  * De aca saldran la unidades y topics
@@ -14,6 +15,7 @@ export class Section {
 
 	private activities: Array<Activity>;
 	private topics: Array<Topic>;
+	private files: Array<Resource>;
 
 	// Para generar los units
 	private index: number;
@@ -57,6 +59,18 @@ export class Section {
 		this.topics = arr;
 	}
 
+	public set $files(v: Resource) {
+		if (this.files) {
+			this.files.push(v)
+		} else {
+			this.files = <Array<Resource>>[];
+			this.files.push(v);
+		}
+	}
+	public set $filesArray(arr: Array<Resource>) {
+		this.files = arr;
+	}
+
 	public set $index(v: number) { this.index = v; }
 	public set $key(v: string) { this.key = v; }
 	public set $keyCommunity(v: string) { this.keyCommunity = v; }
@@ -72,6 +86,7 @@ export class Section {
 	public get _fileReferences(): Array<String> { return this.fileReferences; }
 	public get _activities(): Array<Activity> { return this.activities; }
 	public get _topics(): Array<Topic> { return this.topics; }
+	public get _files(): Array<Resource> { return this.files; }
 
 	public get _index(): number { return this.index }
 	public get _key(): string { return this.key }
@@ -119,6 +134,7 @@ export class Section {
 		this.fileReferences = this.loadData(info.fileReferences);
 		this.activities = this.loadData(info.activities);
 		this.topics = this.loadData(info.topics);
+		this.files = this.loadData(info.files);
 
 		this.index = this.loadData(info.index);
 		this.key = this.loadData(info.key);
@@ -138,6 +154,7 @@ export class SectionInterface {
 	fileReferences?: Array<String>;
 	activities?: Array<Activity>;
 	topics?: Array<Topic>;
+	files?: Array<Resource>;
 
 	index: number;
 	key: string;

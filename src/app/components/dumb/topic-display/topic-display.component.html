@@ -1,11 +1,28 @@
-<div *ngFor="let topic of section.topics">
-	<ul class="list-unstyled">
-		<li class="media">
-			<img src="assets/{{ topic.type }}.svg" class="mr-3" alt="...">
-			<div class="media-body">
-				<h5 class="mt-0 mb-1"><small>{{ topic.index }}</small> {{ topic.name }} </h5>
-				{{ topic.objective }}
-			</div>
-		</li>
-	</ul>
+<div class="row">
+	<div class="col-6">
+		<h5>Datos</h5>
+		<div *ngFor="let topic of section.topics">
+			<ul class="list-unstyled">
+				<li class="media">
+					<img src="assets/{{ topic.type }}.svg" class="mr-3">
+					<div class="media-body">
+						<h5 class="mt-0 mb-1"><small>{{ topic.index }}</small> {{ topic.name }} </h5>
+						<small>{{ topic.objective }}</small>
+					</div>
+					<hr>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="col-6">
+		<h5>Archivos asociados</h5>
+		<div class="block" *ngFor="let resource of section.files">
+			<ng-container *ngIf="resource.typeFile == 'video/mp4'; else elseTemplate">
+				<video src="{{ resource.localPath }}" class="mr-3 img-fluid w-100 border border-dark rounded"></video>
+			</ng-container>
+			<ng-template #elseTemplate>
+				<img src="{{ resource.localPath }}" class="mr-3 img-fluid w-50">
+			</ng-template>
+		</div>
+	</div>
 </div>
