@@ -1,6 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+import { CORONA } from '@env/environment';
+
+import * as firebase from 'firebase/app';
+firebase.initializeApp(CORONA);
+
 import { appRouting } from './app.routing';
 
 import { AngularFireModule } from 'angularfire2';
@@ -17,12 +22,12 @@ import { AppComponent } from './app.component';
 import { UnitsComponent } from '@components/units/units.component';
 import { CommunityComponent } from '@components/community/community.component';
 import { MainComponent } from '@components/main/main.component';
-import { firebase } from '@env/environment';
 import { UnitDisplayComponent } from './components/dumb/unit-display/unit-display.component';
 import { TopicsComponent } from './components/topics/topics.component';
 import { TopicDisplayComponent } from './components/dumb/topic-display/topic-display.component';
 import { ResourcesComponent } from './components/resources/resources.component';
 import { EndComponent } from './components/end/end.component';
+import { FileSizePipe } from './pipes/filesize.pipe';
 
 @NgModule({
 	declarations: [
@@ -34,11 +39,12 @@ import { EndComponent } from './components/end/end.component';
 		TopicsComponent,
 		TopicDisplayComponent,
 		ResourcesComponent,
-		EndComponent
+		EndComponent,
+		FileSizePipe
 	],
 	imports: [
 		BrowserModule,
-		AngularFireModule.initializeApp(firebase),
+		AngularFireModule.initializeApp(CORONA),
 		AngularFireDatabaseModule,
 		AngularFireAuthModule,
 		AngularFirestoreModule,

@@ -91,7 +91,7 @@ export class Topic {
 	}
 
 	toFirestoreObject(): any {
-		return {
+		let obj = {
 			index: this._index,
 			key: this._key,
 			keyCommunity: this._keyCommunity,
@@ -102,6 +102,8 @@ export class Topic {
 			totalDocuments: this._totalDocuments,
 			urlImage: this._urlImage
 		}
+		Object.keys(obj).forEach(key => obj[key] === undefined ? delete obj[key] : '');
+		return obj;
 	}
 }
 

@@ -4,33 +4,45 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-  production: false
+	production: false
 };
 
-export const firebase = {
-  apiKey: "AIzaSyAyZqegPQjvxm9fLyQ8w7nKI0D29VxtRSI",
-  authDomain: "eleven-1-1.firebaseapp.com",
-  databaseURL: "https://eleven-1-1.firebaseio.com",
-  projectId: "eleven-1-1",
-  storageBucket: "eleven-1-1.appspot.com",
-  messagingSenderId: "589431464804"
+export const CORONA = {
+	apiKey: "AIzaSyD29ObJK8T73t3WFchFXDDZiWIVlg58294",
+	authDomain: "corona-platform.firebaseapp.com",
+	databaseURL: "https://corona-platform.firebaseio.com",
+	projectId: "corona-platform",
+	storageBucket: "corona-platform.appspot.com",
+	messagingSenderId: "122254049499"
+}
+
+export const firebaseConfig = {
+	apiKey: "AIzaSyAyZqegPQjvxm9fLyQ8w7nKI0D29VxtRSI",
+	authDomain: "eleven-1-1.firebaseapp.com",
+	databaseURL: "https://eleven-1-1.firebaseio.com",
+	projectId: "eleven-1-1",
+	storageBucket: "eleven-1-1.appspot.com",
+	messagingSenderId: "589431464804"
 };
 
-export const GRIKY_UID = 'l21t7GsTADQQhIcPZy0UVap5suq1';
+// UID de Usuario en Corona
+export const GRIKY_UID = '4L1kAJx1DuRa5kP9MS6DNwiBDK13';
 export const BACKUP_SOURCE = 'assets/backup_folder';
 
 export enum PATHS {
 	Community = '/comunidades',
 	Units = '/unit',
-	Topics = '/topic'
+	Topics = '/topic',
+	Resources = '/resources'
 }
 
-export enum FILES_SEQUENCE {
-	Files = 'Files',
-	Courses = 'Courses', //Comunidades
-	Units = 'Units', // Unidades,
-	Themes = 'Themes', //Temas
-	Resources = 'Resources' // Recursos
+/**
+ * /topic/[folder:key]/file[img]
+ * /resources/[folder:key]/file[img]
+ */
+export enum STORE {
+	Topics = '/topic',
+	Resources = '/resources'
 }
 
 export const AREAS_CONOCIMIENTO = [

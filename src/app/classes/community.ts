@@ -54,7 +54,7 @@ export class Community {
 	public get _shortname(): string { return this.shortname; }
 
 	constructor(object?: CommunityInterface) {
-		this.created = moment().format();
+		this.created = moment().format('d/MM/Y h:m:s A');
 		this.publicado = false;
 		this.positionCommunity = false;
 

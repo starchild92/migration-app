@@ -111,7 +111,7 @@ export class Section {
 	}
 
 	toFirebaseObject(): any {
-		return {
+		let obj = {
 			index: this.index,
 			key: this.key,
 			keyCommunity: this.keyCommunity,
@@ -120,6 +120,8 @@ export class Section {
 			preUnits: this.preUnits,
 			totalTopic: this._totalTopic
 		}
+		Object.keys(obj).forEach(key => obj[key] === undefined ? delete obj[key] : '');
+		return obj;
 	}
 
 	private loadData<T>(data: T, defaul?: T) {

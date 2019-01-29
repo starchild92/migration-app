@@ -5,7 +5,7 @@
 /dist-server
 /tmp
 /out-tsc
-/assets/backup_folder
+/src/assets/backup_folder
 
 # dependencies
 /node_modules

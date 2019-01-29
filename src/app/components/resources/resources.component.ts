@@ -42,8 +42,6 @@ export class ResourcesComponent implements OnInit {
 			this._mainService.currentFileSchema.subscribe(result => {
 				this.files = result;
 				this.associateResources();
-
-				console.log(this.sections)
 				this.continue = true
 			});
 		});
@@ -68,7 +66,8 @@ export class ResourcesComponent implements OnInit {
 					resource.$name = file['filename']
 					resource.$typeFile = file['mimetype']
 
-					resource.$localPath = `${BACKUP_SOURCE}/files/all_files/${file['contenthash']}`;
+					// unbicació de los recursos que se están cargando
+					resource.$localPath = `${BACKUP_SOURCE}/files/${file['contenthash']}`;
 
 					ind = ind + 1
 
@@ -78,9 +77,7 @@ export class ResourcesComponent implements OnInit {
 		});
 	}
 
-	addAsTopicImage(r: Resource) {
-
-	}
+	addAsTopicImage(r: Resource) { }
 
 	deleteFromResources(r: Resource) {
 		let section = find(this.sections, function (s) { return s._key == r._keyUnit });
@@ -91,6 +88,11 @@ export class ResourcesComponent implements OnInit {
 				updateIndexes(topic._resources)
 			}
 		}
+	}
+
+	removeSection(s: Section) {
+		remove(this.sections, function (e) { return s._key == e._key })
+		updateIndexes(this.sections)
 	}
 
 }

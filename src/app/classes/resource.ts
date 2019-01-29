@@ -62,6 +62,38 @@ export class Resource {
 
 		this.localPath = this.loadData(info.localPath);
 	}
+
+	toFirebaseObj() {
+		let obj = {
+			index: this.index,
+			key: this.key,
+			keyCommunity: this.keyCommunity,
+			keyTopic: this.keyTopic,
+			keyUnit: this.keyUnit,
+			keyUser: this.keyUser,
+			name: this.name,
+			previewImage: this.previewImage,
+			typeFile: this.typeFile, // convencion
+			urlFile: this.urlFile,
+			description: this.name
+		}
+		switch (this.typeFile) {
+			case 'image/jpeg': obj.typeFile = '1'; break;
+			case 'image/png': obj.typeFile = '1'; break;
+			case 'video/mp4': obj.typeFile = '0'; break;
+
+			default: break;
+		}
+		Object.keys(obj).forEach(key => obj[key] === undefined ? delete obj[key] : '');
+
+		if(obj.name) {
+			const aux = obj.name.split('.');
+			if(aux.length > 1)
+				obj.name = aux[0];
+		}
+
+		return obj;
+	}
 }
 
 export class ResourceInterface {
