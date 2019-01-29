@@ -32,7 +32,8 @@ export const BACKUP_SOURCE = 'assets/backup_folder';
 export enum PATHS {
 	Community = '/comunidades',
 	Units = '/unit',
-	Topics = '/topic'
+	Topics = '/topic',
+	Resources = '/resources'
 }
 
 /**

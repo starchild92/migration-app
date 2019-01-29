@@ -74,7 +74,15 @@ export class Resource {
 			name: this.name,
 			previewImage: this.previewImage,
 			typeFile: this.typeFile, // convencion
-			urlFile: this.urlFile
+			urlFile: this.urlFile,
+			description: this.name
+		}
+		switch (this.typeFile) {
+			case 'image/jpeg': obj.typeFile = '1'; break;
+			case 'image/png': obj.typeFile = '1'; break;
+			case 'video/mp4': obj.typeFile = '0'; break;
+
+			default: break;
 		}
 		Object.keys(obj).forEach(key => obj[key] === undefined ? delete obj[key] : '');
 
