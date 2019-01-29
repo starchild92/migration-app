@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section id="3463">
+  <number>1</number>
+  <name>Financiación </name>
+  <summary>&lt;h4&gt;Para la correcta visualización del contenido del curso es necesario contar con Excel en el computador. Si tu computador no cuenta con Excel ingresa a &lt;a href="https://www.office.com/" target="_blank"&gt;https://www.office.com/&lt;/a&gt; con tu correo corporativo, luego al ícono de "Excel" y das click a "cargar y abrir" ahí subes los archivos que podrás descargar a continuación. También hay que tener en cuenta que los archivos de Excel cuentan con varias páginas en cada uno. &lt;/h4&gt;
+&lt;p&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="$@RESOURCEVIEWBYID*6540@$" target="_blank"&gt;&lt;img src="@@PLUGINFILE@@/financiacion-01.jpg" width="392" height="112" /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="$@RESOURCEVIEWBYID*6541@$" target="_blank"&gt;&lt;img src="@@PLUGINFILE@@/financiacion-02.jpg" width="393" height="112" /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="$@RESOURCEVIEWBYID*6542@$" target="_blank"&gt;&lt;img src="@@PLUGINFILE@@/financiacion-03.jpg" width="393" height="112" /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="$@RESOURCEVIEWBYID*6543@$" target="_blank"&gt;&lt;img src="@@PLUGINFILE@@/financiacion-04.jpg" width="392" height="113" /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="$@RESOURCEVIEWBYID*6544@$" target="_blank"&gt;&lt;img src="@@PLUGINFILE@@/financiacion-05.jpg" width="393" height="113" /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="$@COURSEVIEWBYID*481@$"&gt;&lt;img src="@@PLUGINFILE@@/volver%20al%20progrma-05.jpg" width="737" height="58" /&gt;&lt;/a&gt;&lt;/p&gt;</summary>
+  <summaryformat>1</summaryformat>
+  <sequence></sequence>
+  <visible>1</visible>
+  <availabilityjson>{"op":"&amp;","c":[],"showc":[]}</availabilityjson>
+</section>
