@@ -40,7 +40,6 @@ export class MainComponent implements OnInit {
 		});
 
 		this._mainService.currentFile.subscribe(val => {
-			console.log('Subscribe Called', val)
 			this.main = val;
 
 			if (val['name']) {
@@ -68,7 +67,7 @@ export class MainComponent implements OnInit {
 							if(questions) {
 								flatThatQuestions(questions)
 							} else {
-								console.log('NO HAY QUESTIONS')
+								console.warn('No hay preguntas en este curso.')
 								questions = [];
 							}
 							serv.updateQuestions(questions);
@@ -79,42 +78,6 @@ export class MainComponent implements OnInit {
 				});
 			}
 		});
-	}
-
-	openfile(file: any, type: string) {
-		let parser = new xml2js.Parser();
-		let reader = new FileReader();
-		let serv = this._mainService
-
-		switch (type) {
-			case 'main':
-				reader.onload = function () {
-					let text = reader.result
-					parser.parseString(text, function (err, resp) {
-						let main = resp['moodle_backup']['information'][0];
-						flatThat(main)
-						serv.updateMain(main);
-					});
-				}
-				break;
-
-			case 'file':
-				reader.onload = function () {
-					let text = reader.result
-					parser.parseString(text, function (err, resp) {
-						let file = resp['files']['file'];
-						flatThatFile(file)
-						remove(file, function(f) { return Number(f['filesize']) == 0 })
-						serv.updateFile(file);
-					});
-				}
-				break;
-
-			default:
-				break;
-		}
-
-		reader.readAsText(file.target.files[0]);
 	}
 
 }
