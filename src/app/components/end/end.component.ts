@@ -196,7 +196,6 @@ export class EndComponent implements OnInit {
 									snap.ref.getDownloadURL().then(url => {
 										res.$previewImage = url
 										res.$urlFile = url
-										res.$typeFile = "1"
 										this._afs.collection(PATHS.Resources).doc(res._key).set(res.toFirebaseObj()).then(() => {
 											resolve(res)
 										})

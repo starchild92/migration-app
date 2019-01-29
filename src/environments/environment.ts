@@ -26,7 +26,7 @@ export const firebaseConfig = {
 };
 
 // UID de Usuario en Corona
-export const GRIKY_UID = 'Rs7LSP5T3DRGI2dnEFs22q8I7Dy2';
+export const GRIKY_UID = '4L1kAJx1DuRa5kP9MS6DNwiBDK13';
 export const BACKUP_SOURCE = 'assets/backup_folder';
 
 export enum PATHS {
