@@ -55,41 +55,44 @@ export class TopicsComponent implements OnInit {
 
 		this.sections.forEach(section => {
 			let ind: number = 0
-			section._activities.forEach(activity => {
+			if (section._activities) {
+				section._activities.forEach(activity => {
 
-				const newRef = this._db.database.app.database().ref().push();
-				let topic = new Topic()
+					const newRef = this._db.database.app.database().ref().push();
+					let topic = new Topic()
 
-				topic.$index = ind
-				topic.$key = newRef.key
-				topic.$keyCommunity = this.community._key
-				topic.$keyUnit = section._key
-				topic.$name = activity._title
-				topic.$type = activity._type
+					topic.$index = ind
+					topic.$key = newRef.key
+					topic.$keyCommunity = this.community._key
+					topic.$keyUnit = section._key
+					topic.$name = activity._title
+					topic.$type = activity._type
 
-				ind = ind + 1;
+					ind = ind + 1;
 
-				/** Para no procesar los paquetes SCORM */
-				if(activity._type !== 'scorm') {
+					/** Para no procesar los paquetes SCORM */
+					if (activity._type !== 'scorm') {
 
-					this.http.get(`${BACKUP_SOURCE}/${activity._path}/${activity._type}.xml`, { responseType: 'text' }).subscribe(data => {
-						parser.parseString(data, function (err, resp) {
-							let act = resp['activity']
-							flatThat(act, activity._type)
+						this.http.get(`${BACKUP_SOURCE}/${activity._path}/${activity._type}.xml`, { responseType: 'text' }).subscribe(data => {
+							parser.parseString(data, function (err, resp) {
+								let act = resp['activity']
+								flatThat(act, activity._type)
 
-							if (act[activity._type]['content']) { topic.$objective = act[activity._type]['content']; } else {
-								if (act[activity._type]['intro']) { topic.$objective = act[activity._type]['intro']; }
-							}
+								if (act[activity._type]['content']) { topic.$objective = act[activity._type]['content']; } else {
+									if (act[activity._type]['intro']) { topic.$objective = act[activity._type]['intro']; }
+								}
 
-							topic.$contextid = act['contextid']
-							topic.$moduleid = act['moduleid']
-							topic.$modulename = act['modulename']
+								topic.$contextid = act['contextid']
+								topic.$moduleid = act['moduleid']
+								topic.$modulename = act['modulename']
 
-							section.$topics = topic
+								section.$topics = topic
+							});
 						});
-					});
-				}
-			});
+					}
+				});
+			}
+
 		});
 
 		this._mainService.updateSections(this.sections)

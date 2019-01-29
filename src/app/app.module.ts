@@ -1,6 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+import { firebaseConfig } from '@env/environment';
+
 import * as firebase from 'firebase/app';
 firebase.initializeApp(firebaseConfig);
 
@@ -20,7 +22,6 @@ import { AppComponent } from './app.component';
 import { UnitsComponent } from '@components/units/units.component';
 import { CommunityComponent } from '@components/community/community.component';
 import { MainComponent } from '@components/main/main.component';
-import { firebaseConfig } from '@env/environment';
 import { UnitDisplayComponent } from './components/dumb/unit-display/unit-display.component';
 import { TopicsComponent } from './components/topics/topics.component';
 import { TopicDisplayComponent } from './components/dumb/topic-display/topic-display.component';

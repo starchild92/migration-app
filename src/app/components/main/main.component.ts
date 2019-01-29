@@ -65,7 +65,12 @@ export class MainComponent implements OnInit {
 					this.http.get(`${BACKUP_SOURCE}/questions.xml`, { responseType: 'text' }).subscribe(data => {
 						parser.parseString(data, function (err, resp) {
 							let questions = resp['question_categories']['question_category'];
-							flatThatQuestions(questions)
+							if(questions) {
+								flatThatQuestions(questions)
+							} else {
+								console.log('NO HAY QUESTIONS')
+								questions = [];
+							}
 							serv.updateQuestions(questions);
 						});
 

@@ -64,7 +64,9 @@ export class UnitsComponent implements OnInit {
 					section.$summary = sec['summary']
 					section.$preUnits = sec['sequence'].split(',')
 					section.$preRequisite = Boolean(sec['visible'])
-					section.$totalTopic = section._activities.length
+					if (section._activities) {
+						section.$totalTopic = section._activities.length
+					} else { section.$totalTopic = 0; }
 
 					http.get(`${BACKUP_SOURCE}/${section._path}/inforef.xml`, { responseType: 'text' }).subscribe(inforef => {
 						parser.parseString(inforef, function (err, resp) {

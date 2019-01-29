@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FILES_SEQUENCE, AREAS_CONOCIMIENTO, CARRERAS, PATHS } from '@env/environment';
+import { AREAS_CONOCIMIENTO, CARRERAS } from '@env/environment';
 import { Community } from '@classes/community';
-import { AngularFirestore } from 'angularfire2/firestore';
 import { MainService } from '@services/main.service';
 import { Section } from '@classes/section';
 
@@ -19,7 +18,6 @@ export class CommunityComponent implements OnInit {
 	course = new Community();
 	finalArraySections: Array<Section> = [];
 
-	FILES_SEQUENCE = FILES_SEQUENCE;
 	Areas = AREAS_CONOCIMIENTO;
 	Carreras = CARRERAS;
 
@@ -27,7 +25,6 @@ export class CommunityComponent implements OnInit {
 	carreraS: boolean = false
 
 	constructor(
-		private _afs: AngularFirestore,
 		private _mainService: MainService
 	) {
 	}
