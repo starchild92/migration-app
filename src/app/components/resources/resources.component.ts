@@ -78,9 +78,7 @@ export class ResourcesComponent implements OnInit {
 		});
 	}
 
-	addAsTopicImage(r: Resource) {
-
-	}
+	addAsTopicImage(r: Resource) { }
 
 	deleteFromResources(r: Resource) {
 		let section = find(this.sections, function (s) { return s._key == r._keyUnit });
@@ -91,6 +89,11 @@ export class ResourcesComponent implements OnInit {
 				updateIndexes(topic._resources)
 			}
 		}
+	}
+
+	removeSection(s: Section) {
+		remove(this.sections, function (e) { return s._key == e._key })
+		updateIndexes(this.sections)
 	}
 
 }

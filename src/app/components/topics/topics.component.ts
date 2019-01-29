@@ -34,6 +34,7 @@ export class TopicsComponent implements OnInit {
 	}
 
 	ngOnInit() {
+		this.sections = [];
 		this._mainService.currentFileSchema.subscribe(files => {
 			this.filesXML = files;
 			this._mainService.currentQuestions.subscribe(questions => {
@@ -91,7 +92,6 @@ export class TopicsComponent implements OnInit {
 			});
 		});
 
-		console.log(this.sections)
 		this._mainService.updateSections(this.sections)
 		this.continue = true
 	}

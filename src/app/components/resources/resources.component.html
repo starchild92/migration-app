@@ -2,10 +2,14 @@
 	Elimina los archivos que no deseas subir... baja, revisa y continua para subir todo!!!
 </div>
 <ng-container *ngIf="continue; else elseTemplate">
+
+	<button class="btn btn-lg btn-primary btn-block mb-4" [routerLink]="[ '/end' ]">¡¡¡Subir todo!!!</button>
+
+
 	<div *ngFor="let section of sections">
 		<div class="card border-dark mb-3">
 			<div class="card-header"><small>name:</small> "{{ section.title }}" <small>index: </small>{{ section.index }}
-				<!-- <button class="btn-sm float-right btn btn-danger">Eliminar Sección Completa</button> -->
+				<button class="btn-sm float-right btn btn-danger" (click)="removeSection(section)" >Eliminar Sección Completa</button>
 			</div>
 			<div class="card-body text-dark">
 				<h4>Contiene la siguientes unidades</h4>
@@ -25,7 +29,7 @@
 													<video src="{{ resource.localPath }}" class="mr-3 img-fluid w-25 border border-dark rounded"></video>
 												</ng-container>
 												<ng-template #elseTemplate>
-													<img src="{{ resource.localPath }}" class="mr-3 img-fluid w-50">
+													<img src="{{ resource.localPath }}" class="mr-3 img-fluid w-25">
 												</ng-template>
 											</div>
 											<div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
@@ -44,7 +48,6 @@
 		</div>
 	</div>
 
-	<button class="btn btn-lg btn-primary btn-block mb-4" [routerLink]="[ '/end' ]">¡¡¡Subir todo!!!</button>
 </ng-container>
 <ng-template #elseTemplate>
 	Espere mientras mostramos todo

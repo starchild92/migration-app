@@ -73,7 +73,7 @@ export class MainComponent implements OnInit {
 					});
 				});
 			}
-		})
+		});
 	}
 
 	openfile(file: any, type: string) {

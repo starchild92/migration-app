@@ -1,1 +1,4 @@
-<ul #ul></ul>
+<code *ngIf="snapshot | async as snap">
+	{{ snap.bytesTransferred | fileSize }} of {{ snap.totalBytes | fileSize }}
+</code>
+<span #ul></span>

@@ -7,7 +7,7 @@ export const environment = {
   production: false
 };
 
-export const firebase = {
+export const firebaseConfig = {
   apiKey: "AIzaSyAyZqegPQjvxm9fLyQ8w7nKI0D29VxtRSI",
   authDomain: "eleven-1-1.firebaseapp.com",
   databaseURL: "https://eleven-1-1.firebaseio.com",
@@ -23,6 +23,15 @@ export enum PATHS {
 	Community = '/comunidades',
 	Units = '/unit',
 	Topics = '/topic'
+}
+
+/**
+ * /topic/[folder:key]/file[img]
+ * /resources/[folder:key]/file[img]
+ */
+export enum STORE {
+	Topics = '/topic',
+	Resources = '/resources'
 }
 
 export enum FILES_SEQUENCE {
