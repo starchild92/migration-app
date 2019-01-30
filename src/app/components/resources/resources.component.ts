@@ -30,6 +30,9 @@ export class ResourcesComponent implements OnInit {
 		this._mainService.getSections().then(sections => {
 
 			this.sections = sections
+
+			console.log(this.sections)
+
 			// organizando los topics
 			this.sections.forEach(element => {
 				let topics = element._topics
@@ -51,28 +54,31 @@ export class ResourcesComponent implements OnInit {
 		this.sections.forEach(element => {
 			let topics = element._topics
 			topics.forEach(topic => {
-				let files = filter(this.files, function (f) { return f['contextid'] === topic._contextid })
 				let ind: number = 0
-				files.forEach(file => {
-					const newRef = this._db.database.app.database().ref().push();
-					let resource = new Resource()
+				let files = filter(this.files, function (f) { return f['contextid'] === topic._contextid })
 
-					resource.$index = ind
-					resource.$key = newRef.key
-					resource.$keyCommunity = element._keyCommunity
-					resource.$keyUnit = element._key
-					resource.$keyTopic = topic._key
-					resource.$keyUser = GRIKY_UID
-					resource.$name = file['filename']
-					resource.$typeFile = file['mimetype']
+				if(topic._type != 'url') {
+					files.forEach(file => {
+						const newRef = this._db.database.app.database().ref().push();
+						let resource = new Resource()
 
-					// unbicació de los recursos que se están cargando
-					resource.$localPath = `${BACKUP_SOURCE}/files/${file['contenthash']}`;
+						resource.$index = ind
+						resource.$key = newRef.key
+						resource.$keyCommunity = element._keyCommunity
+						resource.$keyUnit = element._key
+						resource.$keyTopic = topic._key
+						resource.$keyUser = GRIKY_UID
+						resource.$name = file['filename']
+						resource.$typeFile = file['mimetype']
 
-					ind = ind + 1
+						// unbicació de los recursos que se están cargando
+						resource.$localPath = `${BACKUP_SOURCE}/files/${file['contenthash']}`;
 
-					topic.$resource = resource;
-				});
+						ind = ind + 1
+
+						topic.$resource = resource;
+					});
+				}
 			});
 		});
 	}

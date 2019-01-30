@@ -19,6 +19,15 @@ export class MainService {
 	sections: Array<Section> = [];
 	activities: Array<Activity> = [];
 
+	Areas: Array<any> = [];
+	Carreras: Array<any> = [];
+
+	private mainAreas = new BehaviorSubject<any>(this.Areas);
+	public currentAreas = this.mainAreas.asObservable();
+
+	private mainCarreras = new BehaviorSubject<any>(this.Carreras);
+	public currentCarreras = this.mainCarreras.asObservable();
+
 	private mainFileSource = new BehaviorSubject<any>(this.main_file);
 	public currentFile = this.mainFileSource.asObservable();
 
@@ -43,17 +52,12 @@ export class MainService {
 		this.mainFileSource.next({ contructor: true })
 	}
 
-	updateMain(source: any) {
-		this.mainFileSource.next(source);
-	}
+	updateMain(source: any) { this.mainFileSource.next(source); }
+	updateFile(source: any) { this.mainFileSchema.next(source); }
+	updateQuestions(source: any) { this.mainQuestions.next(source); }
 
-	updateFile(source: any) {
-		this.mainFileSchema.next(source);
-	}
-
-	updateQuestions(source: any) {
-		this.mainQuestions.next(source);
-	}
+	updateAreas(source: any) { this.mainAreas.next(source); }
+	updateCarreras(source: any) { this.mainCarreras.next(source); }
 
 	updateCommunity(source: Community) {
 		const actual = this.community;
@@ -72,7 +76,5 @@ export class MainService {
 		});
 	}
 
-	updateActivities(source: Array<Activity>) {
-		this.mainActivitySource.next(source);
-	}
+	updateActivities(source: Array<Activity>) { this.mainActivitySource.next(source); }
 }

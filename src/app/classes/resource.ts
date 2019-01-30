@@ -80,9 +80,14 @@ export class Resource {
 		switch (this.typeFile) {
 			case 'image/jpeg': obj.typeFile = '1'; break;
 			case 'image/png': obj.typeFile = '1'; break;
-			case 'video/mp4': obj.typeFile = '0'; break;
-
-			default: break;
+			case 'video/mp4': obj.typeFile = '5'; break;
+			case 'application/msword': obj.typeFile = '3'; break;
+			case 'application/pdf': obj.typeFile = '3'; break;
+			case 'url': obj.typeFile = '3'; break;
+			case 'application/zip': obj.typeFile = '3';
+			case 'application/vnd.openxmlformats-officedocument.presentationml.presentation': obj.typeFile = '3'; break;
+			case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document': obj.typeFile = '3'; break;
+			default: obj.typeFile = '3'; break;
 		}
 		Object.keys(obj).forEach(key => obj[key] === undefined ? delete obj[key] : '');
 

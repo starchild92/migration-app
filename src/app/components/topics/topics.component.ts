@@ -6,7 +6,8 @@ import { MainService } from '@services/main.service';
 import { Community } from '@classes/community';
 import { Section } from '@classes/section';
 import { Topic } from '@classes/topic';
-import { BACKUP_SOURCE } from '@env/environment';
+import { BACKUP_SOURCE, GRIKY_UID } from '@env/environment';
+import { Resource } from '@classes/resource';
 
 var xml2js = require('xml2js');
 
@@ -74,7 +75,7 @@ export class TopicsComponent implements OnInit {
 					if (activity._type !== 'scorm') {
 
 						this.http.get(`${BACKUP_SOURCE}/${activity._path}/${activity._type}.xml`, { responseType: 'text' }).subscribe(data => {
-							parser.parseString(data, function (err, resp) {
+							parser.parseString(data, (err, resp) => {
 								let act = resp['activity']
 								flatThat(act, activity._type)
 
@@ -85,6 +86,28 @@ export class TopicsComponent implements OnInit {
 								topic.$contextid = act['contextid']
 								topic.$moduleid = act['moduleid']
 								topic.$modulename = act['modulename']
+
+								if(topic._type === 'url') {
+
+									console.log(act)
+
+									const newRef = this._db.database.app.database().ref().push();
+									let resource = new Resource()
+
+									resource.$index = ind
+									resource.$key = newRef.key
+									resource.$keyCommunity = this.community._key
+									resource.$keyUnit = section._key
+									resource.$keyTopic = topic._key
+									resource.$keyUser = GRIKY_UID
+									resource.$name = 'Enlace'
+									resource.$typeFile = activity._type
+									resource.$urlFile = act[topic._type]['externalurl']
+
+									ind = ind + 1
+
+									topic.$resource = resource;
+								}
 
 								section.$topics = topic
 							});

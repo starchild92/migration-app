@@ -9,10 +9,9 @@
 	<div *ngFor="let section of sections">
 		<div class="card border-dark mb-3">
 			<div class="card-header"><small>name:</small> "{{ section.title }}" <small>index: </small>{{ section.index }}
-				<button class="btn-sm float-right btn btn-danger" (click)="removeSection(section)" >Eliminar Sección Completa</button>
+				<button class="btn-sm float-right btn btn-danger" (click)="removeSection(section)">Eliminar Sección Completa</button>
 			</div>
 			<div class="card-body text-dark">
-				<h4>Contiene la siguientes unidades</h4>
 				<div *ngFor="let topic of section.topics">
 					<ul class="list-unstyled">
 						<li class="media">
@@ -25,12 +24,23 @@
 										<li>
 											<small>{{ resource.index }} - {{ resource.name }}</small>
 											<div class="block">
-												<ng-container *ngIf="resource.typeFile == 'video/mp4'; else elseTemplate">
-													<video src="{{ resource.localPath }}" class="mr-3 img-fluid w-25 border border-dark rounded"></video>
-												</ng-container>
-												<ng-template #elseTemplate>
+												<ng-container *ngIf="resource.typeFile == 'video/mp4';">
+													<video src="{{ resource.localPath }}" class="mr-3 img-fluid w-25 border border-dark rounded"></video></ng-container>
+												<ng-container *ngIf="resource.typeFile == 'image/jpeg';">
 													<img src="{{ resource.localPath }}" class="mr-3 img-fluid w-25">
-												</ng-template>
+												</ng-container>
+												<ng-container *ngIf="resource.typeFile == 'image/png';">
+													<img src="{{ resource.localPath }}" class="mr-3 img-fluid w-25">
+												</ng-container>
+												<ng-container *ngIf="resource.typeFile == 'application/zip';"> ZIP </ng-container>
+												<ng-container *ngIf="resource.typeFile == 'application/msword';"> Word </ng-container>
+												<ng-container *ngIf="resource.typeFile == 'application/pdf';"> PDF </ng-container>
+												<ng-container *ngIf="resource.typeFile == 'url';"> Enlace URL </ng-container>
+												<ng-container *ngIf="resource.typeFile == 'application/vnd.openxmlformats-officedocument.presentationml.presentation';">
+													Power Point Presentation </ng-container>
+												<ng-container *ngIf="resource.typeFile == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';">
+													Word </ng-container>
+
 											</div>
 											<div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
 												<!-- <button type="button" (click)="addAsTopicImage(resource)" class="btn btn-warning">Hacer Imagen de Topic</button> -->

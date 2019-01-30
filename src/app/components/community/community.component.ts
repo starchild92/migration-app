@@ -36,41 +36,15 @@ export class CommunityComponent implements OnInit {
 		this._mainService.currentFile.subscribe(val => {
 			this.main = val;
 			if (val['name']) { this.extractingSections() }
-			this.getAreasCarreras()
 		});
 		this._mainService.currentCommunity.subscribe(val => {
 			this.course = val;
 			this.course.$carrera = 'Elegir Carrera';
 			this.course.$area = 'Elegir Area';
 		});
-	}
-
-	getAreasCarreras() {
-		this._db.database.ref('/areas').once('value', snap => {
-
-			Object.keys(snap.val()).forEach(key => { this.Areas.push(snap.val()[key]) });
-
-			this._db.database.ref('/carreras').once('value', sack => {
-
-				Object.keys(sack.val()).forEach(key => { this.Carreras.push(sack.val()[key]) });
-
-				// organizando
-				this.Carreras.forEach(c => {
-					let index = findIndex(this.Areas, function (a) { return a['id'] == c['area'] });
-					if (index > -1) {
-						if (this.Areas[index]['carreras']) {
-							this.Areas[index]['carreras'].push(c)
-						} else {
-							this.Areas[index]['carreras'] = []
-							this.Areas[index]['carreras'].push(c)
-						}
-					}
-				});
-
-				console.log(this.Areas)
-
-			});
-		});
+		this._mainService.currentAreas.subscribe(ars => {
+			this.Areas = ars
+		})
 	}
 
 	chooseValue(value, choice) {
@@ -78,7 +52,8 @@ export class CommunityComponent implements OnInit {
 			case 'area':
 				this.carreraS = false;
 				this.course.$area = value; this.areaS = true;
-				this.CarrerasFiltered = filter(this.Carreras, function (c) { return value == c['area'] })
+				let area = find(this.Areas, function (c) { return value == c['id'] })
+				this.CarrerasFiltered = area['carreras']
 				break;
 			case 'carrera': this.course.$carrera = value; this.carreraS = true; break;
 			default: break;

@@ -14,6 +14,7 @@ export class Topic {
 	private urlImage: string;
 
 	private resources: Array<Resource>;
+	private urls: Array<string>;
 
 	public contextid: string;
 	public moduleid: string;
@@ -44,6 +45,15 @@ export class Topic {
 		}
 	}
 
+	public set $url(v: string) {
+		if (this.urls) {
+			this.urls.push(v)
+		} else {
+			this.urls = <Array<string>>[];
+			this.urls.push(v);
+		}
+	}
+
 	public get _type(): string { return this.type; }
 	public get _moduleid(): string { return this.moduleid; }
 	public get _contextid(): string { return this.contextid; }
@@ -65,6 +75,7 @@ export class Topic {
 	}
 	public get _urlImage(): string { return this.urlImage; }
 	public get _resources(): Array<Resource> { return this.resources; }
+	public get _urls(): Array<string> { return this.urls; }
 
 	constructor(object?: TopicInterface) {
 		if (object) {
