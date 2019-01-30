@@ -46,17 +46,9 @@ export enum STORE {
 }
 
 export const AREAS_CONOCIMIENTO = [
-	{ name: 'Negocios', value: 'a0' },
-	{ name: 'Humanidades', value: 'a1' },
-	{ name: 'Ingeniería', value: 'a2' },
-	{ name: 'Arquitectura y Diseño', value: 'a3' }
+	{ name: 'Programas Transversales', value: 'a1' },
 ];
 
 export const CARRERAS = [
-	{ name: 'Administración de Empresas Turística', value: 'cr0' },
-	{ name: 'Administración Gastronómica', value: 'cr1' },
-	{ name: 'Contador Público Estrategico', value: 'cr2' },
-	{ name: 'Economía', value: 'cr3' },
-	{ name: 'Finanzas', value: 'cr4' },
-	{ name: 'Mercadotecnia', value: 'cr5' }
+	{ name: 'Escuela de Liderazgo de la Fase 1', value: 'cr1' },
 ]

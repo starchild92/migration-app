@@ -134,7 +134,6 @@ export class EndComponent implements OnInit {
 										(snapshot) => {
 											var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
 											console.log(`( ${progress.toFixed(3)}% ) ${res._name}`);
-
 										},
 										(error) => {
 											console.warn(error)

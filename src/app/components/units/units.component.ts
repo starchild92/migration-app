@@ -97,7 +97,7 @@ export class UnitsComponent implements OnInit {
 											resource.$name = file['filename']
 											resource.$typeFile = file['mimetype']
 
-											resource.$localPath = `${BACKUP_SOURCE}/files/all_files/${file['contenthash']}`;
+											resource.$localPath = `${BACKUP_SOURCE}/files/${file['contenthash']}`;
 
 											ind = ind + 1
 
