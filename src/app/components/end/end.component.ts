@@ -44,10 +44,14 @@ export class EndComponent implements OnInit {
 		this.ul.nativeElement.add
 		this._mainService.currentCommunity.subscribe(com => {
 			this.community = com
+
+			console.log('<COMUNIDAD>', com)
+
 			this._mainService.getSections().then(sec => {
 				this.sections = sec;
 
-				console.log(this.sections)
+				console.log('<UNIDADES>', this.sections)
+
 				this.linearUploadAlter()
 			})
 		})

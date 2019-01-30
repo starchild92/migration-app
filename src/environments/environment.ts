@@ -47,8 +47,16 @@ export enum STORE {
 
 export const AREAS_CONOCIMIENTO = [
 	{ name: 'Programas Transversales', value: 'a1' },
+	{ name: 'Programas Centro Corona 2018', value: 'a2' },
+	{ name: 'Gestión Efectiva GO TO MARKET', value: 'a3' },
+	{ name: 'Gestión de adquisiciones e integración de negocios a nivel internacional', value: 'a4' }
 ];
 
 export const CARRERAS = [
-	{ name: 'Escuela de Liderazgo de la Fase 1', value: 'cr1' },
+	{ name: 'Escuela de Liderazgo de la Fase 1', value: 'cr1', area: 'a1' },
+	{ name: 'Escuela de Liderazgo de la Fase 2', value: 'cr2', area: 'a1' },
+	{ name: 'Escuela Fase 1 2018', value: 'cr3', area: 'a1' },
+	{ name: 'Programas Complementarios 2018', value: 'cr4', area: 'a2' },
+	{ name: 'Comercial Corona', value: 'cr5', area: 'a3' },
+	{ name: 'Gestión de adquisiciones e integración de negocios a nivel internacional', value: 'cr6', area: 'a4' },
 ]

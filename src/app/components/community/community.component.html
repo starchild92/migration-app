@@ -9,12 +9,12 @@
 				<span class="sr-only">Toggle Dropdown</span>
 			</button>
 			<div class="dropdown-menu">
-				<a class="dropdown-item" *ngFor="let area of Areas" (click)="chooseValue(area.value, 'area')">{{
+				<a class="dropdown-item" *ngFor="let area of Areas" (click)="chooseValue(area.id, 'area')">{{
 					area.name }}</a>
 			</div>
 		</div>
 	</div>
-	<div class="col">
+	<div class="col" *ngIf="areaS">
 		<!-- Example split primbtn-primary button -->
 		<div class="btn-group w-100">
 			<button type="button" class="btn btn-primary">{{ course._carrera }}</button>
@@ -23,7 +23,7 @@
 				<span class="sr-only">Toggle Dropdown</span>
 			</button>
 			<div class="dropdown-menu">
-				<a class="dropdown-item" *ngFor="let carrera of Carreras" (click)="chooseValue(carrera.value, 'carrera')">{{
+				<a class="dropdown-item" *ngFor="let carrera of CarrerasFiltered" (click)="chooseValue(carrera.id, 'carrera')">{{
 					carrera.name }}</a>
 			</div>
 		</div>

@@ -4,8 +4,9 @@ import { Community } from '@classes/community';
 import { MainService } from '@services/main.service';
 import { Section } from '@classes/section';
 
-import { find } from 'lodash';
+import { find, findIndex, filter } from 'lodash';
 import { Activity } from '@classes/activity';
+import { AngularFireDatabase } from 'angularfire2/database';
 
 @Component({
 	selector: 'app-community',
@@ -18,21 +19,24 @@ export class CommunityComponent implements OnInit {
 	course = new Community();
 	finalArraySections: Array<Section> = [];
 
-	Areas = AREAS_CONOCIMIENTO;
-	Carreras = CARRERAS;
+	Areas: Array<any>[] = [];
+	Carreras: Array<any>[] = [];
+	CarrerasFiltered: Array<any>[] = [];
 
 	areaS: boolean = false
 	carreraS: boolean = false
 
 	constructor(
-		private _mainService: MainService
+		private _mainService: MainService,
+		private _db: AngularFireDatabase
 	) {
+		this.getAreasCarreras()
 	}
 
 	ngOnInit() {
 		this._mainService.currentFile.subscribe(val => {
 			this.main = val;
-			if(val['name']) { this.extractingSections() }
+			if (val['name']) { this.extractingSections() }
 		});
 		this._mainService.currentCommunity.subscribe(val => {
 			this.course = val;
@@ -41,9 +45,41 @@ export class CommunityComponent implements OnInit {
 		});
 	}
 
+	getAreasCarreras() {
+		this._db.database.ref('/areas').once('value', snap => {
+
+			Object.keys(snap.val()).forEach(key => { this.Areas.push(snap.val()[key]) });
+
+			this._db.database.ref('/carreras').once('value', sack => {
+
+				Object.keys(sack.val()).forEach(key => { this.Carreras.push(sack.val()[key]) });
+
+				// organizando
+				this.Carreras.forEach(c => {
+					let index = findIndex(this.Areas, function (a) { return a['id'] == c['area'] });
+					if (index > -1) {
+						if (this.Areas[index]['carreras']) {
+							this.Areas[index]['carreras'].push(c)
+						} else {
+							this.Areas[index]['carreras'] = []
+							this.Areas[index]['carreras'].push(c)
+						}
+					}
+				});
+
+				console.log(this.Areas)
+
+			});
+		});
+	}
+
 	chooseValue(value, choice) {
 		switch (choice) {
-			case 'area': this.course.$area = value; this.areaS = true; break;
+			case 'area':
+				this.carreraS = false;
+				this.course.$area = value; this.areaS = true;
+				this.CarrerasFiltered = filter(this.Carreras, function (c) { return value == c['area'] })
+				break;
 			case 'carrera': this.course.$carrera = value; this.carreraS = true; break;
 			default: break;
 		}
@@ -51,7 +87,7 @@ export class CommunityComponent implements OnInit {
 
 	extractingSections() {
 		// path: contents / sections / [0] / section
-		if(this.main['contents']['sections'][0]['section']) {
+		if (this.main['contents']['sections'][0]['section']) {
 			let arrSections = this.main['contents']['sections'][0]['section'];
 			arrSections.forEach(element => {
 				flatThat(element)
@@ -68,7 +104,7 @@ export class CommunityComponent implements OnInit {
 
 	extractingActivities() {
 		// path: contents / activities / [0] / activity
-		if(this.main['contents']['activities'][0]['activity']) {
+		if (this.main['contents']['activities'][0]['activity']) {
 
 			let arrActivities = this.main['contents']['activities'][0]['activity'];
 			let finalArrayActivities: Array<Activity> = [];
@@ -86,8 +122,8 @@ export class CommunityComponent implements OnInit {
 			});
 
 			finalArrayActivities.forEach(activity => {
-				let section = <Section>find(this.finalArraySections, function(s: Section){ return s._id === activity._sectionid })
-				if(section) {
+				let section = <Section>find(this.finalArraySections, function (s: Section) { return s._id === activity._sectionid })
+				if (section) {
 					section.$activities = activity
 				}
 			});
@@ -97,4 +133,4 @@ export class CommunityComponent implements OnInit {
 		}
 	}
 }
-export function flatThat(main) { Object.keys(main).forEach(key => { if(main[key].length == 1) { main[key] = main[key][0]; } }); }
+export function flatThat(main) { Object.keys(main).forEach(key => { if (main[key].length == 1) { main[key] = main[key][0]; } }); }
