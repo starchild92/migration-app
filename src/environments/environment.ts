@@ -46,17 +46,17 @@ export enum STORE {
 }
 
 export const AREAS_CONOCIMIENTO = [
-	{ name: 'Negocios', value: 'a0' },
-	{ name: 'Humanidades', value: 'a1' },
-	{ name: 'Ingeniería', value: 'a2' },
-	{ name: 'Arquitectura y Diseño', value: 'a3' }
+	{ name: 'Programas Transversales', value: 'a1' },
+	{ name: 'Programas Centro Corona 2018', value: 'a2' },
+	{ name: 'Gestión Efectiva GO TO MARKET', value: 'a3' },
+	{ name: 'Gestión de adquisiciones e integración de negocios a nivel internacional', value: 'a4' }
 ];
 
 export const CARRERAS = [
-	{ name: 'Administración de Empresas Turística', value: 'cr0' },
-	{ name: 'Administración Gastronómica', value: 'cr1' },
-	{ name: 'Contador Público Estrategico', value: 'cr2' },
-	{ name: 'Economía', value: 'cr3' },
-	{ name: 'Finanzas', value: 'cr4' },
-	{ name: 'Mercadotecnia', value: 'cr5' }
+	{ name: 'Escuela de Liderazgo de la Fase 1', value: 'cr1', area: 'a1' },
+	{ name: 'Escuela de Liderazgo de la Fase 2', value: 'cr2', area: 'a1' },
+	{ name: 'Escuela Fase 1 2018', value: 'cr3', area: 'a1' },
+	{ name: 'Programas Complementarios 2018', value: 'cr4', area: 'a2' },
+	{ name: 'Comercial Corona', value: 'cr5', area: 'a3' },
+	{ name: 'Gestión de adquisiciones e integración de negocios a nivel internacional', value: 'cr6', area: 'a4' },
 ]
