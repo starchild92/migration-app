@@ -30,13 +30,13 @@ export class CommunityComponent implements OnInit {
 		private _mainService: MainService,
 		private _db: AngularFireDatabase
 	) {
-		this.getAreasCarreras()
 	}
 
 	ngOnInit() {
 		this._mainService.currentFile.subscribe(val => {
 			this.main = val;
 			if (val['name']) { this.extractingSections() }
+			this.getAreasCarreras()
 		});
 		this._mainService.currentCommunity.subscribe(val => {
 			this.course = val;

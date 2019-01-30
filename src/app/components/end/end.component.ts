@@ -10,6 +10,7 @@ import * as firebase from 'firebase/app';
 import { HttpClient } from '@angular/common/http';
 import { AngularFireStorage, AngularFireUploadTask } from 'angularfire2/storage';
 import { Observable } from 'rxjs';
+import { Resource } from '@classes/resource';
 
 @Component({
 	selector: 'app-end',
@@ -22,9 +23,12 @@ export class EndComponent implements OnInit {
 
 	community: Community
 	sections: Array<Section>
-	snapshot: Observable<any>;
 
+	snapshot: any;
+	progress: any = 0;
 	task: AngularFireUploadTask;
+
+	final = []
 
 	constructor(
 		private _mainService: MainService,
@@ -52,16 +56,65 @@ export class EndComponent implements OnInit {
 
 				console.log('<UNIDADES>', this.sections)
 
-				this.linearUploadAlter()
+				this.uploadOneByOne()
 			})
 		})
 	}
 
-	linearUploadAlter() {
+	asyncUploadIndividualResource(res: Resource) {
+		return new Promise((resolve, reject) => {
+			this.http.get(res._localPath, { responseType: 'blob' }).subscribe(data => {
+				var metadata = { contentType: res._typeFile };
+				const storageRef = this._fsg.storage.ref(`${STORE.Resources}/${res._key}`);
+				const uploadTask = storageRef.child(res._key).put(data, metadata);
+
+				uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
+					(snapshot) => {
+						this.snapshot = snapshot
+						this.progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+						this.progress = this.progress.toFixed(3);
+						console.log(`( ${this.progress} % ) ${res._name}`);
+					}, (error) => {
+						console.warn(error)
+						// A full list of error codes is available at
+						// https://firebase.google.com/docs/storage/web/handle-errors
+						this.append(`Hubo un error subiendo el recurso"${res._name}"`, 'danger')
+						resolve(false)
+					}, () => {
+						this.append(`<small>- - - Recurso "${res._name}" subido</small>`, 'light')
+						uploadTask.snapshot.ref.getDownloadURL().then(url => {
+							res.$previewImage = url
+							res.$urlFile = url
+							this._afs.collection(PATHS.Resources).doc(res._key).set(res.toFirebaseObj()).then(() => {
+								this.append(`<small>- - - "${res._name}" recurso creado</small>`, 'light')
+								resolve(res)
+							}, err => {
+								this.append(`Hubo un error creando el recurso "${res._name}"`, 'danger')
+								resolve(res)
+							})
+						})
+					});
+			});
+		})
+	}
+
+	workMyCollection(arr: Array<Resource>) {
+		return arr.reduce((promise, item) => {
+			return promise
+				.then((result) => {
+					console.log(`item ${item}`);
+					return this.asyncUploadIndividualResource(item).then(result => this.final.push(result));
+				})
+				.catch(console.error);
+		}, Promise.resolve());
+	}
+
+	uploadOneByOne() {
 		const promesas: Array<Promise<any>> = [];
+		const recursos: Array<Resource> = [];
 
 		this.append(`Iniciando subida de elementos ....`, 'primary')
-		this.append(`Subiendo recursos`, 'info')
+		this.append(`Subiendo recursos de la comunidad`, 'info')
 
 		// Obteniendo los archivos que se van a subir para obter el enlace
 		this.sections.forEach(unit => {
@@ -70,50 +123,16 @@ export class EndComponent implements OnInit {
 				const resources = topic._resources
 				if (resources) {
 					resources.forEach(res => {
-						promesas.push(new Promise((resolve, reject) => {
-
-							this.http.get(res._localPath, { responseType: 'blob' }).subscribe(data => {
-								var metadata = { contentType: res._typeFile };
-								const storageRef = this._fsg.storage.ref(`${STORE.Resources}/${res._key}`);
-								const uploadTask = storageRef.child(res._key).put(data, metadata);
-
-								// console.log('Max Upload Retry Time (ms):', this._fsg.storage.maxUploadRetryTime)
-								// console.log('Operation Retry Time (ms):', this._fsg.storage.maxOperationRetryTime)
-
-								uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
-									(snapshot) => {
-										var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-										console.log(`( ${progress.toFixed(3)}% ) ${res._name}`);
-									}, (error) => {
-										console.warn(error)
-										// A full list of error codes is available at
-										// https://firebase.google.com/docs/storage/web/handle-errors
-										this.append(`Hubo un error subiendo el recurso"${res._name}"`, 'danger')
-										resolve(false)
-									}, () => {
-										this.append(`<small>- - - Recurso "${res._name}" subido</small>`, 'light')
-										uploadTask.snapshot.ref.getDownloadURL().then(url => {
-											res.$previewImage = url
-											res.$urlFile = url
-											this._afs.collection(PATHS.Resources).doc(res._key).set(res.toFirebaseObj()).then(() => {
-												this.append(`<small>- - - "${res._name}" recurso creado</small>`, 'light')
-												resolve(res)
-											}, err => {
-												this.append(`Hubo un error creando el recurso "${res._name}"`, 'danger')
-												resolve(res)
-											})
-										})
-									});
-							});
-						}));
+						recursos.push(res)
 					});
+				} else {
+					this.append(`La unidad ${unit._title} no tiene recursos para subir`, 'warning')
 				}
 			});
 		});
 
-		Promise.all(promesas).then(() => {
-
-			this.append(`Se subieron todos los recursos`, 'success')
+		this.workMyCollection(recursos).then(() => {
+			this.append(`Proceso de subida de recursos finalizado..!`, 'success')
 			this.append(`Creando los topicos`, 'warning')
 
 			const promesasTopicos: Array<Promise<any>> = [];
@@ -136,8 +155,9 @@ export class EndComponent implements OnInit {
 
 									uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
 										(snapshot) => {
-											var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-											console.log(`( ${progress.toFixed(3)}% ) ${res._name}`);
+											this.progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+											this.progress = this.progress.toFixed(3)
+											console.log(`( ${this.progress} % ) ${res._name}`);
 										},
 										(error) => {
 											console.warn(error)
@@ -191,17 +211,15 @@ export class EndComponent implements OnInit {
 
 				Promise.all(promesasUnidades).then(() => {
 					this.append(`Todos las unidades creadas`, 'primary')
-					this.append(`Creando la Comunidad`, 'info')
+					this.append(`Creando la Comunidad`, 'warning')
 
 					this._afs.collection(PATHS.Community).doc(this.community._key).set(this.community.serialize()).then(() => {
-						this.append('Se creó la comunidad', 'info')
+						this.append(`Se creó la comunidad "${this.community._name}"`, 'info')
 						this.append(`El proceso de carga a Finalizado ...`, 'dark')
 					}, err => {
 						this.append(`Error creando la comunidad "${this.community._name}"`, 'danger')
 					});
 				});
-
-
 			});
 		});
 	}
