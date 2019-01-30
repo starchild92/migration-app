@@ -121,6 +121,7 @@ export class EndComponent implements OnInit {
 
 						uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
 							(snapshot) => {
+								this.snapshot = snapshot
 								this.progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
 								this.progress = this.progress.toFixed(3)
 								console.log(`( ${this.progress} % ) ${res._name}`);
