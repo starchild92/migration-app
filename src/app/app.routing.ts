@@ -7,6 +7,7 @@ import { MainComponent } from '@components/main/main.component';
 import { TopicsComponent } from '@components/topics/topics.component';
 import { ResourcesComponent } from '@components/resources/resources.component';
 import { EndComponent } from '@components/end/end.component';
+import { AdminAreaCarrerasComponent } from '@components/admin-area-carreras/admin-area-carreras.component';
 
 const routes: Routes = [
     {
@@ -32,6 +33,10 @@ const routes: Routes = [
 	{
         path: 'end',
         component: EndComponent
+	},
+	{
+        path: 'areas',
+        component: AdminAreaCarrerasComponent
     },
     {
         path: '**',

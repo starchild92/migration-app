@@ -1,0 +1,14 @@
+<div class="row">
+	<div class="col">
+		<h5>Areas</h5>
+		<ul>
+			<li *ngFor="let area of areas | async"> {{ area.name }}</li>
+		</ul>
+	</div>
+	<div class="col">
+		<h5>Carreras</h5>
+		<ul>
+			<li *ngFor="let carrera of area?.carreras"> {{ carrera.name }}</li>
+		</ul>
+	</div>
+</div>

@@ -28,6 +28,7 @@ import { TopicDisplayComponent } from './components/dumb/topic-display/topic-dis
 import { ResourcesComponent } from './components/resources/resources.component';
 import { EndComponent } from './components/end/end.component';
 import { FileSizePipe } from './pipes/filesize.pipe';
+import { AdminAreaCarrerasComponent } from './components/admin-area-carreras/admin-area-carreras.component';
 
 @NgModule({
 	declarations: [
@@ -40,7 +41,8 @@ import { FileSizePipe } from './pipes/filesize.pipe';
 		TopicDisplayComponent,
 		ResourcesComponent,
 		EndComponent,
-		FileSizePipe
+		FileSizePipe,
+		AdminAreaCarrerasComponent
 	],
 	imports: [
 		BrowserModule,
