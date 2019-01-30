@@ -1,10 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { CORONA } from '@env/environment';
+import { firebaseConfig } from '@env/environment';
 
 import * as firebase from 'firebase/app';
-firebase.initializeApp(CORONA);
+firebase.initializeApp(firebaseConfig);
 
 import { appRouting } from './app.routing';
 
@@ -44,7 +44,7 @@ import { FileSizePipe } from './pipes/filesize.pipe';
 	],
 	imports: [
 		BrowserModule,
-		AngularFireModule.initializeApp(CORONA),
+		AngularFireModule.initializeApp(firebaseConfig),
 		AngularFireDatabaseModule,
 		AngularFireAuthModule,
 		AngularFirestoreModule,

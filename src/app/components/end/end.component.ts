@@ -4,16 +4,12 @@ import { Community } from '@classes/community';
 import { Section } from '@classes/section';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { PATHS, STORE } from '@env/environment';
-import { tap } from 'rxjs/operators';
 
 import * as firebase from 'firebase/app';
-import { Topic } from '@classes/topic';
-import { Resource } from '@classes/resource';
+
 import { HttpClient } from '@angular/common/http';
 import { AngularFireStorage, AngularFireUploadTask } from 'angularfire2/storage';
 import { Observable } from 'rxjs';
-import { promise } from 'protractor';
-import { resolve } from 'dns';
 
 @Component({
 	selector: 'app-end',
@@ -34,10 +30,14 @@ export class EndComponent implements OnInit {
 		private _mainService: MainService,
 		private renderer: Renderer,
 		private _afs: AngularFirestore,
-		private http: HttpClient,
-		private storage: AngularFireStorage
+		private _fsg: AngularFireStorage,
+		private http: HttpClient
 	) {
 		this.sections = []
+
+		// 1 hour max upload retry time
+		this._fsg.storage.setMaxUploadRetryTime(3600000)
+		this._fsg.storage.setMaxOperationRetryTime(3600000)
 	}
 
 	ngOnInit() {
@@ -48,12 +48,12 @@ export class EndComponent implements OnInit {
 				this.sections = sec;
 
 				console.log(this.sections)
-				this.linearUpload()
+				this.linearUploadAlter()
 			})
 		})
 	}
 
-	linearUpload() {
+	linearUploadAlter() {
 		const promesas: Array<Promise<any>> = [];
 
 		this.append(`Iniciando subida de elementos ....`, 'primary')
@@ -70,26 +70,36 @@ export class EndComponent implements OnInit {
 
 							this.http.get(res._localPath, { responseType: 'blob' }).subscribe(data => {
 								var metadata = { contentType: res._typeFile };
-								const storageRef = firebase.storage().ref(`${STORE.Resources}/${res._key}`);
+								const storageRef = this._fsg.storage.ref(`${STORE.Resources}/${res._key}`);
 								const uploadTask = storageRef.child(res._key).put(data, metadata);
 
-								uploadTask.then(snap => {
-									this.append(`<small>- - - Recurso "${res._name}" subido</small>`, 'light')
-									snap.ref.getDownloadURL().then(url => {
-										res.$previewImage = url
-										res.$urlFile = url
-										this._afs.collection(PATHS.Resources).doc(res._key).set(res.toFirebaseObj()).then(() => {
-											this.append(`<small>- - - "${res._name}" recurso creado</small>`, 'light')
-											resolve(res)
+								// console.log('Max Upload Retry Time (ms):', this._fsg.storage.maxUploadRetryTime)
+								// console.log('Operation Retry Time (ms):', this._fsg.storage.maxOperationRetryTime)
+
+								uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
+									(snapshot) => {
+										var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+										console.log(`( ${progress.toFixed(3)}% ) ${res._name}`);
+									}, (error) => {
+										console.warn(error)
+										// A full list of error codes is available at
+										// https://firebase.google.com/docs/storage/web/handle-errors
+										this.append(`Hubo un error subiendo el recurso"${res._name}"`, 'danger')
+										resolve(false)
+									}, () => {
+										this.append(`<small>- - - Recurso "${res._name}" subido</small>`, 'light')
+										uploadTask.snapshot.ref.getDownloadURL().then(url => {
+											res.$previewImage = url
+											res.$urlFile = url
+											this._afs.collection(PATHS.Resources).doc(res._key).set(res.toFirebaseObj()).then(() => {
+												this.append(`<small>- - - "${res._name}" recurso creado</small>`, 'light')
+												resolve(res)
+											}, err => {
+												this.append(`Hubo un error creando el recurso "${res._name}"`, 'danger')
+												resolve(res)
+											})
 										})
-									})
-								});
-
-								const next = snapshot => { const progress = snapshot["bytesTransferred"] / snapshot["totalBytes"] * 100; };
-								const err = mir => { reject(mir); };
-								const subscribe = uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED);
-								subscribe(next, err);
-
+									});
 							});
 						}));
 					});
@@ -97,7 +107,7 @@ export class EndComponent implements OnInit {
 			});
 		});
 
-		Promise.all(promesas).then((array) => {
+		Promise.all(promesas).then(() => {
 
 			this.append(`Se subieron todos los recursos`, 'success')
 			this.append(`Creando los topicos`, 'warning')
@@ -117,70 +127,80 @@ export class EndComponent implements OnInit {
 								const res = files[0];
 								this.http.get(res._localPath, { responseType: 'blob' }).subscribe(data => {
 									var metadata = { contentType: res._typeFile };
-									const storageRef = firebase.storage().ref(`${STORE.Topics}/${topic._key}`);
+									const storageRef = this._fsg.storage.ref(`${STORE.Topics}/${topic._key}`);
 									const uploadTask = storageRef.child(topic._key).put(data, metadata);
 
-									uploadTask.then(snap => {
-										this.append(`<small>- - - Imagen del topico "${topic._name}" completado</small>`, 'light')
-										snap.ref.getDownloadURL().then(url => {
-											topic.$urlImage = url
-											topic.$nameImage = res._name
-											this._afs.collection(PATHS.Topics).doc(topic._key).set(topic.toFirestoreObject()).then(() => {
-												this.append(`<small>- - - Topico: "${topic._name}" creado</small>`, 'light')
-												resolve(topic)
-											})
-										})
-									});
+									uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
+										(snapshot) => {
+											var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+											console.log(`( ${progress.toFixed(3)}% ) ${res._name}`);
 
-									const next = snapshot => {
-										const progress = snapshot["bytesTransferred"] / snapshot["totalBytes"] * 100;
-									};
-
-									const err = mir => {
-										reject(mir);
-									};
-
-									const subscribe = uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED);
-									subscribe(next, err);
+										},
+										(error) => {
+											console.warn(error)
+											this.append(`Hubo un error subiendo el recurso "${res._name}" del topico ${topic._name}`, 'danger')
+											resolve(false)
+										},
+										() => {
+											this.append(`<small>- - - Imagen del topico "${topic._name}" completado</small>`, 'light')
+											uploadTask.snapshot.ref.getDownloadURL().then(url => {
+												topic.$urlImage = url
+												topic.$nameImage = res._name
+												this._afs.collection(PATHS.Topics).doc(topic._key).set(topic.toFirestoreObject()).then(() => {
+													this.append(`<small>- - - Topico: "${topic._name}" creado</small>`, 'light')
+													resolve(topic)
+												}, err => {
+													this.append(`Hubo un creando el topico "${topic._name}"`, 'danger')
+													resolve(false)
+												})
+											});
+										});
 								});
 							}
 						} else {
 							this._afs.collection(PATHS.Topics).doc(topic._key).set(topic.toFirestoreObject()).then(() => {
 								resolve(topic)
+							}, err => {
+								this.append(`Error creando el topico "${topic._name}"`, 'danger')
+								resolve(false)
 							})
 						}
 					}));
 				});
 			});
 
-			Promise.all(promesasTopicos).then(array => {
+			Promise.all(promesasTopicos).then(() => {
 				this.append(`Todos los topicos creados`, 'primary')
 				this.append(`Creando las unidades`, 'warning')
 
 				let promesasUnidades: Array<Promise<any>> = []
 				this.sections.forEach(unit => {
-					promesasUnidades.push(new Promise((resolve, reject) => {
+					promesasUnidades.push(new Promise((resolve) => {
 						this._afs.collection(PATHS.Units).doc(unit._key).set(unit.toFirebaseObject()).then(() => {
 							this.append(`- La unidad: "${unit._title}" fue creada`, 'info')
 							resolve(unit)
-						});
+						}), err => {
+							this.append(`Error creando la unidad "${unit._title}"`, 'danger')
+							resolve(false)
+						};
 					}));
 				});
 
-				Promise.all(promesasUnidades).then(array => {
+				Promise.all(promesasUnidades).then(() => {
 					this.append(`Todos las unidades creadas`, 'primary')
 					this.append(`Creando la Comunidad`, 'info')
 
 					this._afs.collection(PATHS.Community).doc(this.community._key).set(this.community.serialize()).then(() => {
 						this.append('Se creó la comunidad', 'info')
 						this.append(`El proceso de carga a Finalizado ...`, 'dark')
+					}, err => {
+						this.append(`Error creando la comunidad "${this.community._name}"`, 'danger')
 					});
 				});
 
 
 			});
 		});
-
 	}
 
 	append(message: string, cls: string) {
