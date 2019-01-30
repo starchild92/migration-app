@@ -1,10 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { firebaseConfig } from '@env/environment';
+import { CORONA } from '@env/environment';
 
 import * as firebase from 'firebase/app';
-firebase.initializeApp(firebaseConfig);
+firebase.initializeApp(CORONA);
 
 import { appRouting } from './app.routing';
 
@@ -46,7 +46,7 @@ import { AdminAreaCarrerasComponent } from './components/admin-area-carreras/adm
 	],
 	imports: [
 		BrowserModule,
-		AngularFireModule.initializeApp(firebaseConfig),
+		AngularFireModule.initializeApp(CORONA),
 		AngularFireDatabaseModule,
 		AngularFireAuthModule,
 		AngularFirestoreModule,
