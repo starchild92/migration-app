@@ -1,8 +1,10 @@
 <ng-container *ngIf="continue; else elseTemplate">
 	<div class="alert alert-primary">
-		Puedes <a class="alert-link" [routerLink]="[ '/resources' ]">Continuar</a>. A continuación asociaremos los topicos con los archivos involucrados mediante el <code>context id</code>
+		Puedes <a class="alert-link" [routerLink]="[ '/resources' ]">Continuar</a>. A continuación asociaremos los topicos
+		con los archivos involucrados mediante el <code>context id</code>
 	</div>
 	<span *ngFor="let section of sections">
+		<div class="alert alert-warning p-1 text-center" *ngIf="!section.preRequisite"> Unidad oculta en Moodle</div>
 		<app-topic-display [section]="section"></app-topic-display>
 		<hr>
 	</span>

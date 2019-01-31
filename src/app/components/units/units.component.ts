@@ -55,19 +55,33 @@ export class UnitsComponent implements OnInit {
 			http.get(`${BACKUP_SOURCE}/${section._path}/section.xml`, { responseType: 'text' }).subscribe(data => {
 				parser.parseString(data, function (err, resp) {
 					let sec = resp['section'];
+
 					flatThat(sec)
+
+					if (sec['name']) {
+						sec['name'] = String(sec['name']).trim()
+						console.log('trimmed name: ', sec['name']);
+						if (sec['name'] == '@NULL@') { sec['name'] = `Unidad ${sec['number']}` }
+						if (sec['name'] == ' ') { sec['name'] = `Unidad ${sec['number']}` }
+						if (sec['name'] == '') { sec['name'] = `Unidad ${sec['number']}` }
+					} else {
+						sec['name'] = `Unidad ${sec['number']}`
+					}
 
 					section.$key = newRef.key
 					section.$keyCommunity = comm._key
 					section.$index = sec['number']
 					section.$name = sec['name']
 					section.$summary = sec['summary']
-					section.$preUnits = sec['sequence'].split(',')
-					section.$preRequisite = Boolean(sec['visible'])
+					section.$preUnits = sec['sequence'].split(',');
+					// visible
+					section.$preRequisite = (sec['visible'] == '1') ? true : false;
+
 					if (section._activities) {
 						section.$totalTopic = section._activities.length
 					} else { section.$totalTopic = 0; }
 
+					// Para obtener la referencias de los archivos
 					http.get(`${BACKUP_SOURCE}/${section._path}/inforef.xml`, { responseType: 'text' }).subscribe(inforef => {
 						parser.parseString(inforef, function (err, resp) {
 							let references = resp['inforef']['fileref']
@@ -76,6 +90,7 @@ export class UnitsComponent implements OnInit {
 								if (references) {
 									references = references['file']
 									flatThat(references)
+
 									references.forEach(rf => {
 										section.$fileReferences = rf['id'][0]
 

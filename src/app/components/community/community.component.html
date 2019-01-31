@@ -28,6 +28,9 @@
 			</div>
 		</div>
 	</div>
+	<div class="col-12">
+		No ve el area o carrera? <a [routerLink]="[ '/areas']">Administrar Areas y Carreras</a>
+	</div>
 </div>
 
 <ng-container *ngIf="areaS && carreraS; else elseTemplate">

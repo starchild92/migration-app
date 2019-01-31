@@ -11,6 +11,7 @@ export class Resource {
 	private urlFile: string;
 
 	private localPath: string;
+	private fileSize: string;
 
 	public set $index(v: number) { this.index = v; }
 	public set $key(v: string) { this.key = v; }
@@ -24,6 +25,7 @@ export class Resource {
 	public set $urlFile(v: string) { this.urlFile = v; }
 
 	public set $localPath(v: string) { this.localPath = v; }
+	public set $fileSize(v: string) { this.fileSize = v; }
 
 	public get _index() { return this.index; }
 	public get _key() { return this.key; }
@@ -37,6 +39,7 @@ export class Resource {
 	public get _urlFile() { return this.urlFile; }
 
 	public get _localPath() { return this.localPath; }
+	public get _fileSize() { return this.fileSize; }
 
 	constructor(object?: any) {
 		if (object) {
@@ -61,6 +64,7 @@ export class Resource {
 		this.urlFile = this.loadData(info.urlFile);
 
 		this.localPath = this.loadData(info.localPath);
+		this.fileSize = this.loadData(info.fileSize);
 	}
 
 	toFirebaseObj() {
@@ -86,6 +90,7 @@ export class Resource {
 			case 'url': obj.typeFile = '3'; break;
 			case 'application/zip': obj.typeFile = '3';
 			case 'application/vnd.openxmlformats-officedocument.presentationml.presentation': obj.typeFile = '3'; break;
+			case 'application/vnd.ms-powerpoint': obj.typeFile = '3'; break;
 			case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document': obj.typeFile = '3'; break;
 			default: obj.typeFile = '3'; break;
 		}
@@ -114,4 +119,5 @@ export class ResourceInterface {
 	urlFile: string;
 
 	localPath: string;
+	fileSize: string;
 }

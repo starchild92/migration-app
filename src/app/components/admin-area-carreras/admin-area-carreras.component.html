@@ -2,13 +2,52 @@
 	<div class="col">
 		<h5>Areas</h5>
 		<ul>
-			<li *ngFor="let area of areas | async"> {{ area.name }}</li>
+			<li *ngFor="let area of areas"> <a (click)="displayCarreras(area)">{{ area?.name }}</a></li>
 		</ul>
 	</div>
 	<div class="col">
 		<h5>Carreras</h5>
 		<ul>
-			<li *ngFor="let carrera of area?.carreras"> {{ carrera.name }}</li>
+			<li *ngFor="let carrera of carreras"> {{ carrera.name }}</li>
 		</ul>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-6">
+		<form [formGroup]="areaForm" (submit)="addArea()">
+			<div class="form-group">
+				<label for="area_name">Nombre</label>
+				<input formControlName="name" type="text" class="form-control" id="area_name" placeholder="Nombre del Area">
+			</div>
+
+			<div class="form-group">
+				<label for="area_name">Color (#FFFFFF)</label>
+				<input formControlName="colorCard" type="text" class="form-control" id="area_name" placeholder="Código Hexadecimal">
+			</div>
+
+			<div class="form-group">
+				<label for="area_name">URL Image</label>
+				<input formControlName="url" type="text" class="form-control" id="area_name" placeholder="URL">
+			</div>
+
+			<button type="submit" class="btn btn-primary">Agregar</button>
+		</form>
+	</div>
+	<div class="col-6">
+		<form [formGroup]="carreraForm" (submit)="addCarrera()">
+			<ng-container *ngIf="selectedArea; else elseTemplate">
+				<label class="font-weight-bold">Area Seleccionada:</label><code> {{ selectedArea?.name }} ({{ selectedArea?.id }})</code>
+			</ng-container>
+			<ng-template #elseTemplate>
+				<div class="text-danger">No has seleccionado una area</div>
+			</ng-template>
+
+			<div class="form-group">
+				<label for="area_name">Nombre</label>
+				<input formControlName="name" type="text" class="form-control" id="area_name" placeholder="Nombre de la Carrera">
+			</div>
+			<button type="submit" class="btn btn-primary">Agregar</button>
+		</form>
 	</div>
 </div>

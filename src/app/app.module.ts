@@ -1,10 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { CORONA } from '@env/environment';
+import { firebaseConfig } from '@env/environment';
 
 import * as firebase from 'firebase/app';
-firebase.initializeApp(CORONA);
+firebase.initializeApp(firebaseConfig);
 
 import { appRouting } from './app.routing';
 
@@ -15,6 +15,7 @@ import { AngularFirestoreModule } from "angularfire2/firestore";
 import { AngularFireStorageModule } from "angularfire2/storage";
 import { NgxJsonViewerModule } from 'ngx-json-viewer';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { MainService } from '@services/main.service';
 
@@ -29,6 +30,7 @@ import { ResourcesComponent } from './components/resources/resources.component';
 import { EndComponent } from './components/end/end.component';
 import { FileSizePipe } from './pipes/filesize.pipe';
 import { AdminAreaCarrerasComponent } from './components/admin-area-carreras/admin-area-carreras.component';
+import { FileTypeDisplayComponent } from './components/dumb/file-type-display/file-type-display.component';
 
 @NgModule({
 	declarations: [
@@ -42,11 +44,14 @@ import { AdminAreaCarrerasComponent } from './components/admin-area-carreras/adm
 		ResourcesComponent,
 		EndComponent,
 		FileSizePipe,
-		AdminAreaCarrerasComponent
+		AdminAreaCarrerasComponent,
+		FileTypeDisplayComponent
 	],
 	imports: [
 		BrowserModule,
-		AngularFireModule.initializeApp(CORONA),
+		FormsModule,
+		ReactiveFormsModule,
+		AngularFireModule.initializeApp(firebaseConfig),
 		AngularFireDatabaseModule,
 		AngularFireAuthModule,
 		AngularFirestoreModule,

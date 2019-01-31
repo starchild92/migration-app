@@ -5,6 +5,7 @@ import { orderBy, filter, find, remove } from 'lodash';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Resource } from '@classes/resource';
 import { GRIKY_UID, BACKUP_SOURCE } from '@env/environment';
+import { Topic } from '@classes/topic';
 
 @Component({
 	selector: 'app-resources',
@@ -57,33 +58,39 @@ export class ResourcesComponent implements OnInit {
 				let ind: number = 0
 				let files = filter(this.files, function (f) { return f['contextid'] === topic._contextid })
 
-				if(topic._type != 'url') {
+				if (topic._type != 'url') {
 					files.forEach(file => {
-						const newRef = this._db.database.app.database().ref().push();
-						let resource = new Resource()
 
-						resource.$index = ind
-						resource.$key = newRef.key
-						resource.$keyCommunity = element._keyCommunity
-						resource.$keyUnit = element._key
-						resource.$keyTopic = topic._key
-						resource.$keyUser = GRIKY_UID
-						resource.$name = file['filename']
-						resource.$typeFile = file['mimetype']
+						// verifico que el archivo no este en la lista
+						let lista: Array<Resource> = topic._resources;
+						if (!find(lista, (e: Resource) => { return e._localPath === `${BACKUP_SOURCE}/files/${file['contenthash']}` })) {
+							const newRef = this._db.database.app.database().ref().push();
+							let resource = new Resource()
 
-						// unbicació de los recursos que se están cargando
-						resource.$localPath = `${BACKUP_SOURCE}/files/${file['contenthash']}`;
+							resource.$index = ind
+							resource.$key = newRef.key
+							resource.$keyCommunity = element._keyCommunity
+							resource.$keyUnit = element._key
+							resource.$keyTopic = topic._key
+							resource.$keyUser = GRIKY_UID
+							resource.$name = file['filename']
+							resource.$typeFile = file['mimetype']
 
-						ind = ind + 1
+							// unbicació de los recursos que se están cargando
+							resource.$localPath = `${BACKUP_SOURCE}/files/${file['contenthash']}`;
+							resource.$fileSize = file['filesize']
 
-						topic.$resource = resource;
+							ind = ind + 1
+
+							topic.$resource = resource;
+						} else {
+							console.log('Se encontró un archivo igual en la lista.')
+						}
 					});
 				}
 			});
 		});
 	}
-
-	addAsTopicImage(r: Resource) { }
 
 	deleteFromResources(r: Resource) {
 		let section = find(this.sections, function (s) { return s._key == r._keyUnit });
@@ -99,6 +106,14 @@ export class ResourcesComponent implements OnInit {
 	removeSection(s: Section) {
 		remove(this.sections, function (e) { return s._key == e._key })
 		updateIndexes(this.sections)
+	}
+
+	deleteTopic(t: Topic) {
+		let s: Section = find(this.sections, (s) => { return t._keyUnit == s._key })
+		remove(s._topics, (tp) => { return t._key === tp._key })
+		updateIndexes(s._topics)
+
+		console.log(this.sections)
 	}
 
 }

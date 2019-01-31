@@ -1,0 +1,31 @@
+<!-- Muestra el contenido actual -->
+<ng-container *ngIf="resource.typeFile == 'video/mp4';">
+	<video src="{{ resource.localPath }}" class="mr-3 w-50 img-fluid border roundedb block"></video>
+</ng-container>
+<ng-container *ngIf="resource.typeFile == 'image/jpeg';">
+	<img src="{{ resource.localPath }}" class="mr-3 img-fluid">
+</ng-container>
+<ng-container *ngIf="resource.typeFile == 'image/png';">
+	<img src="{{ resource.localPath }}" class="mr-3 img-fluid">
+</ng-container>
+
+<!-- Imagenes alucibas* al tipo de elemento -->
+<ng-container *ngIf="resource.typeFile == 'application/zip';">
+	<img style="max-height: 50px;" src="assets/zip.svg" alt="">
+</ng-container>
+
+<ng-container *ngIf="resource.typeFile == 'application/pdf';">
+	<img style="max-height: 50px;" src="assets/pdf.svg" alt="">
+</ng-container>
+
+<ng-container *ngIf="resource.typeFile == 'url';">
+	<img style="max-height: 50px;" src="assets/link.svg" alt="">
+</ng-container>
+
+<ng-container *ngIf="resource.typeFile == 'application/msword' || resource.type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';">
+	<img style="max-height: 50px;" src="assets/word.svg" alt="">
+</ng-container>
+
+<ng-container *ngIf="resource.typeFile == 'application/vnd.openxmlformats-officedocument.presentationml.presentation' || resource.typeFile == 'application/vnd.ms-powerpoint';">
+	<img style="max-height: 50px;" src="assets/powerpoint.svg" alt="">
+</ng-container>
