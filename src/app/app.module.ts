@@ -1,10 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { CORONA } from '@env/environment';
+import { firebaseConfig } from '@env/environment';
 
 import * as firebase from 'firebase/app';
-firebase.initializeApp(CORONA);
+firebase.initializeApp(firebaseConfig);
 
 import { appRouting } from './app.routing';
 
@@ -29,6 +29,7 @@ import { ResourcesComponent } from './components/resources/resources.component';
 import { EndComponent } from './components/end/end.component';
 import { FileSizePipe } from './pipes/filesize.pipe';
 import { AdminAreaCarrerasComponent } from './components/admin-area-carreras/admin-area-carreras.component';
+import { FileTypeDisplayComponent } from './components/dumb/file-type-display/file-type-display.component';
 
 @NgModule({
 	declarations: [
@@ -42,11 +43,12 @@ import { AdminAreaCarrerasComponent } from './components/admin-area-carreras/adm
 		ResourcesComponent,
 		EndComponent,
 		FileSizePipe,
-		AdminAreaCarrerasComponent
+		AdminAreaCarrerasComponent,
+		FileTypeDisplayComponent
 	],
 	imports: [
 		BrowserModule,
-		AngularFireModule.initializeApp(CORONA),
+		AngularFireModule.initializeApp(firebaseConfig),
 		AngularFireDatabaseModule,
 		AngularFireAuthModule,
 		AngularFirestoreModule,

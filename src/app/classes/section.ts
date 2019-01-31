@@ -112,10 +112,10 @@ export class Section {
 
 	toFirebaseObject(): any {
 		let obj = {
-			index: this.index,
+			index: Number(this.index),
 			key: this.key,
 			keyCommunity: this.keyCommunity,
-			name: this.title,
+			name: this.name,
 			preRequisite: this.preRequisite,
 			preUnits: this.preUnits,
 			totalTopic: this._totalTopic

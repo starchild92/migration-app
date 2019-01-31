@@ -9,7 +9,8 @@
 </p>
 <ng-container *ngIf="canGo; else elseTemplate">
 	<div class="alert alert-primary">
-		El documento XML fue leido correctamente, puede <a class="alert-link" [routerLink]="[ '/community' ]">Continuar</a>
+		- El documento XML fue leido correctamente <br>
+		- El Griky UID fue verificado, puede <a class="alert-link" [routerLink]="[ '/community' ]">Continuar</a>
 	</div>
 	<hr>
 	<p>Contenido del archivo principal del backup <code>moodle_backup.xml</code></p>

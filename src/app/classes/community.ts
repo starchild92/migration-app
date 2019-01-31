@@ -55,7 +55,7 @@ export class Community {
 
 	constructor(object?: CommunityInterface) {
 		this.created = moment().format('d/MM/Y h:m:s A');
-		this.publicado = false;
+		this.publicado = true;
 		this.positionCommunity = false;
 
 		if (object) {

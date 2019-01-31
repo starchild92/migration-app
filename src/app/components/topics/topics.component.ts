@@ -69,10 +69,11 @@ export class TopicsComponent implements OnInit {
 					topic.$name = activity._title
 					topic.$type = activity._type
 
-					ind = ind + 1;
-
 					/** Para no procesar los paquetes SCORM */
-					if (activity._type !== 'scorm') {
+					if (activity._type !== 'scorm' && activity._type !== 'assign') {
+
+						// index del topic
+						ind = ind + 1;
 
 						this.http.get(`${BACKUP_SOURCE}/${activity._path}/${activity._type}.xml`, { responseType: 'text' }).subscribe(data => {
 							parser.parseString(data, (err, resp) => {
@@ -87,14 +88,12 @@ export class TopicsComponent implements OnInit {
 								topic.$moduleid = act['moduleid']
 								topic.$modulename = act['modulename']
 
-								if(topic._type === 'url') {
-
-									console.log(act)
+								if (topic._type === 'url') {
 
 									const newRef = this._db.database.app.database().ref().push();
 									let resource = new Resource()
 
-									resource.$index = ind
+									resource.$index = 0
 									resource.$key = newRef.key
 									resource.$keyCommunity = this.community._key
 									resource.$keyUnit = section._key
@@ -103,8 +102,6 @@ export class TopicsComponent implements OnInit {
 									resource.$name = 'Enlace'
 									resource.$typeFile = activity._type
 									resource.$urlFile = act[topic._type]['externalurl']
-
-									ind = ind + 1
 
 									topic.$resource = resource;
 								}
