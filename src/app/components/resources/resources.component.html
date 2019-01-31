@@ -23,9 +23,9 @@
 								<div *ngFor="let resource of topic.resources">
 									<ul class="list-unstyled">
 										<li>
-											<small>[{{ resource.index }}] - "{{ resource.name }}" ({{ resource.fileSize | fileSize }})</small>
+											<small class="block">[{{ resource.index }}] - "{{ resource.name }}" ({{ resource.fileSize | fileSize }})</small>
 											<app-file-type-display [resource]="resource"></app-file-type-display>
-											<div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+											<div class="btn-group btn-group-sm block" role="group" aria-label="Basic example">
 												<button type="button" (click)="deleteFromResources(resource)" class="btn btn-danger">Eliminar</button>
 											</div>
 										</li>

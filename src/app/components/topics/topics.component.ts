@@ -115,6 +115,8 @@ export class TopicsComponent implements OnInit {
 
 		});
 
+		console.log(this.sections)
+
 		this._mainService.updateSections(this.sections)
 		this.continue = true
 	}

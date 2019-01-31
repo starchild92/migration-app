@@ -4,8 +4,7 @@
 		con los archivos involucrados mediante el <code>context id</code>
 	</div>
 	<span *ngFor="let section of sections">
-		<div class="alert alert-warning p-1 text-center" *ngIf="!section.preRequisite"> Este topico se encuentra oculto en
-			moodle </div>
+		<div class="alert alert-warning p-1 text-center" *ngIf="!section.preRequisite"> Unidad oculta en Moodle</div>
 		<app-topic-display [section]="section"></app-topic-display>
 		<hr>
 	</span>

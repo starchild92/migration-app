@@ -15,6 +15,7 @@ import { AngularFirestoreModule } from "angularfire2/firestore";
 import { AngularFireStorageModule } from "angularfire2/storage";
 import { NgxJsonViewerModule } from 'ngx-json-viewer';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { MainService } from '@services/main.service';
 
@@ -48,6 +49,8 @@ import { FileTypeDisplayComponent } from './components/dumb/file-type-display/fi
 	],
 	imports: [
 		BrowserModule,
+		FormsModule,
+		ReactiveFormsModule,
 		AngularFireModule.initializeApp(firebaseConfig),
 		AngularFireDatabaseModule,
 		AngularFireAuthModule,

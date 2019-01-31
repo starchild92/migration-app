@@ -75,6 +75,13 @@ export class MainService {
 			})
 		});
 	}
+	getAreas(): Promise<any> {
+		return new Promise((resolve, reject) => {
+			this.currentAreas.subscribe(val => {
+				resolve(val)
+			})
+		});
+	}
 
 	updateActivities(source: Array<Activity>) { this.mainActivitySource.next(source); }
 }
