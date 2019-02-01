@@ -3,7 +3,7 @@ import { MainService } from '@services/main.service';
 import { Community } from '@classes/community';
 import { Section } from '@classes/section';
 import { AngularFirestore } from 'angularfire2/firestore';
-import { PATHS, STORE } from '@env/environment';
+import { PATHS, STORE, HARD_CODED } from '@env/environment';
 
 import * as firebase from 'firebase/app';
 
@@ -113,6 +113,9 @@ export class EndComponent implements OnInit {
 			this.append(`<small>- - - Subiendo img del topico: "${topic._name}"</small>`, 'light');
 			if (topic['file']) {
 				const res = topic['file']
+
+				topic.$urlImage = HARD_CODED.Topic
+
 				if (res._localPath) {
 					this.http.get(res._localPath, { responseType: 'blob' }).subscribe(data => {
 						var metadata = { contentType: res._typeFile };
@@ -149,6 +152,7 @@ export class EndComponent implements OnInit {
 							});
 					});
 				} else {
+
 					this._afs.collection(PATHS.Topics).doc(topic._key).set(topic.toFirestoreObject()).then(() => {
 						this.append(`<small>- - - Topico: "${topic._name}" creado</small>`, 'light')
 						resolve(topic)
