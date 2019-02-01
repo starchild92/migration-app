@@ -5,7 +5,35 @@
 	</div>
 	<span *ngFor="let section of sections">
 		<div class="alert alert-warning p-1 text-center" *ngIf="!section.preRequisite"> Unidad oculta en Moodle</div>
-		<app-topic-display [section]="section"></app-topic-display>
+		<div class="row">
+			<div class="col-12">
+				<h4>{{ section.name }}</h4>
+			</div>
+			<div class="col-6">
+				<h5 class="border-bottom">Lista de Topicos</h5>
+				<div *ngFor="let topic of section.topics">
+					<ul class="list-unstyled">
+						<li class="media">
+							<div class="media-body">
+								<h5 class="mt-0 mb-1"><small>{{ topic.index }}</small> {{ topic.name }} </h5>
+								<small>{{ topic.objective }}</small>
+							</div>
+							<hr>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-6">
+				<h5 class="border-bottom">Lista de Archivos Asociados a la Unidad</h5>
+				<div class="block" *ngFor="let resource of section.files">
+					<app-file-type-display [resource]="resource"></app-file-type-display>
+					<div class="block text-center">
+						<button class="btn btn-primary btn-sm block" (click)="moveAsResource(section, resource)">¡No es la imagen de la
+							unidad!</button>
+					</div>
+				</div>
+			</div>
+		</div>
 		<hr>
 	</span>
 </ng-container>

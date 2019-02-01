@@ -49,7 +49,7 @@ export class Section {
 	}
 	public set $topics(v: Topic) {
 		if (this.topics) {
-			this.topics.push(v)
+			this.topics[0] = v
 		} else {
 			this.topics = <Array<Topic>>[];
 			this.topics.push(v);
@@ -95,15 +95,18 @@ export class Section {
 	public get _preRequisite(): boolean { return this.preRequisite }
 	public get _preUnits(): Array<any> { return this.preUnits }
 	public get _totalTopic(): number {
-		if (this.activities) {
-			return this.activities.length
-		} else {
-			return 0
-		}
+		// if (this.activities) {
+		// 	return this.activities.length
+		// } else {
+		// 	return 0
+		// }
+
+		// Desde que siempre se van a agrupar en un solo topico
+		return 1;
 	}
 
 	constructor(object?: SectionInterface) {
-		this.totalTopic = 0;
+		this.totalTopic = 1;
 
 		if (object) {
 			this.createWithInfo(object);

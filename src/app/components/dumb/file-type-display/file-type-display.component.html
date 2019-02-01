@@ -1,12 +1,13 @@
 <!-- Muestra el contenido actual -->
 <ng-container *ngIf="resource.typeFile == 'video/mp4';">
-	<video src="{{ resource.localPath }}" class="mr-3 w-50 img-fluid border roundedb block"></video>
+	<div class="block text-center">
+		<video src="{{ resource.localPath }}" class="mr-3 w-50 img-fluid border roundedb block"></video>
+	</div>
 </ng-container>
-<ng-container *ngIf="resource.typeFile == 'image/jpeg';">
-	<img src="{{ resource.localPath }}" class="mr-3 img-fluid">
-</ng-container>
-<ng-container *ngIf="resource.typeFile == 'image/png';">
-	<img src="{{ resource.localPath }}" class="mr-3 img-fluid">
+<ng-container *ngIf="resource.typeFile == 'image/jpeg' || resource.typeFile == 'image/png';">
+	<div class="block text-center">
+		<img src="{{ resource.localPath }}" class="mr-3 img-fluid w-50">
+	</div>
 </ng-container>
 
 <!-- Imagenes alucibas* al tipo de elemento -->
@@ -18,11 +19,19 @@
 	<img style="max-height: 50px;" src="assets/pdf.svg" alt="">
 </ng-container>
 
+<ng-container *ngIf="resource.typeFile == 'application/x-shockwave-flash';">
+	<img style="max-height: 50px;" src="assets/swf.svg" alt="">
+</ng-container>
+
+<ng-container *ngIf="resource.typeFile == 'text/html';">
+	<img style="max-height: 50px;" src="assets/html.svg" alt="">
+</ng-container>
+
 <ng-container *ngIf="resource.typeFile == 'url';">
 	<img style="max-height: 50px;" src="assets/link.svg" alt="">
 </ng-container>
 
-<ng-container *ngIf="resource.typeFile == 'application/msword' || resource.type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';">
+<ng-container *ngIf="resource.typeFile == 'application/msword' || resource.typeFile == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';">
 	<img style="max-height: 50px;" src="assets/word.svg" alt="">
 </ng-container>
 
