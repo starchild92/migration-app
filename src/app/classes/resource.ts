@@ -1,3 +1,5 @@
+import { HARD_CODED } from '@env/environment';
+
 export class Resource {
 	private index: number;
 	private key: string;
@@ -89,16 +91,46 @@ export class Resource {
 			case 'image/jpeg': obj.typeFile = '1'; break;
 			case 'image/png': obj.typeFile = '1'; break;
 
-			case 'application/msword': obj.typeFile = '3'; break;
-			case 'application/pdf': obj.typeFile = '3'; break;
-			case 'url': obj.typeFile = '3'; break;
-			case 'text/html': obj.typeFile = '3'; break;
-			case 'application/zip': obj.typeFile = '3';
-			case 'application/vnd.openxmlformats-officedocument.presentationml.presentation': obj.typeFile = '3'; break;
-			case 'application/vnd.ms-powerpoint': obj.typeFile = '3'; break;
-			case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document': obj.typeFile = '3'; break;
+			case 'application/msword':
+				obj.typeFile = '3';
+				obj.previewImage = HARD_CODED.File;
+			break;
+			case 'application/pdf':
+				obj.typeFile = '3';
+				obj.previewImage = HARD_CODED.File;
+			break;
+			case 'url':
+				obj.typeFile = '3';
+				obj.previewImage = HARD_CODED.File;
+			break;
+			case 'text/html':
+				obj.typeFile = '3';
+				obj.previewImage = HARD_CODED.File;
+			break;
+			case 'application/zip':
+				obj.typeFile = '3';
+				obj.previewImage = HARD_CODED.File;
+						case 'application/vnd.openxmlformats-officedocument.presentationml.presentation':
+				obj.typeFile = '3';
+				obj.previewImage = HARD_CODED.File;
+			break;
+			case 'application/vnd.ms-powerpoint':
+				obj.typeFile = '3';
+				obj.previewImage = HARD_CODED.File;
+			break;
+			case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
+				obj.typeFile = '3';
+				obj.previewImage = HARD_CODED.File;
+			break;
+			case 'application/vnd.ms-excel':
+				obj.typeFile = '3';
+				obj.previewImage = HARD_CODED.File;
+			break;
 
-			case 'video/mp4': obj.typeFile = '5'; break;
+			case 'video/mp4':
+				obj.typeFile = '5';
+				obj.previewImage = HARD_CODED.Video;
+			break;
 
 			case 'application/x-shockwave-flash': obj.typeFile = '6'; break;
 

@@ -29,6 +29,11 @@ export const firebaseConfig = {
 export const GRIKY_UID = '4L1kAJx1DuRa5kP9MS6DNwiBDK13';
 export const BACKUP_SOURCE = 'assets/backup_folder';
 
+export const HARD_CODED = {
+	File: 'https://firebasestorage.googleapis.com/v0/b/corona-platform.appspot.com/o/default_images%2Fdocument_preview_image.jpg?alt=media&token=0cd6e046-6819-45c1-a0f2-09bf66a93164',
+	Video: 'https://firebasestorage.googleapis.com/v0/b/corona-platform.appspot.com/o/default_images%2Fvideo_placeholder.jpg?alt=media&token=cd8b08c0-5ce4-466a-b9a8-c326ba9b1f06'
+}
+
 export enum PATHS {
 	Community = '/comunidades',
 	Units = '/unit',

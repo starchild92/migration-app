@@ -61,10 +61,9 @@ export class UnitsComponent implements OnInit {
 
 					if (sec['name']) {
 						sec['name'] = String(sec['name']).trim()
-						console.warn(`Se renombro la sección...`);
-						if (sec['name'] == '$@NULL@$') { sec['name'] = `Unidad ${sec['number']}` }
-						if (sec['name'] == ' ') { sec['name'] = `Unidad ${sec['number']}` }
-						if (sec['name'] == '') { sec['name'] = `Unidad ${sec['number']}` }
+						if (sec['name'] == '$@NULL@$') { sec['name'] = `Unidad ${sec['number']}`; console.warn(`Se renombro la sección...`); }
+						if (sec['name'] == ' ') { sec['name'] = `Unidad ${sec['number']}`; console.warn(`Se renombro la sección...`); }
+						if (sec['name'] == '') { sec['name'] = `Unidad ${sec['number']}`; console.warn(`Se renombro la sección...`); }
 					} else {
 						sec['name'] = `Unidad ${sec['number']}`
 					}
@@ -100,7 +99,8 @@ export class UnitsComponent implements OnInit {
 									initialTopic.$keyCommunity = section._keyCommunity
 									initialTopic.$keyUnit = section._key
 									initialTopic.$name = 'Contenido General'
-									initialTopic.$objective = 'Topico inicial, examinar los recursos de este topico, pues contienen el tema general de esta unidad.'
+									initialTopic.$objective = 'Topico inicial, examinar los recursos de este topico, pues contienen el tema general de esta unidad.';
+									if(section._summary != "") { initialTopic.$objective = section._summary; }
 
 									references.forEach(rf => {
 										section.$fileReferences = rf['id'][0]
