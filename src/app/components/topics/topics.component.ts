@@ -74,11 +74,7 @@ export class TopicsComponent implements OnInit {
 					topic.$keyUnit = section._key
 				}
 
-				console.log('Topic', topic)
-
 				let indAct: number = topic._resources ? topic._resources.length : 0;
-
-				console.warn(indAct)
 
 				section._activities.forEach(activity => {
 

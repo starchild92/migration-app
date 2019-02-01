@@ -44,7 +44,7 @@ export class Topic {
 				v.$index = this.resources.length
 				this.resources.push(v)
 			} else {
-				console.warn('Ya existe entre los recursos un elemento del mismo peso')
+				console.warn('Ya existe entre los recursos un elemento del mismo peso y en la misma ubicación')
 			}
 		} else {
 			this.resources = <Array<Resource>>[];
