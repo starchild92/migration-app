@@ -8,6 +8,7 @@ import { Section } from '@classes/section';
 import { Topic } from '@classes/topic';
 import { BACKUP_SOURCE, GRIKY_UID } from '@env/environment';
 import { Resource } from '@classes/resource';
+import { findIndex, remove, filter } from 'lodash';
 
 var xml2js = require('xml2js');
 
@@ -55,25 +56,34 @@ export class TopicsComponent implements OnInit {
 		let parser = new xml2js.Parser();
 
 		this.sections.forEach(section => {
-			let ind: number = 0
+
+			let topic = new Topic()
+
 			if (section._activities) {
-				section._activities.forEach(activity => {
 
+				let genTopic = section._topics
+				if (genTopic) {
+					if (genTopic.length > 0) {
+						topic = genTopic[0]
+					}
+				} else {
 					const newRef = this._db.database.app.database().ref().push();
-					let topic = new Topic()
-
-					topic.$index = ind
 					topic.$key = newRef.key
+					topic.$index = 0
 					topic.$keyCommunity = this.community._key
 					topic.$keyUnit = section._key
-					topic.$name = activity._title
-					topic.$type = activity._type
+				}
+
+				console.log('Topic', topic)
+
+				let indAct: number = topic._resources ? topic._resources.length : 0;
+
+				console.warn(indAct)
+
+				section._activities.forEach(activity => {
 
 					/** Para no procesar los paquetes SCORM */
-					if (activity._type !== 'scorm' && activity._type !== 'assign') {
-
-						// index del topic
-						ind = ind + 1;
+					if (activity._type !== 'scorm' && activity._type !== 'assign' && activity._type !== 'forum' && activity._type !== 'label' && activity._type !== 'certificate') {
 
 						this.http.get(`${BACKUP_SOURCE}/${activity._path}/${activity._type}.xml`, { responseType: 'text' }).subscribe(data => {
 							parser.parseString(data, (err, resp) => {
@@ -84,41 +94,71 @@ export class TopicsComponent implements OnInit {
 									if (act[activity._type]['intro']) { topic.$objective = act[activity._type]['intro']; }
 								}
 
-								topic.$contextid = act['contextid']
-								topic.$moduleid = act['moduleid']
-								topic.$modulename = act['modulename']
+								const newRef = this._db.database.app.database().ref().push();
+								let resource = new Resource()
 
-								if (topic._type === 'url') {
+								if (activity._type === 'url') {
 
-									const newRef = this._db.database.app.database().ref().push();
-									let resource = new Resource()
-
-									resource.$index = 0
+									// resource.$index = topic._resources ? topic._resources.length : 0;
 									resource.$key = newRef.key
 									resource.$keyCommunity = this.community._key
 									resource.$keyUnit = section._key
 									resource.$keyTopic = topic._key
 									resource.$keyUser = GRIKY_UID
-									resource.$name = 'Enlace'
+									resource.$name = activity._title
 									resource.$typeFile = activity._type
-									resource.$urlFile = act[topic._type]['externalurl']
+									resource.$urlFile = act[activity._type]['externalurl']
+									resource.$description = act[activity._type]['name']
 
 									topic.$resource = resource;
-								}
 
-								section.$topics = topic
+								} else {
+									let files = remove(this.filesXML, function (f) { return f['contextid'] === act['contextid'] });
+
+									if (files.length > 0) {
+
+										files.forEach(file => {
+
+											const newReff = this._db.database.app.database().ref().push();
+											let resource = new Resource()
+
+											// resource.$index = topic._resources ? topic._resources.length : 0;
+											resource.$key = newReff.key
+											resource.$keyCommunity = this.community._key
+											resource.$keyUnit = section._key
+											resource.$keyTopic = topic._key
+											resource.$keyUser = GRIKY_UID
+											resource.$name = file['filename']
+											resource.$typeFile = file['mimetype']
+											resource.$fileSize = file['filesize']
+
+											resource.$localPath = `${BACKUP_SOURCE}/files/${file['contenthash']}`;
+
+											topic.$resource = resource;
+
+										});
+									}
+								}
 							});
 						});
+
+						indAct = indAct + 1;
 					}
 				});
-			}
 
+				section.$topics = topic
+			}
 		});
 
 		console.log(this.sections)
 
 		this._mainService.updateSections(this.sections)
 		this.continue = true
+	}
+
+	moveAsResource(s: Section, r: Resource) {
+		const index = findIndex(this.sections, (sec: Section) => { return sec._key == s._key });
+		remove(this.sections[index]._files, (f: Resource) => { return f._key === r._key });
 	}
 
 }

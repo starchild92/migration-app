@@ -9,6 +9,7 @@ export class Resource {
 	private previewImage: string;
 	private typeFile: string;
 	private urlFile: string;
+	private description: string;
 
 	private localPath: string;
 	private fileSize: string;
@@ -23,6 +24,7 @@ export class Resource {
 	public set $previewImage(v: string) { this.previewImage = v; }
 	public set $typeFile(v: string) { this.typeFile = v; }
 	public set $urlFile(v: string) { this.urlFile = v; }
+	public set $description(v: string) { this.description = v; }
 
 	public set $localPath(v: string) { this.localPath = v; }
 	public set $fileSize(v: string) { this.fileSize = v; }
@@ -37,6 +39,7 @@ export class Resource {
 	public get _previewImage() { return this.previewImage; }
 	public get _typeFile() { return this.typeFile; }
 	public get _urlFile() { return this.urlFile; }
+	public get _description() { return this.description; }
 
 	public get _localPath() { return this.localPath; }
 	public get _fileSize() { return this.fileSize; }
@@ -62,6 +65,7 @@ export class Resource {
 		this.previewImage = this.loadData(info.previewImage);
 		this.typeFile = this.loadData(info.typeFile);
 		this.urlFile = this.loadData(info.urlFile);
+		this.description = this.loadData(info.description);
 
 		this.localPath = this.loadData(info.localPath);
 		this.fileSize = this.loadData(info.fileSize);
@@ -79,19 +83,25 @@ export class Resource {
 			previewImage: this.previewImage,
 			typeFile: this.typeFile, // convencion
 			urlFile: this.urlFile,
-			description: this.name
+			description: this.description
 		}
 		switch (this.typeFile) {
 			case 'image/jpeg': obj.typeFile = '1'; break;
 			case 'image/png': obj.typeFile = '1'; break;
-			case 'video/mp4': obj.typeFile = '5'; break;
+
 			case 'application/msword': obj.typeFile = '3'; break;
 			case 'application/pdf': obj.typeFile = '3'; break;
 			case 'url': obj.typeFile = '3'; break;
+			case 'text/html': obj.typeFile = '3'; break;
 			case 'application/zip': obj.typeFile = '3';
 			case 'application/vnd.openxmlformats-officedocument.presentationml.presentation': obj.typeFile = '3'; break;
 			case 'application/vnd.ms-powerpoint': obj.typeFile = '3'; break;
 			case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document': obj.typeFile = '3'; break;
+
+			case 'video/mp4': obj.typeFile = '5'; break;
+
+			case 'application/x-shockwave-flash': obj.typeFile = '6'; break;
+
 			default: obj.typeFile = '3'; break;
 		}
 		Object.keys(obj).forEach(key => obj[key] === undefined ? delete obj[key] : '');
@@ -117,6 +127,7 @@ export class ResourceInterface {
 	previewImage: string;
 	typeFile: string;
 	urlFile: string;
+	description: string;
 
 	localPath: string;
 	fileSize: string;

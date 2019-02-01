@@ -1,4 +1,5 @@
 import { Resource } from './resource';
+import { findIndex } from 'lodash';
 
 export class Topic {
 	private type: string;
@@ -38,9 +39,16 @@ export class Topic {
 
 	public set $resource(v: Resource) {
 		if (this.resources) {
-			this.resources.push(v)
+			let ind = findIndex(this.resources, (e) => { return (v._fileSize === e._fileSize && v._localPath === e._localPath) })
+			if (ind < 0) {
+				v.$index = this.resources.length
+				this.resources.push(v)
+			} else {
+				console.warn('Ya existe entre los recursos un elemento del mismo peso')
+			}
 		} else {
 			this.resources = <Array<Resource>>[];
+			v.$index = 0
 			this.resources.push(v);
 		}
 	}

@@ -2,13 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { MainService } from '@services/main.service';
 import { Section } from '@classes/section';
 import { HttpClient } from '@angular/common/http';
-import { BACKUP_SOURCE } from '@env/environment';
+import { BACKUP_SOURCE, GRIKY_UID } from '@env/environment';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Community } from '@classes/community';
 
 var xml2js = require('xml2js');
 import { filter, remove } from 'lodash';
 import { Resource } from '@classes/resource';
+import { Topic } from '@classes/topic';
 
 @Component({
 	selector: 'app-units',
@@ -53,15 +54,15 @@ export class UnitsComponent implements OnInit {
 			const newRef = this._db.database.app.database().ref().push();
 
 			http.get(`${BACKUP_SOURCE}/${section._path}/section.xml`, { responseType: 'text' }).subscribe(data => {
-				parser.parseString(data, function (err, resp) {
+				parser.parseString(data, (err, resp) => {
 					let sec = resp['section'];
 
 					flatThat(sec)
 
 					if (sec['name']) {
 						sec['name'] = String(sec['name']).trim()
-						console.log('trimmed name: ', sec['name']);
-						if (sec['name'] == '@NULL@') { sec['name'] = `Unidad ${sec['number']}` }
+						console.warn(`Se renombro la sección...`);
+						if (sec['name'] == '$@NULL@$') { sec['name'] = `Unidad ${sec['number']}` }
 						if (sec['name'] == ' ') { sec['name'] = `Unidad ${sec['number']}` }
 						if (sec['name'] == '') { sec['name'] = `Unidad ${sec['number']}` }
 					} else {
@@ -77,13 +78,13 @@ export class UnitsComponent implements OnInit {
 					// visible
 					section.$preRequisite = (sec['visible'] == '1') ? true : false;
 
-					if (section._activities) {
-						section.$totalTopic = section._activities.length
-					} else { section.$totalTopic = 0; }
+					// if (section._activities) {
+					// 	section.$totalTopic = section._activities.length
+					// } else { section.$totalTopic = 0; }
 
 					// Para obtener la referencias de los archivos
 					http.get(`${BACKUP_SOURCE}/${section._path}/inforef.xml`, { responseType: 'text' }).subscribe(inforef => {
-						parser.parseString(inforef, function (err, resp) {
+						parser.parseString(inforef, (err, resp) => {
 							let references = resp['inforef']['fileref']
 							if (references) {
 								references = references[0]
@@ -91,35 +92,56 @@ export class UnitsComponent implements OnInit {
 									references = references['file']
 									flatThat(references)
 
+									let initialTopic = new Topic()
+									const newRefe = this._db.database.app.database().ref().push();
+
+									initialTopic.$key = newRefe.key
+									initialTopic.$index = 0
+									initialTopic.$keyCommunity = section._keyCommunity
+									initialTopic.$keyUnit = section._key
+									initialTopic.$name = 'Contenido General'
+									initialTopic.$objective = 'Topico inicial, examinar los recursos de este topico, pues contienen el tema general de esta unidad.'
+
 									references.forEach(rf => {
 										section.$fileReferences = rf['id'][0]
 
 										// Loading files
 										let files = remove(filesXML, function (f) { return f['id'] === rf['id'][0] });
 
-										let ind: number = 0
-										files.forEach(file => {
+										if (files.length > 0) {
 
-											// const newRef = this._db.database.app.database().ref().push();
-											let resource = new Resource()
+											let ind: number = 0
+											files.forEach(file => {
 
-											resource.$index = ind
-											// resource.$key = newRef.key
-											// resource.$keyCommunity = element._keyCommunity
-											// resource.$keyUnit = element._key
-											// resource.$keyTopic = topic._key
-											// resource.$keyUser = GRIKY_UID
-											resource.$name = file['filename']
-											resource.$typeFile = file['mimetype']
+												const newReff = this._db.database.app.database().ref().push();
+												let resource = new Resource()
 
-											resource.$localPath = `${BACKUP_SOURCE}/files/${file['contenthash']}`;
+												// resource.$index = initialTopic._resources ? initialTopic._resources.length : 0;
+												resource.$key = newReff.key
+												resource.$keyCommunity = initialTopic._keyCommunity
+												resource.$keyUnit = initialTopic._keyUnit
+												resource.$keyTopic = initialTopic._key
+												resource.$keyUser = GRIKY_UID
+												resource.$name = file['filename']
+												resource.$typeFile = file['mimetype']
+												resource.$fileSize = file['filesize']
 
-											ind = ind + 1
+												resource.$localPath = `${BACKUP_SOURCE}/files/${file['contenthash']}`;
 
-											section.$files = resource;
-										});
+												ind = ind + 1
 
+												initialTopic.$resource = resource;
+												section.$files = resource;
+											});
+
+
+										} else {
+											// console.warn('Esta sección/unidad no tiene archivos dispersos asociados, no se creará un Topic inicial general para ella.')
+										}
 									});
+
+									section.$topics = initialTopic;
+
 								}
 							}
 						});

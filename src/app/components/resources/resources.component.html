@@ -14,7 +14,6 @@
 				<div *ngFor="let topic of section.topics">
 					<ul class="list-unstyled">
 						<li class="media">
-							<img src="assets/{{ topic.type }}.svg" style="max-height: 25px;" class="mr-3" alt="...">
 							<div class="media-body">
 								<h5 class="mt-0 mb-1 py-1"><small>[{{ topic.index }}]</small> "{{ topic.name }}", <small class="text-warning">sus
 										recursos</small>
@@ -24,7 +23,9 @@
 									<ul class="list-unstyled">
 										<li>
 											<small class="block">[{{ resource.index }}] - "{{ resource.name }}" ({{ resource.fileSize | fileSize }})</small>
-											<app-file-type-display [resource]="resource"></app-file-type-display>
+											<div class="block text-center">
+												<app-file-type-display [resource]="resource"></app-file-type-display>
+											</div>
 											<div class="btn-group btn-group-sm block" role="group" aria-label="Basic example">
 												<button type="button" (click)="deleteFromResources(resource)" class="btn btn-danger">Eliminar</button>
 											</div>
