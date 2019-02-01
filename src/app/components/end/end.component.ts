@@ -69,28 +69,28 @@ export class EndComponent implements OnInit {
 					const storageRef = this._fsg.storage.ref(`${STORE.Resources}/${res._key}`);
 					const uploadTask = storageRef.child(res._key).put(data, metadata);
 
+					this.append(`<small>- - - Enviando recurso "${res._name}" a Firestorage</small>`, 'warning');
+
 					uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
 						(snapshot) => {
 							this.snapshot = snapshot
 							this.progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-							this.progress = this.progress.toFixed(3);
+							this.progress = this.progress.toFixed(2);
 							console.log(`( ${this.progress} % ) ${res._name}`);
 						}, (error) => {
 							console.warn(error)
-							// A full list of error codes is available at
-							// https://firebase.google.com/docs/storage/web/handle-errors
-							this.append(`<small>Hubo un error subiendo el recurso "${res._name}"</small>`, 'danger')
+							this.append(`<small>Hubo un error enviando el recurso "${res._name}" a Firestorage</small>`, 'danger')
 							resolve(false)
 						}, () => {
-							this.append(`<small>- - - Recurso "${res._name}" subido</small>`, 'light')
+							this.append(`<small>- - - Recurso "${res._name}" envidado a Firestorage</small>`, 'light')
 							uploadTask.snapshot.ref.getDownloadURL().then(url => {
 								res.$previewImage = url
 								res.$urlFile = url
 								this._afs.collection(PATHS.Resources).doc(res._key).set(res.toFirebaseObj()).then(() => {
-									this.append(`<small>- - - "${res._name}" recurso creado</small>`, 'light')
+									this.append(`<small>- - - Firestore: "${res._name}", recurso creado</small>`, 'light')
 									resolve(res)
 								}, () => {
-									this.append(`Hubo un error creando el recurso "${res._name}"`, 'danger')
+									this.append(`Hubo un error creando el recurso "${res._name}" en Firestore`, 'danger')
 									resolve(res)
 								})
 							})
@@ -119,11 +119,13 @@ export class EndComponent implements OnInit {
 						const storageRef = this._fsg.storage.ref(`${STORE.Topics}/${topic._key}`);
 						const uploadTask = storageRef.child(topic._key).put(data, metadata);
 
+						this.append(`<small>- - - Enviando recurso "${res._name}" a Firestorage</small>`, 'warning');
+
 						uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
 							(snapshot) => {
 								this.snapshot = snapshot
 								this.progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-								this.progress = this.progress.toFixed(3)
+								this.progress = this.progress.toFixed(2)
 								console.log(`( ${this.progress} % ) ${res._name}`);
 							},
 							(error) => {

@@ -38,3 +38,7 @@
 <ng-container *ngIf="resource.typeFile == 'application/vnd.openxmlformats-officedocument.presentationml.presentation' || resource.typeFile == 'application/vnd.ms-powerpoint';">
 	<img style="max-height: 50px;" src="assets/powerpoint.svg" alt="">
 </ng-container>
+
+<ng-container *ngIf="resource.typeFile == 'application/vnd.ms-excel'">
+	<img style="max-height: 50px;" src="assets/xls.svg" alt="">
+</ng-container>
