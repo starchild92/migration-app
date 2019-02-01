@@ -73,13 +73,14 @@ export class UnitsComponent implements OnInit {
 					section.$index = sec['number']
 					section.$name = sec['name']
 					section.$summary = sec['summary']
+
+					// Quitando <img> tags
+					section.$summary = sec['summary'].replace(/<img[^>]*>/g, "");
+					section.$summary = sec['summary'].replace(/<a[^>]*>/g, "");
+
 					section.$preUnits = sec['sequence'].split(',');
 					// visible
 					section.$preRequisite = (sec['visible'] == '1') ? true : false;
-
-					// if (section._activities) {
-					// 	section.$totalTopic = section._activities.length
-					// } else { section.$totalTopic = 0; }
 
 					// Para obtener la referencias de los archivos
 					http.get(`${BACKUP_SOURCE}/${section._path}/inforef.xml`, { responseType: 'text' }).subscribe(inforef => {
@@ -100,7 +101,9 @@ export class UnitsComponent implements OnInit {
 									initialTopic.$keyUnit = section._key
 									initialTopic.$name = 'Contenido General'
 									initialTopic.$objective = 'Topico inicial, examinar los recursos de este topico, pues contienen el tema general de esta unidad.';
-									if(section._summary != "") { initialTopic.$objective = section._summary; }
+									if (section._summary != "") {
+										initialTopic.$objective = section._summary;
+									}
 
 									references.forEach(rf => {
 										section.$fileReferences = rf['id'][0]
@@ -116,7 +119,6 @@ export class UnitsComponent implements OnInit {
 												const newReff = this._db.database.app.database().ref().push();
 												let resource = new Resource()
 
-												// resource.$index = initialTopic._resources ? initialTopic._resources.length : 0;
 												resource.$key = newReff.key
 												resource.$keyCommunity = initialTopic._keyCommunity
 												resource.$keyUnit = initialTopic._keyUnit
@@ -133,10 +135,6 @@ export class UnitsComponent implements OnInit {
 												initialTopic.$resource = resource;
 												section.$files = resource;
 											});
-
-
-										} else {
-											// console.warn('Esta sección/unidad no tiene archivos dispersos asociados, no se creará un Topic inicial general para ella.')
 										}
 									});
 
@@ -146,7 +144,6 @@ export class UnitsComponent implements OnInit {
 							}
 						});
 					});
-
 				});
 			});
 		});

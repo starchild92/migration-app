@@ -59,6 +59,7 @@ export class MainComponent implements OnInit {
 							community.$shortname = val['original_course_shortname'];
 							community.$uid = GRIKY_UID;
 							community.$urlPhoto = HARD_CODED.Community;
+							community.$resume = " ";
 
 							this._mainService.updateCommunity(community);
 

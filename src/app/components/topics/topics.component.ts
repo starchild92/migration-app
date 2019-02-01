@@ -8,7 +8,7 @@ import { Section } from '@classes/section';
 import { Topic } from '@classes/topic';
 import { BACKUP_SOURCE, GRIKY_UID } from '@env/environment';
 import { Resource } from '@classes/resource';
-import { findIndex, remove, filter } from 'lodash';
+import { findIndex, remove } from 'lodash';
 
 var xml2js = require('xml2js');
 
@@ -77,7 +77,6 @@ export class TopicsComponent implements OnInit {
 				let indAct: number = topic._resources ? topic._resources.length : 0;
 
 				section._activities.forEach(activity => {
-
 					/** Para no procesar los paquetes SCORM */
 					if (activity._type !== 'scorm' && activity._type !== 'assign' && activity._type !== 'forum' && activity._type !== 'certificate') {
 
@@ -95,7 +94,6 @@ export class TopicsComponent implements OnInit {
 
 								if (activity._type === 'url') {
 
-									// resource.$index = topic._resources ? topic._resources.length : 0;
 									resource.$key = newRef.key
 									resource.$keyCommunity = this.community._key
 									resource.$keyUnit = section._key
@@ -104,6 +102,7 @@ export class TopicsComponent implements OnInit {
 									resource.$name = activity._title
 									resource.$typeFile = activity._type
 									resource.$urlFile = act[activity._type]['externalurl']
+
 									resource.$description = act[activity._type]['name']
 
 									topic.$resource = resource;
@@ -118,7 +117,6 @@ export class TopicsComponent implements OnInit {
 											const newReff = this._db.database.app.database().ref().push();
 											let resource = new Resource()
 
-											// resource.$index = topic._resources ? topic._resources.length : 0;
 											resource.$key = newReff.key
 											resource.$keyCommunity = this.community._key
 											resource.$keyUnit = section._key
