@@ -100,7 +100,12 @@ export class Resource {
 				obj.previewImage = HARD_CODED.File;
 			break;
 			case 'url':
-				obj.typeFile = '3';
+				// buscando indicios de video de youtube o vimeo
+				if(obj.urlFile.includes('youtube') || obj.urlFile.includes('vimeo')) {
+					obj.typeFile = '0';
+				} else {
+					obj.typeFile = '3';
+				}
 				obj.previewImage = HARD_CODED.File;
 			break;
 			case 'text/html':
