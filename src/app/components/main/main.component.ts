@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MainService } from '@services/main.service';
 import { Community } from '@classes/community';
-import { GRIKY_UID, BACKUP_SOURCE } from '@env/environment';
+import { GRIKY_UID, BACKUP_SOURCE, HARD_CODED } from '@env/environment';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { HttpClient } from '@angular/common/http';
 
@@ -54,11 +54,11 @@ export class MainComponent implements OnInit {
 						if (val['name']) {
 							let community = new Community();
 
+							community.$key = this.newRef.key;
 							community.$name = val['original_course_fullname'];
 							community.$shortname = val['original_course_shortname'];
-							community.$shortname = val['original_course_shortname'];
 							community.$uid = GRIKY_UID;
-							community.$key = this.newRef.key;
+							community.$urlPhoto = HARD_CODED.Community;
 
 							this._mainService.updateCommunity(community);
 

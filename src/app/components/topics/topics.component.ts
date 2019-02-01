@@ -79,7 +79,7 @@ export class TopicsComponent implements OnInit {
 				section._activities.forEach(activity => {
 
 					/** Para no procesar los paquetes SCORM */
-					if (activity._type !== 'scorm' && activity._type !== 'assign' && activity._type !== 'forum' && activity._type !== 'label' && activity._type !== 'certificate') {
+					if (activity._type !== 'scorm' && activity._type !== 'assign' && activity._type !== 'forum' && activity._type !== 'certificate') {
 
 						this.http.get(`${BACKUP_SOURCE}/${activity._path}/${activity._type}.xml`, { responseType: 'text' }).subscribe(data => {
 							parser.parseString(data, (err, resp) => {
