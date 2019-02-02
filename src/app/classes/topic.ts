@@ -1,5 +1,6 @@
 import { Resource } from './resource';
 import { findIndex } from 'lodash';
+import { HARD_CODED } from '@env/environment';
 
 export class Topic {
 	private type: string;
@@ -33,7 +34,12 @@ export class Topic {
 	public set $keyUnit(v: string) { this.keyUnit = v; }
 	public set $name(v: string) { this.name = v; }
 	public set $nameImage(v: string) { this.nameImage = v; }
-	public set $objective(v: string) { this.objective = v; }
+	public set $objective(v: string) {
+		// a little cleaning
+		v = v.replace(/<a[^>]*>/g, "");
+		v = v.replace(/<img[^>]*>/g, "");
+		this.objective = v;
+	}
 	public set $totalDocuments(v: number) { this.totalDocuments = v; }
 	public set $urlImage(v: string) { this.urlImage = v; }
 
@@ -93,6 +99,8 @@ export class Topic {
 	public get _urls(): Array<string> { return this.urls; }
 
 	constructor(object?: TopicInterface) {
+		this.urlImage = HARD_CODED.Topic
+
 		if (object) {
 			this.createWithInfo(object)
 		}

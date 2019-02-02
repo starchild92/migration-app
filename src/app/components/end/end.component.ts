@@ -114,8 +114,6 @@ export class EndComponent implements OnInit {
 			if (topic['file']) {
 				const res = topic['file']
 
-				topic.$urlImage = HARD_CODED.Topic
-
 				if (res._localPath) {
 					this.http.get(res._localPath, { responseType: 'blob' }).subscribe(data => {
 						var metadata = { contentType: res._typeFile };
