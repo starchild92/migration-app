@@ -85,7 +85,7 @@ export class Resource {
 			previewImage: this.previewImage,
 			typeFile: this.typeFile, // convencion
 			urlFile: this.urlFile,
-			description: this.description
+			description: this.name
 		}
 		switch (this.typeFile) {
 			case 'image/jpeg': obj.typeFile = '1'; break;

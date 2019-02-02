@@ -26,11 +26,13 @@ export class Section {
 	private preUnits: Array<any>;
 	private totalTopic: number;
 
-
 	public set $path(v: string) { this.path = v; }
 	public set $id(v: string) { this.id = v; }
 	public set $title(v: string) { this.title = v; }
-	public set $summary(v: string) { this.summary = v; }
+	public set $summary(v: string) {
+		v = v.replace(/<\/?[^>]+(>|$)/g, "");
+		this.summary = v;
+	}
 	public set $fileReferences(v: string) {
 		if (this.fileReferences) {
 			this.fileReferences.push(v)
@@ -95,14 +97,11 @@ export class Section {
 	public get _preRequisite(): boolean { return this.preRequisite }
 	public get _preUnits(): Array<any> { return this.preUnits }
 	public get _totalTopic(): number {
-		// if (this.activities) {
-		// 	return this.activities.length
-		// } else {
-		// 	return 0
-		// }
-
-		// Desde que siempre se van a agrupar en un solo topico
-		return 1;
+		if (this.topics) {
+			return this.topics.length
+		} else {
+			return 0
+		}
 	}
 
 	constructor(object?: SectionInterface) {
@@ -121,7 +120,7 @@ export class Section {
 			name: this.name,
 			preRequisite: this.preRequisite,
 			preUnits: this.preUnits,
-			totalTopic: this._totalTopic
+			totalTopic: this.totalTopic
 		}
 		Object.keys(obj).forEach(key => obj[key] === undefined ? delete obj[key] : '');
 		return obj;

@@ -74,10 +74,6 @@ export class UnitsComponent implements OnInit {
 					section.$name = sec['name']
 					section.$summary = sec['summary']
 
-					// Quitando <img> tags
-					section.$summary = sec['summary'].replace(/<img[^>]*>/g, "");
-					section.$summary = sec['summary'].replace(/<a[^>]*>/g, "");
-
 					section.$preUnits = sec['sequence'].split(',');
 					// visible
 					section.$preRequisite = (sec['visible'] == '1') ? true : false;
