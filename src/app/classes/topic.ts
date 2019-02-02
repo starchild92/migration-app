@@ -36,8 +36,7 @@ export class Topic {
 	public set $nameImage(v: string) { this.nameImage = v; }
 	public set $objective(v: string) {
 		// a little cleaning
-		v = v.replace(/<a[^>]*>/g, "");
-		v = v.replace(/<img[^>]*>/g, "");
+		v = v.replace(/<\/?[^>]+(>|$)/g, "");
 		this.objective = v;
 	}
 	public set $totalDocuments(v: number) { this.totalDocuments = v; }

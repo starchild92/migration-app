@@ -25,7 +25,10 @@ export class Community {
 	public set $key(v: string) { this.key = v; }
 	public set $name(v: string) { this.name = v; }
 	public set $publicado(v: boolean) { this.publicado = v; }
-	public set $resume(v: string) { this.resume = v; }
+	public set $resume(v: string) {
+		v = v.replace(/<\/?[^>]+(>|$)/g, "");
+		this.resume = v;
+	}
 	public set $type(v: number) { this.type = v; }
 	public set $uid(v: string) { this.uid = v; }
 
@@ -46,9 +49,9 @@ export class Community {
 	public get _type(): number { return this.type; }
 	public get _uid(): string { return this.uid; }
 
-	public get _positionCommunity(): boolean { return  this.positionCommunity; }
-	public get _urlPhoto(): string { return  this.urlPhoto; }
-	public get _urlVideo(): string { return  this.urlVideo; }
+	public get _positionCommunity(): boolean { return this.positionCommunity; }
+	public get _urlPhoto(): string { return this.urlPhoto; }
+	public get _urlVideo(): string { return this.urlVideo; }
 
 	// additional
 	public get _shortname(): string { return this.shortname; }
