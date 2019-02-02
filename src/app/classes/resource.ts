@@ -90,6 +90,7 @@ export class Resource {
 		switch (this.typeFile) {
 			case 'image/jpeg': obj.typeFile = '1'; break;
 			case 'image/png': obj.typeFile = '1'; break;
+			case 'image/gif': obj.typeFile = '1'; break;
 
 			case 'application/msword':
 				obj.typeFile = '3';
