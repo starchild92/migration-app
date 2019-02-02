@@ -129,7 +129,6 @@ export class TopicsComponent implements OnInit {
 											resource.$localPath = `${BACKUP_SOURCE}/files/${file['contenthash']}`;
 
 											topic.$resource = resource;
-
 										});
 									}
 								}
@@ -143,8 +142,6 @@ export class TopicsComponent implements OnInit {
 				section.$topics = topic
 			}
 		});
-
-		console.log(this.sections)
 
 		this._mainService.updateSections(this.sections)
 		this.continue = true

@@ -39,12 +39,19 @@ export class Topic {
 
 	public set $resource(v: Resource) {
 		if (this.resources) {
-			let ind = findIndex(this.resources, (e) => { return (v._fileSize === e._fileSize && v._localPath === e._localPath) })
-			if (ind < 0) {
-				v.$index = this.resources.length
-				this.resources.push(v)
-			} else {
-				console.warn('Ya existe entre los recursos un elemento del mismo peso y en la misma ubicación')
+			if (
+				v._typeFile != 'text/html' &&
+				v._typeFile != 'application/xml' &&
+				v._typeFile != 'text/css' &&
+				v._typeFile != 'application/x-javascript'
+			) {
+				let ind = findIndex(this.resources, (e) => { return (v._fileSize === e._fileSize && v._localPath === e._localPath) })
+				if (ind < 0) {
+					v.$index = this.resources.length
+					this.resources.push(v)
+				} else {
+					console.warn('Ya existe entre los recursos un elemento del mismo peso y en la misma ubicación')
+				}
 			}
 		} else {
 			this.resources = <Array<Resource>>[];
