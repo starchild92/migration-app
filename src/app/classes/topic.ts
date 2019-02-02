@@ -43,13 +43,14 @@ export class Topic {
 	public set $urlImage(v: string) { this.urlImage = v; }
 
 	public set $resource(v: Resource) {
-		console.log(v._typeFile)
 		if (this.resources) {
 			if (
 				v._typeFile != 'text/html' &&
 				v._typeFile != 'application/xml' &&
 				v._typeFile != 'text/css' &&
-				v._typeFile != 'text/css' &&
+				v._typeFile != 'document/unknown' &&
+				v._typeFile != 'text/plain' &&
+				v._typeFile != 'image/vnd.microsoft.icon' &&
 				v._typeFile != 'application/x-javascript'
 			) {
 				let ind = findIndex(this.resources, (e) => { return (v._fileSize === e._fileSize && v._localPath === e._localPath) })
