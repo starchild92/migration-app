@@ -94,58 +94,62 @@ export class Resource {
 			case 'application/msword':
 				obj.typeFile = '3';
 				obj.previewImage = HARD_CODED.File;
-			break;
+				break;
 			case 'application/pdf':
 				obj.typeFile = '3';
 				obj.previewImage = HARD_CODED.File;
-			break;
+				break;
 			case 'url':
 				// buscando indicios de video de youtube o vimeo
-				if(obj.urlFile.includes('youtube') || obj.urlFile.includes('vimeo')) {
+				if (obj.urlFile.includes('youtube') || obj.urlFile.includes('vimeo')) {
 					obj.typeFile = '0';
+					obj.previewImage = HARD_CODED.Video;
 				} else {
 					obj.typeFile = '3';
+					obj.previewImage = HARD_CODED.File;
 				}
-				obj.previewImage = HARD_CODED.File;
-			break;
+				break;
 			case 'text/html':
 				obj.typeFile = '3';
 				obj.previewImage = HARD_CODED.File;
-			break;
+				break;
 			case 'application/zip':
 				obj.typeFile = '3';
 				obj.previewImage = HARD_CODED.File;
-						case 'application/vnd.openxmlformats-officedocument.presentationml.presentation':
+			case 'application/vnd.openxmlformats-officedocument.presentationml.presentation':
 				obj.typeFile = '3';
 				obj.previewImage = HARD_CODED.File;
-			break;
+				break;
 			case 'application/vnd.ms-powerpoint':
 				obj.typeFile = '3';
 				obj.previewImage = HARD_CODED.File;
-			break;
+				break;
 			case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
 				obj.typeFile = '3';
 				obj.previewImage = HARD_CODED.File;
-			break;
+				break;
 			case 'application/vnd.ms-excel':
 				obj.typeFile = '3';
 				obj.previewImage = HARD_CODED.File;
-			break;
+				break;
 
 			case 'video/mp4':
 				obj.typeFile = '5';
 				obj.previewImage = HARD_CODED.Video;
-			break;
+				break;
 
-			case 'application/x-shockwave-flash': obj.typeFile = '6'; break;
+			case 'application/x-shockwave-flash':
+				obj.typeFile = '6';
+				obj.previewImage = HARD_CODED.SWF;
+			break;
 
 			default: obj.typeFile = '3'; break;
 		}
 		Object.keys(obj).forEach(key => obj[key] === undefined ? delete obj[key] : '');
 
-		if(obj.name) {
+		if (obj.name) {
 			const aux = obj.name.split('.');
-			if(aux.length > 1)
+			if (aux.length > 1)
 				obj.name = aux[0];
 		}
 

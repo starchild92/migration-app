@@ -33,7 +33,8 @@ export const HARD_CODED = {
 	File: 'https://firebasestorage.googleapis.com/v0/b/corona-platform.appspot.com/o/default_images%2Fdocument_preview_image.jpg?alt=media&token=0cd6e046-6819-45c1-a0f2-09bf66a93164',
 	Video: 'https://firebasestorage.googleapis.com/v0/b/corona-platform.appspot.com/o/default_images%2Fvideo_placeholder.jpg?alt=media&token=cd8b08c0-5ce4-466a-b9a8-c326ba9b1f06',
 	Community: 'https://firebasestorage.googleapis.com/v0/b/corona-platform.appspot.com/o/default_images%2Fcommunity_placeholder.jpeg?alt=media&token=b7b3f357-44bd-4db8-a7e1-6deb7069b1c3',
-	Topic: 'https://firebasestorage.googleapis.com/v0/b/corona-platform.appspot.com/o/default_images%2Ftopic_placeholder.jpeg?alt=media&token=4a305898-b7d3-4d99-a08f-95909e6cfc71'
+	Topic: 'https://firebasestorage.googleapis.com/v0/b/corona-platform.appspot.com/o/default_images%2Ftopic_placeholder.jpeg?alt=media&token=4a305898-b7d3-4d99-a08f-95909e6cfc71',
+	SWF: 'https://firebasestorage.googleapis.com/v0/b/corona-platform.appspot.com/o/default_images%2Fswf_file_type.jpg?alt=media&token=7ac33589-0184-4950-8522-36217facd1f4'
 }
 
 export enum PATHS {
