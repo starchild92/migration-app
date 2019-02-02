@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MainService } from '@services/main.service';
 import { Section } from '@classes/section';
-import { orderBy, filter, find, remove } from 'lodash';
+import { orderBy, filter, find, remove, findIndex } from 'lodash';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Resource } from '@classes/resource';
 import { GRIKY_UID, BACKUP_SOURCE } from '@env/environment';
