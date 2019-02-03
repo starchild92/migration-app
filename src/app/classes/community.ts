@@ -27,6 +27,7 @@ export class Community {
 	public set $publicado(v: boolean) { this.publicado = v; }
 	public set $resume(v: string) {
 		v = v.replace(/<\/?[^>]+(>|$)/g, "");
+		v = v.trim()
 		this.resume = v;
 	}
 	public set $type(v: number) { this.type = v; }

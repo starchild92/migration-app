@@ -38,7 +38,7 @@ export class MainComponent implements OnInit {
 		let serv = this._mainService;
 
 		this._afs.collection('user').doc(GRIKY_UID).ref.get().then(data => {
-			if(data.exists) {
+			if (data.exists) {
 				this.http.get(`${BACKUP_SOURCE}/moodle_backup.xml`, { responseType: 'text' }).subscribe(data => {
 					parser.parseString(data, function (err, resp) {
 						let main = resp['moodle_backup']['information'][0];
@@ -52,39 +52,51 @@ export class MainComponent implements OnInit {
 						this.main = val;
 
 						if (val['name']) {
-							let community = new Community();
 
-							community.$key = this.newRef.key;
-							community.$name = val['original_course_fullname'];
-							community.$shortname = val['original_course_shortname'];
-							community.$uid = GRIKY_UID;
-							community.$urlPhoto = HARD_CODED.Community;
-							community.$resume = " ";
+							var courseXML: any = {}
 
-							this._mainService.updateCommunity(community);
-
-							this.http.get(`${BACKUP_SOURCE}/files.xml`, { responseType: 'text' }).subscribe(data => {
+							this.http.get(`${BACKUP_SOURCE}/course/course.xml`, { responseType: 'text' }).subscribe(data => {
 								parser.parseString(data, function (err, resp) {
-									let file = resp['files']['file'];
-									flatThatFile(file)
-									remove(file, function (f) { return Number(f['filesize']) == 0 })
-									serv.updateFile(file);
+									courseXML = resp['course'];
+									flatThat(courseXML)
+									console.log(courseXML)
 								});
 
-								this.http.get(`${BACKUP_SOURCE}/questions.xml`, { responseType: 'text' }).subscribe(data => {
+								let community = new Community();
+
+								community.$key = this.newRef.key;
+								community.$name = courseXML['fullname'];
+								community.$shortname = courseXML['shortname'];
+								community.$uid = GRIKY_UID;
+								community.$urlPhoto = HARD_CODED.Community;
+								community.$resume = courseXML['summary'];
+
+								this.http.get(`${BACKUP_SOURCE}/files.xml`, { responseType: 'text' }).subscribe(data => {
 									parser.parseString(data, function (err, resp) {
-										let questions = resp['question_categories']['question_category'];
-										if (questions) {
-											flatThatQuestions(questions)
-										} else {
-											console.warn('No hay preguntas en este curso.')
-											questions = [];
-										}
-										serv.updateQuestions(questions);
+										let file = resp['files']['file'];
+										flatThatFile(file)
+										remove(file, function (f) { return Number(f['filesize']) == 0 })
+										serv.updateFile(file);
 									});
 
-									this.canGo = true;
+									this.http.get(`${BACKUP_SOURCE}/questions.xml`, { responseType: 'text' }).subscribe(data => {
+										parser.parseString(data, function (err, resp) {
+											let questions = resp['question_categories']['question_category'];
+											if (questions) {
+												flatThatQuestions(questions)
+											} else {
+												console.warn('No hay preguntas en este curso.')
+												questions = [];
+											}
+											serv.updateQuestions(questions);
+										});
+
+										this.canGo = true;
+									});
 								});
+
+								this._mainService.updateCommunity(community);
+
 							});
 						}
 					});
