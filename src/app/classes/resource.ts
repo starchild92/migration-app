@@ -92,6 +92,8 @@ export class Resource {
 			case 'image/png': obj.typeFile = '1'; break;
 			case 'image/gif': obj.typeFile = '1'; break;
 
+
+
 			case 'application/msword':
 				obj.typeFile = '3';
 				obj.previewImage = HARD_CODED.File;
@@ -138,6 +140,11 @@ export class Resource {
 				obj.typeFile = '5';
 				obj.previewImage = HARD_CODED.Video;
 				break;
+
+			case 'video/x-flv':
+				obj.typeFile = '5';
+				obj.previewImage = HARD_CODED.Video;
+			break;
 
 			case 'application/x-shockwave-flash':
 				obj.typeFile = '6';
