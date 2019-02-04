@@ -146,6 +146,11 @@ export class Resource {
 				obj.previewImage = HARD_CODED.Video;
 			break;
 
+			case 'video/quicktime':
+				obj.typeFile = '5';
+				obj.previewImage = HARD_CODED.Video;
+			break;
+
 			case 'application/x-shockwave-flash':
 				obj.typeFile = '6';
 				obj.previewImage = HARD_CODED.SWF;
