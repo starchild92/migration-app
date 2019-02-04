@@ -1,5 +1,5 @@
 <!-- Muestra el contenido actual -->
-<ng-container *ngIf="resource.typeFile == 'video/mp4' || resource.typeFile == 'video/x-flv';">
+<ng-container *ngIf="resource.typeFile == 'video/mp4' || resource.typeFile == 'video/x-flv' || resource.typeFile == 'video/quicktime';">
 	<div class="block text-center">
 		<video src="{{ resource.localPath }}" class="mr-3 w-50 img-fluid border roundedb block"></video>
 	</div>
