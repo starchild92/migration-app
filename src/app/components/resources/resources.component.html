@@ -22,11 +22,11 @@
 								<div *ngFor="let resource of topic.resources">
 									<ul class="list-unstyled">
 										<li>
-											<div class="row">
+											<div class="row pb-1">
 												<div class="col-6">
 													<small>[{{ resource.index }}] - "{{ resource.name }}" ({{ resource.fileSize | fileSize }})</small>
 												</div>
-												<div class="col-6 text-center">
+												<div class="col-6 text-right">
 													<div class="btn-group btn-group-sm " role="group">
 														<button type="button" (click)="deleteFromResources(resource)" class="btn btn-danger">Eliminar</button>
 													</div>
