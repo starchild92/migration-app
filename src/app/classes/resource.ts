@@ -92,16 +92,6 @@ export class Resource {
 			case 'image/png': obj.typeFile = '1'; break;
 			case 'image/gif': obj.typeFile = '1'; break;
 
-
-
-			case 'application/msword':
-				obj.typeFile = '3';
-				obj.previewImage = HARD_CODED.File;
-				break;
-			case 'application/pdf':
-				obj.typeFile = '3';
-				obj.previewImage = HARD_CODED.File;
-				break;
 			case 'url':
 				// buscando indicios de video de youtube o vimeo
 				if (obj.urlFile.includes('youtube') || obj.urlFile.includes('vimeo')) {
@@ -112,27 +102,44 @@ export class Resource {
 					obj.previewImage = HARD_CODED.File;
 				}
 				break;
+
 			case 'text/html':
 				obj.typeFile = '3';
 				obj.previewImage = HARD_CODED.File;
 				break;
+
 			case 'application/zip':
-				obj.typeFile = '3';
+				obj.typeFile = '2';
 				obj.previewImage = HARD_CODED.File;
+				break;
+
+			case 'application/msword':
+				obj.typeFile = '2';
+				obj.previewImage = HARD_CODED.File;
+				break;
+
+			case 'application/pdf':
+				obj.typeFile = '2';
+				obj.previewImage = HARD_CODED.File;
+				break;
+
 			case 'application/vnd.openxmlformats-officedocument.presentationml.presentation':
-				obj.typeFile = '3';
+				obj.typeFile = '2';
 				obj.previewImage = HARD_CODED.File;
 				break;
+
 			case 'application/vnd.ms-powerpoint':
-				obj.typeFile = '3';
+				obj.typeFile = '2';
 				obj.previewImage = HARD_CODED.File;
 				break;
+
 			case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
-				obj.typeFile = '3';
+				obj.typeFile = '2';
 				obj.previewImage = HARD_CODED.File;
 				break;
+
 			case 'application/vnd.ms-excel':
-				obj.typeFile = '3';
+				obj.typeFile = '2';
 				obj.previewImage = HARD_CODED.File;
 				break;
 
@@ -144,17 +151,17 @@ export class Resource {
 			case 'video/x-flv':
 				obj.typeFile = '5';
 				obj.previewImage = HARD_CODED.Video;
-			break;
+				break;
 
 			case 'video/quicktime':
 				obj.typeFile = '5';
 				obj.previewImage = HARD_CODED.Video;
-			break;
+				break;
 
 			case 'application/x-shockwave-flash':
 				obj.typeFile = '6';
 				obj.previewImage = HARD_CODED.SWF;
-			break;
+				break;
 
 			default: obj.typeFile = '3'; break;
 		}
