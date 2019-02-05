@@ -11,7 +11,8 @@
 				<button class="btn-sm float-right btn btn-danger" (click)="removeSection(section)">Eliminar Sección</button>
 			</div>
 			<div class="card-body text-dark">
-				<div *ngFor="let topic of section.topics">
+				"{{ section.summary }}"
+				<div class="border-warning p-2 border" *ngFor="let topic of section.topics">
 					<ul class="list-unstyled">
 						<li class="media">
 							<div class="media-body">
@@ -19,25 +20,31 @@
 										recursos</small>
 									<button class="btn btn-sm float-right btn-outline-dark" (click)="deleteTopic(topic)">Eliminar Topico</button>
 								</h5>
-								<div *ngFor="let resource of topic.resources">
+								<div class="border-warning p-2 border" *ngFor="let resource of topic.resources">
 									<ul class="list-unstyled">
 										<li>
 											<div class="row pb-1">
 												<div class="col-6">
 													<small>[{{ resource.index }}] - "{{ resource.name }}" ({{ resource.fileSize | fileSize }})</small>
 												</div>
-												<div class="col-6 text-right">
-													<div class="btn-group btn-group-sm " role="group">
+												<div class="col-6 text-center">
+													<div class="btn-group btn-group-sm" role="group">
 														<button type="button" (click)="deleteFromResources(resource)" class="btn btn-danger">Eliminar</button>
 													</div>
 												</div>
 											</div>
-											<div class="block text-center">
-												<app-file-type-display [resource]="resource"></app-file-type-display>
+											<div class="row">
+												<div class="col-6">
+													{{ resource.description }}
+												</div>
+												<div class="col-6">
+													<div class="block text-center">
+														<app-file-type-display [resource]="resource"></app-file-type-display>
+													</div>
+												</div>
 											</div>
 										</li>
 									</ul>
-									<hr>
 								</div>
 							</div>
 						</li>
