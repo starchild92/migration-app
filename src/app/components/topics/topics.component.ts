@@ -61,6 +61,9 @@ export class TopicsComponent implements OnInit {
 
 			if (section._activities) {
 
+				console.log(section)
+				console.log(section._activities)
+
 				let genTopic = section._topics
 				if (genTopic) {
 					if (genTopic.length > 0) {
@@ -74,11 +77,13 @@ export class TopicsComponent implements OnInit {
 					topic.$keyUnit = section._key
 				}
 
+				topic.$name = section._name
+
 				let indAct: number = topic._resources ? topic._resources.length : 0;
 
 				section._activities.forEach(activity => {
 					/** Para no procesar los paquetes SCORM */
-					if (activity._type !== 'scorm' && activity._type !== 'assign' && activity._type !== 'forum' && activity._type !== 'certificate') {
+					if (activity._type !== 'scorm' && activity._type !== 'assign' && activity._type !== 'certificate') {
 
 						this.http.get(`${BACKUP_SOURCE}/${activity._path}/${activity._type}.xml`, { responseType: 'text' }).subscribe(data => {
 							parser.parseString(data, (err, resp) => {
@@ -99,11 +104,12 @@ export class TopicsComponent implements OnInit {
 									resource.$keyUnit = section._key
 									resource.$keyTopic = topic._key
 									resource.$keyUser = GRIKY_UID
-									resource.$name = activity._title
+									// resource.$name = activity._title
 									resource.$typeFile = activity._type
 									resource.$urlFile = act[activity._type]['externalurl']
 
-									resource.$description = act[activity._type]['name']
+									resource.$name = act[activity._type]['name']
+									resource.$description = act[activity._type]['intro'];
 
 									topic.$resource = resource;
 
@@ -128,6 +134,8 @@ export class TopicsComponent implements OnInit {
 
 											resource.$localPath = `${BACKUP_SOURCE}/files/${file['contenthash']}`;
 
+											resource.$description = act[activity._type]['intro'];
+
 											topic.$resource = resource;
 										});
 									}
@@ -140,8 +148,12 @@ export class TopicsComponent implements OnInit {
 				});
 
 				section.$topics = topic
+			} else {
+				console.log(section)
 			}
 		});
+
+		remove(this.sections, (s) => { return (s._topics == undefined && s._summary === '') })
 
 		this._mainService.updateSections(this.sections)
 		this.continue = true
