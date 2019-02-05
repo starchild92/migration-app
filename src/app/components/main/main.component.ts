@@ -42,6 +42,9 @@ export class MainComponent implements OnInit {
 				this.http.get(`${BACKUP_SOURCE}/moodle_backup.xml`, { responseType: 'text' }).subscribe(data => {
 					parser.parseString(data, function (err, resp) {
 						let main = resp['moodle_backup']['information'][0];
+
+						console.log(main)
+
 						flatThat(main)
 						serv.updateMain(main);
 					});
