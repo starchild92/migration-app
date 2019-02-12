@@ -58,6 +58,8 @@ export class ResourcesComponent implements OnInit {
 				let ind: number = 0
 				let files = filter(this.files, function (f) { return f['contextid'] === topic._contextid })
 
+				remove(files, function (f) { return String(f['filename']).includes('First_Frame') })
+
 				if (topic._type != 'url') {
 					files.forEach(file => {
 
