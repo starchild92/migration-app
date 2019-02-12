@@ -80,8 +80,7 @@ export class MainComponent implements OnInit {
 										flatThatFile(file)
 										remove(file, function (f) { return Number(f['filesize']) == 0 })
 										remove(file, function (f) {
-											console.log(f['filename'])
-											if(f['filename'].includes('First_Frame')) { return true; } else { return false; }
+											if(f['filename'].includes('First_Frame')) { console.log(f['filename']); return true; } else { return false; }
 										})
 										serv.updateFile(file);
 									});
