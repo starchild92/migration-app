@@ -42,6 +42,9 @@ export class MainComponent implements OnInit {
 				this.http.get(`${BACKUP_SOURCE}/moodle_backup.xml`, { responseType: 'text' }).subscribe(data => {
 					parser.parseString(data, function (err, resp) {
 						let main = resp['moodle_backup']['information'][0];
+
+						console.log(main)
+
 						flatThat(main)
 						serv.updateMain(main);
 					});
@@ -59,6 +62,7 @@ export class MainComponent implements OnInit {
 								parser.parseString(data, function (err, resp) {
 									courseXML = resp['course'];
 									flatThat(courseXML)
+									console.log(courseXML)
 								});
 
 								let community = new Community();
@@ -75,7 +79,10 @@ export class MainComponent implements OnInit {
 										let file = resp['files']['file'];
 										flatThatFile(file)
 										remove(file, function (f) { return Number(f['filesize']) == 0 })
-										remove(file, function (f) { return String(f['filename']).includes('First_Frame') })
+										remove(file, function (f) {
+											console.log(f['filename'])
+											if(f['filename'].includes('First_Frame')) { return true; } else { return false; }
+										})
 										serv.updateFile(file);
 									});
 
