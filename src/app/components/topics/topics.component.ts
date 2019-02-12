@@ -149,7 +149,7 @@ export class TopicsComponent implements OnInit {
 
 				section.$topics = topic
 			} else {
-				console.log(section)
+				// console.log(section)
 			}
 		});
 
