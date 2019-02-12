@@ -79,6 +79,7 @@ export class MainComponent implements OnInit {
 										let file = resp['files']['file'];
 										flatThatFile(file)
 										remove(file, function (f) { return Number(f['filesize']) == 0 })
+										// Eliminando archivos que contienen First_Frame en el nombre, no son utiles para la carga
 										remove(file, function (f) {
 											if(f['filename'].includes('First_Frame')) { console.log(f['filename']); return true; } else { return false; }
 										})
